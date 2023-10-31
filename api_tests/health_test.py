@@ -6,15 +6,16 @@
 
 """Minimal health endpoint test for the genrated client"""
 
-import os
 import unittest
 from http import HTTPStatus
 
-from resim_python_client.client import Client
 import resim_python_client.api.health.health as health
+from resim_python_client.client import Client
+
 
 class HealthTest(unittest.TestCase):
     """Test that we can hit the health endpoint"""
+
     def setUp(self) -> None:
         """Set up the api URL"""
         self._url = "https://api.resim.ai/v1"
@@ -25,5 +26,6 @@ class HealthTest(unittest.TestCase):
         health_response = health.sync_detailed(client=client)
         self.assertEqual(health_response.status_code, HTTPStatus.OK)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
