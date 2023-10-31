@@ -8,7 +8,7 @@
 *.swo
 
 # The actual generated api
-resim-api-client
+resim-python-client
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
