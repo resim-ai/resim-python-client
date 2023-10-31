@@ -1,0 +1,15 @@
+# Emacs autosave and backup files
+\#*#
+*~
+.\#*
+
+# Vim temporary files 
+*.swp
+*.swo
+
+# The actual generated api
+resim-api-client
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
