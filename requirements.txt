@@ -1,0 +1,2 @@
+openapi-python-client==0.15.2
+poetry==1.6.1
