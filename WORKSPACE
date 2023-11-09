@@ -6,28 +6,18 @@
 
 workspace(name = "resim-python-client")
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
+load("@resim-python-client//:deps_0.bzl", "resim_python_client_dependencies_0")
 
-maybe(
-    http_archive,
-    name = "rules_python",
-    sha256 = "5868e73107a8e85d8f323806e60cad7283f34b32163ea6ff1020cf27abef6036",
-    strip_prefix = "rules_python-0.25.0",
-    url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.25.0.tar.gz",
-)
+resim_python_client_dependencies_0()
 
-load("@rules_python//python:repositories.bzl", "py_repositories")
+load("@resim-python-client//:deps_1.bzl", "resim_python_client_dependencies_1")
 
-py_repositories()
+resim_python_client_dependencies_1()
 
-load("@rules_python//python:pip.bzl", "pip_parse")
+load("@resim-python-client//:deps_2.bzl", "resim_python_client_dependencies_2")
 
-pip_parse(
-    name = "resim_python_client_deps",
-    requirements_lock = "@resim-python-client//:requirements.txt",
-)
+resim_python_client_dependencies_2()
 
-load("@resim_python_client_deps//:requirements.bzl", "install_deps")
+load("@resim-python-client//:deps_3.bzl", "resim_python_client_dependencies_3")
 
-install_deps()
+resim_python_client_dependencies_3()
