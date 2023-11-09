@@ -4,7 +4,7 @@
 # license that can be found in the LICENSE file or at
 # https://opensource.org/licenses/MIT.
 
-workspace(name = "resim_python_client")
+workspace(name = "resim-python-client")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
@@ -25,7 +25,7 @@ load("@rules_python//python:pip.bzl", "pip_parse")
 
 pip_parse(
     name = "resim_python_client_deps",
-    requirements_lock = "@resim_python_client//:requirements.txt",
+    requirements_lock = "@resim-python-client//:requirements.txt",
 )
 
 load("@resim_python_client_deps//:requirements.bzl", "install_deps")
