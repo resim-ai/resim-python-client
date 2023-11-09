@@ -4,6 +4,7 @@ load("@resim_python_client_deps//:requirements.bzl", "requirement")
 py_library(
     name = "resim_python_client",
     srcs = glob(["resim_python_client/**/*.py"]),
+    imports = ["."],
     visibility = ["//visibility:public"],
     deps = [
         requirement("openapi_python_client"),
