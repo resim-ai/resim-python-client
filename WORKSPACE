@@ -25,7 +25,7 @@ load("@rules_python//python:pip.bzl", "pip_parse")
 
 pip_parse(
     name = "resim_python_client_deps",
-    requirements_lock = "//:requirements.txt",
+    requirements_lock = "@resim_python_client//:requirements.txt",
 )
 
 load("@resim_python_client_deps//:requirements.bzl", "install_deps")
