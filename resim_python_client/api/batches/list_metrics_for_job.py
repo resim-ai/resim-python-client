@@ -15,6 +15,7 @@ def _get_kwargs(
     *,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
     pass
 
@@ -22,6 +23,8 @@ def _get_kwargs(
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
+
+    params["orderBy"] = order_by
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -72,6 +75,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListMetricsForJobResponse200]]:
     """Lists the metrics for a given job. Does not return associated data.
 
@@ -80,6 +84,7 @@ def sync_detailed(
         job_id (str):
         page_size (Union[Unset, None, int]):
         page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -94,6 +99,7 @@ def sync_detailed(
         job_id=job_id,
         page_size=page_size,
         page_token=page_token,
+        order_by=order_by,
     )
 
     response = client.get_httpx_client().request(
@@ -110,6 +116,7 @@ def sync(
     client: AuthenticatedClient,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListMetricsForJobResponse200]]:
     """Lists the metrics for a given job. Does not return associated data.
 
@@ -118,6 +125,7 @@ def sync(
         job_id (str):
         page_size (Union[Unset, None, int]):
         page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -133,6 +141,7 @@ def sync(
         client=client,
         page_size=page_size,
         page_token=page_token,
+        order_by=order_by,
     ).parsed
 
 
@@ -143,6 +152,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListMetricsForJobResponse200]]:
     """Lists the metrics for a given job. Does not return associated data.
 
@@ -151,6 +161,7 @@ async def asyncio_detailed(
         job_id (str):
         page_size (Union[Unset, None, int]):
         page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,6 +176,7 @@ async def asyncio_detailed(
         job_id=job_id,
         page_size=page_size,
         page_token=page_token,
+        order_by=order_by,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -179,6 +191,7 @@ async def asyncio(
     client: AuthenticatedClient,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListMetricsForJobResponse200]]:
     """Lists the metrics for a given job. Does not return associated data.
 
@@ -187,6 +200,7 @@ async def asyncio(
         job_id (str):
         page_size (Union[Unset, None, int]):
         page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -203,5 +217,6 @@ async def asyncio(
             client=client,
             page_size=page_size,
             page_token=page_token,
+            order_by=order_by,
         )
     ).parsed

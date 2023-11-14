@@ -6,7 +6,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.metrics_data import MetricsData
+    from ..models.job_metrics_data import JobMetricsData
 
 
 T = TypeVar("T", bound="MetricsDataAndMetricID")
@@ -17,11 +17,11 @@ class MetricsDataAndMetricID:
     """
     Attributes:
         metric_id (Union[Unset, str]):
-        metrics_data (Union[Unset, MetricsData]):
+        metrics_data (Union[Unset, JobMetricsData]):
     """
 
     metric_id: Union[Unset, str] = UNSET
-    metrics_data: Union[Unset, "MetricsData"] = UNSET
+    metrics_data: Union[Unset, "JobMetricsData"] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -42,17 +42,17 @@ class MetricsDataAndMetricID:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.metrics_data import MetricsData
+        from ..models.job_metrics_data import JobMetricsData
 
         d = src_dict.copy()
         metric_id = d.pop("metricID", UNSET)
 
         _metrics_data = d.pop("metricsData", UNSET)
-        metrics_data: Union[Unset, MetricsData]
+        metrics_data: Union[Unset, JobMetricsData]
         if isinstance(_metrics_data, Unset):
             metrics_data = UNSET
         else:
-            metrics_data = MetricsData.from_dict(_metrics_data)
+            metrics_data = JobMetricsData.from_dict(_metrics_data)
 
         metrics_data_and_metric_id = cls(
             metric_id=metric_id,

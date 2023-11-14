@@ -19,7 +19,6 @@ class Metric:
         creation_timestamp (Union[Unset, datetime.datetime]):
         data_i_ds (Union[Unset, List[str]]):
         file_location (Union[Unset, str]):
-        job_id (Union[Unset, str]):
         metric_id (Union[Unset, str]):
         metric_url (Union[Unset, str]):
         name (Union[Unset, str]):
@@ -33,7 +32,6 @@ class Metric:
     creation_timestamp: Union[Unset, datetime.datetime] = UNSET
     data_i_ds: Union[Unset, List[str]] = UNSET
     file_location: Union[Unset, str] = UNSET
-    job_id: Union[Unset, str] = UNSET
     metric_id: Union[Unset, str] = UNSET
     metric_url: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
@@ -54,7 +52,6 @@ class Metric:
             data_i_ds = self.data_i_ds
 
         file_location = self.file_location
-        job_id = self.job_id
         metric_id = self.metric_id
         metric_url = self.metric_url
         name = self.name
@@ -79,8 +76,6 @@ class Metric:
             field_dict["dataIDs"] = data_i_ds
         if file_location is not UNSET:
             field_dict["fileLocation"] = file_location
-        if job_id is not UNSET:
-            field_dict["jobID"] = job_id
         if metric_id is not UNSET:
             field_dict["metricID"] = metric_id
         if metric_url is not UNSET:
@@ -114,8 +109,6 @@ class Metric:
 
         file_location = d.pop("fileLocation", UNSET)
 
-        job_id = d.pop("jobID", UNSET)
-
         metric_id = d.pop("metricID", UNSET)
 
         metric_url = d.pop("metricURL", UNSET)
@@ -146,7 +139,6 @@ class Metric:
             creation_timestamp=creation_timestamp,
             data_i_ds=data_i_ds,
             file_location=file_location,
-            job_id=job_id,
             metric_id=metric_id,
             metric_url=metric_url,
             name=name,

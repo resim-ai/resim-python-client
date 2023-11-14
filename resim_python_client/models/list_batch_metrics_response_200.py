@@ -17,9 +17,11 @@ class ListBatchMetricsResponse200:
     """
     Attributes:
         batch_metrics (Union[Unset, List['BatchMetric']]):
+        next_page_token (Union[Unset, str]):
     """
 
     batch_metrics: Union[Unset, List["BatchMetric"]] = UNSET
+    next_page_token: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -31,11 +33,15 @@ class ListBatchMetricsResponse200:
 
                 batch_metrics.append(batch_metrics_item)
 
+        next_page_token = self.next_page_token
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if batch_metrics is not UNSET:
             field_dict["batchMetrics"] = batch_metrics
+        if next_page_token is not UNSET:
+            field_dict["nextPageToken"] = next_page_token
 
         return field_dict
 
@@ -51,8 +57,11 @@ class ListBatchMetricsResponse200:
 
             batch_metrics.append(batch_metrics_item)
 
+        next_page_token = d.pop("nextPageToken", UNSET)
+
         list_batch_metrics_response_200 = cls(
             batch_metrics=batch_metrics,
+            next_page_token=next_page_token,
         )
 
         list_batch_metrics_response_200.additional_properties = d

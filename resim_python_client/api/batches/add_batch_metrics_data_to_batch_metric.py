@@ -1,29 +1,29 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.job_metric import JobMetric
+from ...models.add_batch_metrics_data_to_batch_metric_response_201 import AddBatchMetricsDataToBatchMetricResponse201
 from ...types import Response
 
 
 def _get_kwargs(
     batch_id: str,
-    job_id: str,
+    metric_id: str,
     *,
-    json_body: JobMetric,
+    json_body: List[str],
 ) -> Dict[str, Any]:
     pass
 
-    json_json_body = json_body.to_dict()
+    json_json_body = json_body
 
     return {
         "method": "post",
-        "url": "/batches/{batchID}/jobs/{jobID}/metrics".format(
+        "url": "/batches/{batchID}/metrics/{metricID}/metricsData".format(
             batchID=batch_id,
-            jobID=job_id,
+            metricID=metric_id,
         ),
         "json": json_json_body,
     }
@@ -31,9 +31,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, JobMetric]]:
+) -> Optional[Union[AddBatchMetricsDataToBatchMetricResponse201, Any]]:
     if response.status_code == HTTPStatus.CREATED:
-        response_201 = JobMetric.from_dict(response.json())
+        response_201 = AddBatchMetricsDataToBatchMetricResponse201.from_dict(response.json())
 
         return response_201
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -47,7 +47,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, JobMetric]]:
+) -> Response[Union[AddBatchMetricsDataToBatchMetricResponse201, Any]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,29 +58,29 @@ def _build_response(
 
 def sync_detailed(
     batch_id: str,
-    job_id: str,
+    metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: JobMetric,
-) -> Response[Union[Any, JobMetric]]:
-    """Adds a metric. ID and location should be omitted and will be returned in the response.
+    json_body: List[str],
+) -> Response[Union[AddBatchMetricsDataToBatchMetricResponse201, Any]]:
+    """Adds batch metrics data (IDs) to a given batch metric
 
     Args:
         batch_id (str):
-        job_id (str):
-        json_body (JobMetric):
+        metric_id (str):
+        json_body (List[str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, JobMetric]]
+        Response[Union[AddBatchMetricsDataToBatchMetricResponse201, Any]]
     """
 
     kwargs = _get_kwargs(
         batch_id=batch_id,
-        job_id=job_id,
+        metric_id=metric_id,
         json_body=json_body,
     )
 
@@ -93,29 +93,29 @@ def sync_detailed(
 
 def sync(
     batch_id: str,
-    job_id: str,
+    metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: JobMetric,
-) -> Optional[Union[Any, JobMetric]]:
-    """Adds a metric. ID and location should be omitted and will be returned in the response.
+    json_body: List[str],
+) -> Optional[Union[AddBatchMetricsDataToBatchMetricResponse201, Any]]:
+    """Adds batch metrics data (IDs) to a given batch metric
 
     Args:
         batch_id (str):
-        job_id (str):
-        json_body (JobMetric):
+        metric_id (str):
+        json_body (List[str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, JobMetric]
+        Union[AddBatchMetricsDataToBatchMetricResponse201, Any]
     """
 
     return sync_detailed(
         batch_id=batch_id,
-        job_id=job_id,
+        metric_id=metric_id,
         client=client,
         json_body=json_body,
     ).parsed
@@ -123,29 +123,29 @@ def sync(
 
 async def asyncio_detailed(
     batch_id: str,
-    job_id: str,
+    metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: JobMetric,
-) -> Response[Union[Any, JobMetric]]:
-    """Adds a metric. ID and location should be omitted and will be returned in the response.
+    json_body: List[str],
+) -> Response[Union[AddBatchMetricsDataToBatchMetricResponse201, Any]]:
+    """Adds batch metrics data (IDs) to a given batch metric
 
     Args:
         batch_id (str):
-        job_id (str):
-        json_body (JobMetric):
+        metric_id (str):
+        json_body (List[str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, JobMetric]]
+        Response[Union[AddBatchMetricsDataToBatchMetricResponse201, Any]]
     """
 
     kwargs = _get_kwargs(
         batch_id=batch_id,
-        job_id=job_id,
+        metric_id=metric_id,
         json_body=json_body,
     )
 
@@ -156,30 +156,30 @@ async def asyncio_detailed(
 
 async def asyncio(
     batch_id: str,
-    job_id: str,
+    metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: JobMetric,
-) -> Optional[Union[Any, JobMetric]]:
-    """Adds a metric. ID and location should be omitted and will be returned in the response.
+    json_body: List[str],
+) -> Optional[Union[AddBatchMetricsDataToBatchMetricResponse201, Any]]:
+    """Adds batch metrics data (IDs) to a given batch metric
 
     Args:
         batch_id (str):
-        job_id (str):
-        json_body (JobMetric):
+        metric_id (str):
+        json_body (List[str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, JobMetric]
+        Union[AddBatchMetricsDataToBatchMetricResponse201, Any]
     """
 
     return (
         await asyncio_detailed(
             batch_id=batch_id,
-            job_id=job_id,
+            metric_id=metric_id,
             client=client,
             json_body=json_body,
         )
