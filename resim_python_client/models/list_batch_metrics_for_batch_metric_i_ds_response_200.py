@@ -6,40 +6,40 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.job_metric import JobMetric
+    from ..models.batch_metric import BatchMetric
 
 
-T = TypeVar("T", bound="ListMetricsForJobResponse200")
+T = TypeVar("T", bound="ListBatchMetricsForBatchMetricIDsResponse200")
 
 
 @_attrs_define
-class ListMetricsForJobResponse200:
+class ListBatchMetricsForBatchMetricIDsResponse200:
     """
     Attributes:
-        metrics (Union[Unset, List['JobMetric']]):
+        batch_metrics (Union[Unset, List['BatchMetric']]):
         next_page_token (Union[Unset, str]):
     """
 
-    metrics: Union[Unset, List["JobMetric"]] = UNSET
+    batch_metrics: Union[Unset, List["BatchMetric"]] = UNSET
     next_page_token: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        metrics: Union[Unset, List[Dict[str, Any]]] = UNSET
-        if not isinstance(self.metrics, Unset):
-            metrics = []
-            for metrics_item_data in self.metrics:
-                metrics_item = metrics_item_data.to_dict()
+        batch_metrics: Union[Unset, List[Dict[str, Any]]] = UNSET
+        if not isinstance(self.batch_metrics, Unset):
+            batch_metrics = []
+            for batch_metrics_item_data in self.batch_metrics:
+                batch_metrics_item = batch_metrics_item_data.to_dict()
 
-                metrics.append(metrics_item)
+                batch_metrics.append(batch_metrics_item)
 
         next_page_token = self.next_page_token
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if metrics is not UNSET:
-            field_dict["metrics"] = metrics
+        if batch_metrics is not UNSET:
+            field_dict["batchMetrics"] = batch_metrics
         if next_page_token is not UNSET:
             field_dict["nextPageToken"] = next_page_token
 
@@ -47,25 +47,25 @@ class ListMetricsForJobResponse200:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.job_metric import JobMetric
+        from ..models.batch_metric import BatchMetric
 
         d = src_dict.copy()
-        metrics = []
-        _metrics = d.pop("metrics", UNSET)
-        for metrics_item_data in _metrics or []:
-            metrics_item = JobMetric.from_dict(metrics_item_data)
+        batch_metrics = []
+        _batch_metrics = d.pop("batchMetrics", UNSET)
+        for batch_metrics_item_data in _batch_metrics or []:
+            batch_metrics_item = BatchMetric.from_dict(batch_metrics_item_data)
 
-            metrics.append(metrics_item)
+            batch_metrics.append(batch_metrics_item)
 
         next_page_token = d.pop("nextPageToken", UNSET)
 
-        list_metrics_for_job_response_200 = cls(
-            metrics=metrics,
+        list_batch_metrics_for_batch_metric_i_ds_response_200 = cls(
+            batch_metrics=batch_metrics,
             next_page_token=next_page_token,
         )
 
-        list_metrics_for_job_response_200.additional_properties = d
-        return list_metrics_for_job_response_200
+        list_batch_metrics_for_batch_metric_i_ds_response_200.additional_properties = d
+        return list_batch_metrics_for_batch_metric_i_ds_response_200
 
     @property
     def additional_keys(self) -> List[str]:

@@ -1,17 +1,17 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.list_metrics_data_for_job_response_200 import ListMetricsDataForJobResponse200
+from ...models.list_batch_metrics_for_batch_metric_i_ds_response_200 import ListBatchMetricsForBatchMetricIDsResponse200
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     batch_id: str,
-    job_id: str,
+    metric_id: List[str],
     *,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
@@ -27,9 +27,9 @@ def _get_kwargs(
 
     return {
         "method": "get",
-        "url": "/batches/{batchID}/jobs/{jobID}/metricsData".format(
+        "url": "/batches/{batchID}/metrics/{metricID}".format(
             batchID=batch_id,
-            jobID=job_id,
+            metricID=metric_id,
         ),
         "params": params,
     }
@@ -37,9 +37,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, ListMetricsDataForJobResponse200]]:
+) -> Optional[Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = ListMetricsDataForJobResponse200.from_dict(response.json())
+        response_200 = ListBatchMetricsForBatchMetricIDsResponse200.from_dict(response.json())
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -56,7 +56,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, ListMetricsDataForJobResponse200]]:
+) -> Response[Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -67,17 +67,17 @@ def _build_response(
 
 def sync_detailed(
     batch_id: str,
-    job_id: str,
+    metric_id: List[str],
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
-) -> Response[Union[Any, ListMetricsDataForJobResponse200]]:
-    """Returns the metrics data associated with a given job ID
+) -> Response[Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]]:
+    """Lists the batch metrics associated with given batch metric IDs
 
     Args:
         batch_id (str):
-        job_id (str):
+        metric_id (List[str]):
         page_size (Union[Unset, None, int]):
         page_token (Union[Unset, None, str]):
 
@@ -86,12 +86,12 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, ListMetricsDataForJobResponse200]]
+        Response[Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]]
     """
 
     kwargs = _get_kwargs(
         batch_id=batch_id,
-        job_id=job_id,
+        metric_id=metric_id,
         page_size=page_size,
         page_token=page_token,
     )
@@ -105,17 +105,17 @@ def sync_detailed(
 
 def sync(
     batch_id: str,
-    job_id: str,
+    metric_id: List[str],
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
-) -> Optional[Union[Any, ListMetricsDataForJobResponse200]]:
-    """Returns the metrics data associated with a given job ID
+) -> Optional[Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]]:
+    """Lists the batch metrics associated with given batch metric IDs
 
     Args:
         batch_id (str):
-        job_id (str):
+        metric_id (List[str]):
         page_size (Union[Unset, None, int]):
         page_token (Union[Unset, None, str]):
 
@@ -124,12 +124,12 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ListMetricsDataForJobResponse200]
+        Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]
     """
 
     return sync_detailed(
         batch_id=batch_id,
-        job_id=job_id,
+        metric_id=metric_id,
         client=client,
         page_size=page_size,
         page_token=page_token,
@@ -138,17 +138,17 @@ def sync(
 
 async def asyncio_detailed(
     batch_id: str,
-    job_id: str,
+    metric_id: List[str],
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
-) -> Response[Union[Any, ListMetricsDataForJobResponse200]]:
-    """Returns the metrics data associated with a given job ID
+) -> Response[Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]]:
+    """Lists the batch metrics associated with given batch metric IDs
 
     Args:
         batch_id (str):
-        job_id (str):
+        metric_id (List[str]):
         page_size (Union[Unset, None, int]):
         page_token (Union[Unset, None, str]):
 
@@ -157,12 +157,12 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, ListMetricsDataForJobResponse200]]
+        Response[Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]]
     """
 
     kwargs = _get_kwargs(
         batch_id=batch_id,
-        job_id=job_id,
+        metric_id=metric_id,
         page_size=page_size,
         page_token=page_token,
     )
@@ -174,17 +174,17 @@ async def asyncio_detailed(
 
 async def asyncio(
     batch_id: str,
-    job_id: str,
+    metric_id: List[str],
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, None, int] = UNSET,
     page_token: Union[Unset, None, str] = UNSET,
-) -> Optional[Union[Any, ListMetricsDataForJobResponse200]]:
-    """Returns the metrics data associated with a given job ID
+) -> Optional[Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]]:
+    """Lists the batch metrics associated with given batch metric IDs
 
     Args:
         batch_id (str):
-        job_id (str):
+        metric_id (List[str]):
         page_size (Union[Unset, None, int]):
         page_token (Union[Unset, None, str]):
 
@@ -193,13 +193,13 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ListMetricsDataForJobResponse200]
+        Union[Any, ListBatchMetricsForBatchMetricIDsResponse200]
     """
 
     return (
         await asyncio_detailed(
             batch_id=batch_id,
-            job_id=job_id,
+            metric_id=metric_id,
             client=client,
             page_size=page_size,
             page_token=page_token,

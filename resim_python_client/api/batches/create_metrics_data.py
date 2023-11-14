@@ -5,7 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.metrics_data import MetricsData
+from ...models.job_metrics_data import JobMetricsData
 from ...types import Response
 
 
@@ -13,7 +13,7 @@ def _get_kwargs(
     batch_id: str,
     job_id: str,
     *,
-    json_body: MetricsData,
+    json_body: JobMetricsData,
 ) -> Dict[str, Any]:
     pass
 
@@ -31,9 +31,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, MetricsData]]:
+) -> Optional[Union[Any, JobMetricsData]]:
     if response.status_code == HTTPStatus.CREATED:
-        response_201 = MetricsData.from_dict(response.json())
+        response_201 = JobMetricsData.from_dict(response.json())
 
         return response_201
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -47,7 +47,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, MetricsData]]:
+) -> Response[Union[Any, JobMetricsData]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -61,21 +61,21 @@ def sync_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: MetricsData,
-) -> Response[Union[Any, MetricsData]]:
+    json_body: JobMetricsData,
+) -> Response[Union[Any, JobMetricsData]]:
     """Creates new metrics data associated with a job
 
     Args:
         batch_id (str):
         job_id (str):
-        json_body (MetricsData):
+        json_body (JobMetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, MetricsData]]
+        Response[Union[Any, JobMetricsData]]
     """
 
     kwargs = _get_kwargs(
@@ -96,21 +96,21 @@ def sync(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: MetricsData,
-) -> Optional[Union[Any, MetricsData]]:
+    json_body: JobMetricsData,
+) -> Optional[Union[Any, JobMetricsData]]:
     """Creates new metrics data associated with a job
 
     Args:
         batch_id (str):
         job_id (str):
-        json_body (MetricsData):
+        json_body (JobMetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, MetricsData]
+        Union[Any, JobMetricsData]
     """
 
     return sync_detailed(
@@ -126,21 +126,21 @@ async def asyncio_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: MetricsData,
-) -> Response[Union[Any, MetricsData]]:
+    json_body: JobMetricsData,
+) -> Response[Union[Any, JobMetricsData]]:
     """Creates new metrics data associated with a job
 
     Args:
         batch_id (str):
         job_id (str):
-        json_body (MetricsData):
+        json_body (JobMetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, MetricsData]]
+        Response[Union[Any, JobMetricsData]]
     """
 
     kwargs = _get_kwargs(
@@ -159,21 +159,21 @@ async def asyncio(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: MetricsData,
-) -> Optional[Union[Any, MetricsData]]:
+    json_body: JobMetricsData,
+) -> Optional[Union[Any, JobMetricsData]]:
     """Creates new metrics data associated with a job
 
     Args:
         batch_id (str):
         job_id (str):
-        json_body (MetricsData):
+        json_body (JobMetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, MetricsData]
+        Union[Any, JobMetricsData]
     """
 
     return (

@@ -6,7 +6,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.metric import Metric
+    from ..models.job_metric import JobMetric
 
 
 T = TypeVar("T", bound="ListMetricsForMetricIDsResponse200")
@@ -16,11 +16,11 @@ T = TypeVar("T", bound="ListMetricsForMetricIDsResponse200")
 class ListMetricsForMetricIDsResponse200:
     """
     Attributes:
-        metrics (Union[Unset, List['Metric']]):
+        metrics (Union[Unset, List['JobMetric']]):
         next_page_token (Union[Unset, str]):
     """
 
-    metrics: Union[Unset, List["Metric"]] = UNSET
+    metrics: Union[Unset, List["JobMetric"]] = UNSET
     next_page_token: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -47,13 +47,13 @@ class ListMetricsForMetricIDsResponse200:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.metric import Metric
+        from ..models.job_metric import JobMetric
 
         d = src_dict.copy()
         metrics = []
         _metrics = d.pop("metrics", UNSET)
         for metrics_item_data in _metrics or []:
-            metrics_item = Metric.from_dict(metrics_item_data)
+            metrics_item = JobMetric.from_dict(metrics_item_data)
 
             metrics.append(metrics_item)
 

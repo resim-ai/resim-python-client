@@ -6,19 +6,30 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.list_batch_metrics_response_200 import ListBatchMetricsResponse200
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     batch_id: str,
+    *,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
     pass
+
+    params: Dict[str, Any] = {}
+    params["pageSize"] = page_size
+
+    params["pageToken"] = page_token
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     return {
         "method": "get",
         "url": "/batches/{batchID}/metrics".format(
             batchID=batch_id,
         ),
+        "params": params,
     }
 
 
@@ -56,11 +67,15 @@ def sync_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBatchMetricsResponse200]]:
-    """Returns the batch-level metrics. Currently the average values for scalar metrics across the jobs.
+    """Lists the (batch) metrics for a given batch. Does not return associated data.
 
     Args:
         batch_id (str):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -72,6 +87,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         batch_id=batch_id,
+        page_size=page_size,
+        page_token=page_token,
     )
 
     response = client.get_httpx_client().request(
@@ -85,11 +102,15 @@ def sync(
     batch_id: str,
     *,
     client: AuthenticatedClient,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBatchMetricsResponse200]]:
-    """Returns the batch-level metrics. Currently the average values for scalar metrics across the jobs.
+    """Lists the (batch) metrics for a given batch. Does not return associated data.
 
     Args:
         batch_id (str):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -102,6 +123,8 @@ def sync(
     return sync_detailed(
         batch_id=batch_id,
         client=client,
+        page_size=page_size,
+        page_token=page_token,
     ).parsed
 
 
@@ -109,11 +132,15 @@ async def asyncio_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBatchMetricsResponse200]]:
-    """Returns the batch-level metrics. Currently the average values for scalar metrics across the jobs.
+    """Lists the (batch) metrics for a given batch. Does not return associated data.
 
     Args:
         batch_id (str):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -125,6 +152,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         batch_id=batch_id,
+        page_size=page_size,
+        page_token=page_token,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -136,11 +165,15 @@ async def asyncio(
     batch_id: str,
     *,
     client: AuthenticatedClient,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBatchMetricsResponse200]]:
-    """Returns the batch-level metrics. Currently the average values for scalar metrics across the jobs.
+    """Lists the (batch) metrics for a given batch. Does not return associated data.
 
     Args:
         batch_id (str):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -154,5 +187,7 @@ async def asyncio(
         await asyncio_detailed(
             batch_id=batch_id,
             client=client,
+            page_size=page_size,
+            page_token=page_token,
         )
     ).parsed
