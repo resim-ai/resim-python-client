@@ -17,6 +17,7 @@ class LaunchProfile:
         memory_mib (Union[Unset, int]):
         name (Union[Unset, str]):
         org_id (Union[Unset, str]):
+        shared_memory_mb (Union[Unset, int]):
         user_id (Union[Unset, str]):
         vcpus (Union[Unset, int]):
     """
@@ -26,6 +27,7 @@ class LaunchProfile:
     memory_mib: Union[Unset, int] = UNSET
     name: Union[Unset, str] = UNSET
     org_id: Union[Unset, str] = UNSET
+    shared_memory_mb: Union[Unset, int] = UNSET
     user_id: Union[Unset, str] = UNSET
     vcpus: Union[Unset, int] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -36,6 +38,7 @@ class LaunchProfile:
         memory_mib = self.memory_mib
         name = self.name
         org_id = self.org_id
+        shared_memory_mb = self.shared_memory_mb
         user_id = self.user_id
         vcpus = self.vcpus
 
@@ -52,6 +55,8 @@ class LaunchProfile:
             field_dict["name"] = name
         if org_id is not UNSET:
             field_dict["orgID"] = org_id
+        if shared_memory_mb is not UNSET:
+            field_dict["shared_memory_mb"] = shared_memory_mb
         if user_id is not UNSET:
             field_dict["userID"] = user_id
         if vcpus is not UNSET:
@@ -72,6 +77,8 @@ class LaunchProfile:
 
         org_id = d.pop("orgID", UNSET)
 
+        shared_memory_mb = d.pop("shared_memory_mb", UNSET)
+
         user_id = d.pop("userID", UNSET)
 
         vcpus = d.pop("vcpus", UNSET)
@@ -82,6 +89,7 @@ class LaunchProfile:
             memory_mib=memory_mib,
             name=name,
             org_id=org_id,
+            shared_memory_mb=shared_memory_mb,
             user_id=user_id,
             vcpus=vcpus,
         )

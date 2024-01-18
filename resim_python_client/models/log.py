@@ -5,6 +5,8 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
+from ..models.execution_step import ExecutionStep
+from ..models.log_type import LogType
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="Log")
@@ -16,24 +18,28 @@ class Log:
     Attributes:
         checksum (Union[Unset, str]):
         creation_timestamp (Union[Unset, datetime.datetime]):
+        execution_step (Union[Unset, ExecutionStep]):
         file_name (Union[Unset, str]):
         file_size (Union[Unset, int]):
         job_id (Union[Unset, str]):
         location (Union[Unset, str]):
         log_id (Union[Unset, str]):
         log_output_location (Union[Unset, str]):
+        log_type (Union[Unset, LogType]):
         org_id (Union[Unset, str]):
         user_id (Union[Unset, str]):
     """
 
     checksum: Union[Unset, str] = UNSET
     creation_timestamp: Union[Unset, datetime.datetime] = UNSET
+    execution_step: Union[Unset, ExecutionStep] = UNSET
     file_name: Union[Unset, str] = UNSET
     file_size: Union[Unset, int] = UNSET
     job_id: Union[Unset, str] = UNSET
     location: Union[Unset, str] = UNSET
     log_id: Union[Unset, str] = UNSET
     log_output_location: Union[Unset, str] = UNSET
+    log_type: Union[Unset, LogType] = UNSET
     org_id: Union[Unset, str] = UNSET
     user_id: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -44,12 +50,20 @@ class Log:
         if not isinstance(self.creation_timestamp, Unset):
             creation_timestamp = self.creation_timestamp.isoformat()
 
+        execution_step: Union[Unset, str] = UNSET
+        if not isinstance(self.execution_step, Unset):
+            execution_step = self.execution_step.value
+
         file_name = self.file_name
         file_size = self.file_size
         job_id = self.job_id
         location = self.location
         log_id = self.log_id
         log_output_location = self.log_output_location
+        log_type: Union[Unset, str] = UNSET
+        if not isinstance(self.log_type, Unset):
+            log_type = self.log_type.value
+
         org_id = self.org_id
         user_id = self.user_id
 
@@ -60,6 +74,8 @@ class Log:
             field_dict["checksum"] = checksum
         if creation_timestamp is not UNSET:
             field_dict["creationTimestamp"] = creation_timestamp
+        if execution_step is not UNSET:
+            field_dict["executionStep"] = execution_step
         if file_name is not UNSET:
             field_dict["fileName"] = file_name
         if file_size is not UNSET:
@@ -72,6 +88,8 @@ class Log:
             field_dict["logID"] = log_id
         if log_output_location is not UNSET:
             field_dict["logOutputLocation"] = log_output_location
+        if log_type is not UNSET:
+            field_dict["logType"] = log_type
         if org_id is not UNSET:
             field_dict["orgID"] = org_id
         if user_id is not UNSET:
@@ -91,6 +109,13 @@ class Log:
         else:
             creation_timestamp = isoparse(_creation_timestamp)
 
+        _execution_step = d.pop("executionStep", UNSET)
+        execution_step: Union[Unset, ExecutionStep]
+        if isinstance(_execution_step, Unset):
+            execution_step = UNSET
+        else:
+            execution_step = ExecutionStep(_execution_step)
+
         file_name = d.pop("fileName", UNSET)
 
         file_size = d.pop("fileSize", UNSET)
@@ -103,6 +128,13 @@ class Log:
 
         log_output_location = d.pop("logOutputLocation", UNSET)
 
+        _log_type = d.pop("logType", UNSET)
+        log_type: Union[Unset, LogType]
+        if isinstance(_log_type, Unset):
+            log_type = UNSET
+        else:
+            log_type = LogType(_log_type)
+
         org_id = d.pop("orgID", UNSET)
 
         user_id = d.pop("userID", UNSET)
@@ -110,12 +142,14 @@ class Log:
         log = cls(
             checksum=checksum,
             creation_timestamp=creation_timestamp,
+            execution_step=execution_step,
             file_name=file_name,
             file_size=file_size,
             job_id=job_id,
             location=location,
             log_id=log_id,
             log_output_location=log_output_location,
+            log_type=log_type,
             org_id=org_id,
             user_id=user_id,
         )

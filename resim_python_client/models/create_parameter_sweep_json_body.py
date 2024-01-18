@@ -6,14 +6,14 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.create_batch_json_body_parameters import CreateBatchJsonBodyParameters
+    from ..models.sweep_parameter import SweepParameter
 
 
-T = TypeVar("T", bound="CreateBatchJsonBody")
+T = TypeVar("T", bound="CreateParameterSweepJsonBody")
 
 
 @_attrs_define
-class CreateBatchJsonBody:
+class CreateParameterSweepJsonBody:
     """
     Attributes:
         build_id (Union[Unset, str]):
@@ -22,7 +22,7 @@ class CreateBatchJsonBody:
         experience_tag_i_ds (Union[Unset, None, List[str]]):
         experience_tag_names (Union[Unset, None, List[str]]):
         metrics_build_id (Union[Unset, str]):
-        parameters (Union[Unset, None, CreateBatchJsonBodyParameters]):
+        parameters (Union[Unset, List['SweepParameter']]):
     """
 
     build_id: Union[Unset, str] = UNSET
@@ -31,7 +31,7 @@ class CreateBatchJsonBody:
     experience_tag_i_ds: Union[Unset, None, List[str]] = UNSET
     experience_tag_names: Union[Unset, None, List[str]] = UNSET
     metrics_build_id: Union[Unset, str] = UNSET
-    parameters: Union[Unset, None, "CreateBatchJsonBodyParameters"] = UNSET
+    parameters: Union[Unset, List["SweepParameter"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -65,9 +65,13 @@ class CreateBatchJsonBody:
                 experience_tag_names = self.experience_tag_names
 
         metrics_build_id = self.metrics_build_id
-        parameters: Union[Unset, None, Dict[str, Any]] = UNSET
+        parameters: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.parameters, Unset):
-            parameters = self.parameters.to_dict() if self.parameters else None
+            parameters = []
+            for parameters_item_data in self.parameters:
+                parameters_item = parameters_item_data.to_dict()
+
+                parameters.append(parameters_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -91,7 +95,7 @@ class CreateBatchJsonBody:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.create_batch_json_body_parameters import CreateBatchJsonBodyParameters
+        from ..models.sweep_parameter import SweepParameter
 
         d = src_dict.copy()
         build_id = d.pop("buildID", UNSET)
@@ -106,16 +110,14 @@ class CreateBatchJsonBody:
 
         metrics_build_id = d.pop("metricsBuildID", UNSET)
 
+        parameters = []
         _parameters = d.pop("parameters", UNSET)
-        parameters: Union[Unset, None, CreateBatchJsonBodyParameters]
-        if _parameters is None:
-            parameters = None
-        elif isinstance(_parameters, Unset):
-            parameters = UNSET
-        else:
-            parameters = CreateBatchJsonBodyParameters.from_dict(_parameters)
+        for parameters_item_data in _parameters or []:
+            parameters_item = SweepParameter.from_dict(parameters_item_data)
 
-        create_batch_json_body = cls(
+            parameters.append(parameters_item)
+
+        create_parameter_sweep_json_body = cls(
             build_id=build_id,
             experience_i_ds=experience_i_ds,
             experience_names=experience_names,
@@ -125,8 +127,8 @@ class CreateBatchJsonBody:
             parameters=parameters,
         )
 
-        create_batch_json_body.additional_properties = d
-        return create_batch_json_body
+        create_parameter_sweep_json_body.additional_properties = d
+        return create_parameter_sweep_json_body
 
     @property
     def additional_keys(self) -> List[str]:

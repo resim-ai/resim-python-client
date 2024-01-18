@@ -1,104 +1,108 @@
 import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from dateutil.parser import isoparse
 
-from ..models.job_status import JobStatus
+from ..models.parameter_sweep_status import ParameterSweepStatus
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.job_parameters import JobParameters
-    from ..models.job_status_history_item import JobStatusHistoryItem
+    from ..models.parameter_sweep_status_history_item import ParameterSweepStatusHistoryItem
+    from ..models.sweep_parameter import SweepParameter
 
 
-T = TypeVar("T", bound="Job")
+T = TypeVar("T", bound="ParameterSweep")
 
 
 @_attrs_define
-class Job:
+class ParameterSweep:
     """
     Attributes:
-        build_id (Union[Unset, str]):
+        batches (Union[Unset, List[str]]):
         creation_timestamp (Union[Unset, datetime.datetime]):
-        experience_id (Union[Unset, str]):
-        job_id (Union[Unset, str]):
-        job_status (Union[Unset, JobStatus]):
         last_updated_timestamp (Union[Unset, datetime.datetime]):
+        name (Union[Unset, str]):
         org_id (Union[Unset, str]):
-        output_location (Union[Unset, str]):
-        parameters (Union[Unset, JobParameters]):
-        status_history (Union[Unset, List['JobStatusHistoryItem']]):
+        parameter_sweep_id (Union[Unset, str]):
+        parameters (Union[Unset, List['SweepParameter']]):
+        status (Union[Unset, ParameterSweepStatus]):
+        status_history (Union[Unset, List['ParameterSweepStatusHistoryItem']]):
         user_id (Union[Unset, str]):
     """
 
-    build_id: Union[Unset, str] = UNSET
+    batches: Union[Unset, List[str]] = UNSET
     creation_timestamp: Union[Unset, datetime.datetime] = UNSET
-    experience_id: Union[Unset, str] = UNSET
-    job_id: Union[Unset, str] = UNSET
-    job_status: Union[Unset, JobStatus] = UNSET
     last_updated_timestamp: Union[Unset, datetime.datetime] = UNSET
+    name: Union[Unset, str] = UNSET
     org_id: Union[Unset, str] = UNSET
-    output_location: Union[Unset, str] = UNSET
-    parameters: Union[Unset, "JobParameters"] = UNSET
-    status_history: Union[Unset, List["JobStatusHistoryItem"]] = UNSET
+    parameter_sweep_id: Union[Unset, str] = UNSET
+    parameters: Union[Unset, List["SweepParameter"]] = UNSET
+    status: Union[Unset, ParameterSweepStatus] = UNSET
+    status_history: Union[Unset, List["ParameterSweepStatusHistoryItem"]] = UNSET
     user_id: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        build_id = self.build_id
+        batches: Union[Unset, List[str]] = UNSET
+        if not isinstance(self.batches, Unset):
+            batches = self.batches
+
         creation_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.creation_timestamp, Unset):
             creation_timestamp = self.creation_timestamp.isoformat()
-
-        experience_id = self.experience_id
-        job_id = self.job_id
-        job_status: Union[Unset, str] = UNSET
-        if not isinstance(self.job_status, Unset):
-            job_status = self.job_status.value
 
         last_updated_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.last_updated_timestamp, Unset):
             last_updated_timestamp = self.last_updated_timestamp.isoformat()
 
+        name = self.name
         org_id = self.org_id
-        output_location = self.output_location
-        parameters: Union[Unset, Dict[str, Any]] = UNSET
+        parameter_sweep_id = self.parameter_sweep_id
+        parameters: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.parameters, Unset):
-            parameters = self.parameters.to_dict()
+            parameters = []
+            for parameters_item_data in self.parameters:
+                parameters_item = parameters_item_data.to_dict()
+
+                parameters.append(parameters_item)
+
+        status: Union[Unset, str] = UNSET
+        if not isinstance(self.status, Unset):
+            status = self.status.value
 
         status_history: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.status_history, Unset):
             status_history = []
-            for componentsschemasjob_status_history_item_data in self.status_history:
-                componentsschemasjob_status_history_item = componentsschemasjob_status_history_item_data.to_dict()
+            for componentsschemasparameter_sweep_status_history_item_data in self.status_history:
+                componentsschemasparameter_sweep_status_history_item = (
+                    componentsschemasparameter_sweep_status_history_item_data.to_dict()
+                )
 
-                status_history.append(componentsschemasjob_status_history_item)
+                status_history.append(componentsschemasparameter_sweep_status_history_item)
 
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if build_id is not UNSET:
-            field_dict["buildID"] = build_id
+        if batches is not UNSET:
+            field_dict["batches"] = batches
         if creation_timestamp is not UNSET:
             field_dict["creationTimestamp"] = creation_timestamp
-        if experience_id is not UNSET:
-            field_dict["experienceID"] = experience_id
-        if job_id is not UNSET:
-            field_dict["jobID"] = job_id
-        if job_status is not UNSET:
-            field_dict["jobStatus"] = job_status
         if last_updated_timestamp is not UNSET:
             field_dict["lastUpdatedTimestamp"] = last_updated_timestamp
+        if name is not UNSET:
+            field_dict["name"] = name
         if org_id is not UNSET:
             field_dict["orgID"] = org_id
-        if output_location is not UNSET:
-            field_dict["outputLocation"] = output_location
+        if parameter_sweep_id is not UNSET:
+            field_dict["parameterSweepID"] = parameter_sweep_id
         if parameters is not UNSET:
             field_dict["parameters"] = parameters
+        if status is not UNSET:
+            field_dict["status"] = status
         if status_history is not UNSET:
             field_dict["statusHistory"] = status_history
         if user_id is not UNSET:
@@ -108,11 +112,11 @@ class Job:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.job_parameters import JobParameters
-        from ..models.job_status_history_item import JobStatusHistoryItem
+        from ..models.parameter_sweep_status_history_item import ParameterSweepStatusHistoryItem
+        from ..models.sweep_parameter import SweepParameter
 
         d = src_dict.copy()
-        build_id = d.pop("buildID", UNSET)
+        batches = cast(List[str], d.pop("batches", UNSET))
 
         _creation_timestamp = d.pop("creationTimestamp", UNSET)
         creation_timestamp: Union[Unset, datetime.datetime]
@@ -121,17 +125,6 @@ class Job:
         else:
             creation_timestamp = isoparse(_creation_timestamp)
 
-        experience_id = d.pop("experienceID", UNSET)
-
-        job_id = d.pop("jobID", UNSET)
-
-        _job_status = d.pop("jobStatus", UNSET)
-        job_status: Union[Unset, JobStatus]
-        if isinstance(_job_status, Unset):
-            job_status = UNSET
-        else:
-            job_status = JobStatus(_job_status)
-
         _last_updated_timestamp = d.pop("lastUpdatedTimestamp", UNSET)
         last_updated_timestamp: Union[Unset, datetime.datetime]
         if isinstance(_last_updated_timestamp, Unset):
@@ -139,44 +132,52 @@ class Job:
         else:
             last_updated_timestamp = isoparse(_last_updated_timestamp)
 
+        name = d.pop("name", UNSET)
+
         org_id = d.pop("orgID", UNSET)
 
-        output_location = d.pop("outputLocation", UNSET)
+        parameter_sweep_id = d.pop("parameterSweepID", UNSET)
 
+        parameters = []
         _parameters = d.pop("parameters", UNSET)
-        parameters: Union[Unset, JobParameters]
-        if isinstance(_parameters, Unset):
-            parameters = UNSET
+        for parameters_item_data in _parameters or []:
+            parameters_item = SweepParameter.from_dict(parameters_item_data)
+
+            parameters.append(parameters_item)
+
+        _status = d.pop("status", UNSET)
+        status: Union[Unset, ParameterSweepStatus]
+        if isinstance(_status, Unset):
+            status = UNSET
         else:
-            parameters = JobParameters.from_dict(_parameters)
+            status = ParameterSweepStatus(_status)
 
         status_history = []
         _status_history = d.pop("statusHistory", UNSET)
-        for componentsschemasjob_status_history_item_data in _status_history or []:
-            componentsschemasjob_status_history_item = JobStatusHistoryItem.from_dict(
-                componentsschemasjob_status_history_item_data
+        for componentsschemasparameter_sweep_status_history_item_data in _status_history or []:
+            componentsschemasparameter_sweep_status_history_item = ParameterSweepStatusHistoryItem.from_dict(
+                componentsschemasparameter_sweep_status_history_item_data
             )
 
-            status_history.append(componentsschemasjob_status_history_item)
+            status_history.append(componentsschemasparameter_sweep_status_history_item)
 
         user_id = d.pop("userID", UNSET)
 
-        job = cls(
-            build_id=build_id,
+        parameter_sweep = cls(
+            batches=batches,
             creation_timestamp=creation_timestamp,
-            experience_id=experience_id,
-            job_id=job_id,
-            job_status=job_status,
             last_updated_timestamp=last_updated_timestamp,
+            name=name,
             org_id=org_id,
-            output_location=output_location,
+            parameter_sweep_id=parameter_sweep_id,
             parameters=parameters,
+            status=status,
             status_history=status_history,
             user_id=user_id,
         )
 
-        job.additional_properties = d
-        return job
+        parameter_sweep.additional_properties = d
+        return parameter_sweep
 
     @property
     def additional_keys(self) -> List[str]:

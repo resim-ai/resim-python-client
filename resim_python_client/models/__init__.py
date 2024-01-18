@@ -5,20 +5,27 @@ from .add_metrics_data_to_metric_response_201 import AddMetricsDataToMetricRespo
 from .batch import Batch
 from .batch_metric import BatchMetric
 from .batch_metrics_data import BatchMetricsData
+from .batch_parameters import BatchParameters
 from .batch_status import BatchStatus
+from .batch_status_history_item import BatchStatusHistoryItem
 from .branch import Branch
 from .branch_type import BranchType
 from .build import Build
 from .create_batch_json_body import CreateBatchJsonBody
+from .create_batch_json_body_parameters import CreateBatchJsonBodyParameters
+from .create_parameter_sweep_json_body import CreateParameterSweepJsonBody
 from .create_view_update_response_201 import CreateViewUpdateResponse201
 from .destroy_sandbox_json_body import DestroySandboxJsonBody
+from .execution_step import ExecutionStep
 from .experience import Experience
 from .experience_tag import ExperienceTag
 from .get_view_session_response_200 import GetViewSessionResponse200
 from .job import Job
 from .job_metric import JobMetric
 from .job_metrics_data import JobMetricsData
+from .job_parameters import JobParameters
 from .job_status import JobStatus
+from .job_status_history_item import JobStatusHistoryItem
 from .launch_profile import LaunchProfile
 from .list_batch_metrics_data_for_batch_metric_i_ds_response_200 import ListBatchMetricsDataForBatchMetricIDsResponse200
 from .list_batch_metrics_data_for_batch_metric_i_ds_response_200_batch_metrics_data_and_i_ds_item import (
@@ -48,9 +55,11 @@ from .list_metrics_data_for_metric_i_ds_response_200 import ListMetricsDataForMe
 from .list_metrics_data_for_metrics_data_i_ds_response_200 import ListMetricsDataForMetricsDataIDsResponse200
 from .list_metrics_for_job_response_200 import ListMetricsForJobResponse200
 from .list_metrics_for_metric_i_ds_response_200 import ListMetricsForMetricIDsResponse200
+from .list_parameter_sweeps_response_200 import ListParameterSweepsResponse200
 from .list_projects_response_200 import ListProjectsResponse200
 from .list_view_sessions_response_200 import ListViewSessionsResponse200
 from .log import Log
+from .log_type import LogType
 from .metric import Metric
 from .metric_status import MetricStatus
 from .metric_type import MetricType
@@ -58,8 +67,12 @@ from .metrics_build import MetricsBuild
 from .metrics_data import MetricsData
 from .metrics_data_and_metric_id import MetricsDataAndMetricID
 from .object_type import ObjectType
+from .parameter_sweep import ParameterSweep
+from .parameter_sweep_status import ParameterSweepStatus
+from .parameter_sweep_status_history_item import ParameterSweepStatusHistoryItem
 from .project import Project
 from .setup_sandbox_json_body import SetupSandboxJsonBody
+from .sweep_parameter import SweepParameter
 from .update_experience_json_body import UpdateExperienceJsonBody
 from .update_experience_tag_json_body import UpdateExperienceTagJsonBody
 from .update_launch_profile_json_body import UpdateLaunchProfileJsonBody
@@ -73,20 +86,27 @@ __all__ = (
     "Batch",
     "BatchMetric",
     "BatchMetricsData",
+    "BatchParameters",
     "BatchStatus",
+    "BatchStatusHistoryItem",
     "Branch",
     "BranchType",
     "Build",
     "CreateBatchJsonBody",
+    "CreateBatchJsonBodyParameters",
+    "CreateParameterSweepJsonBody",
     "CreateViewUpdateResponse201",
     "DestroySandboxJsonBody",
+    "ExecutionStep",
     "Experience",
     "ExperienceTag",
     "GetViewSessionResponse200",
     "Job",
     "JobMetric",
     "JobMetricsData",
+    "JobParameters",
     "JobStatus",
+    "JobStatusHistoryItem",
     "LaunchProfile",
     "ListBatchesForBuildResponse200",
     "ListBatchesResponse200",
@@ -112,9 +132,11 @@ __all__ = (
     "ListMetricsDataForMetricsDataIDsResponse200",
     "ListMetricsForJobResponse200",
     "ListMetricsForMetricIDsResponse200",
+    "ListParameterSweepsResponse200",
     "ListProjectsResponse200",
     "ListViewSessionsResponse200",
     "Log",
+    "LogType",
     "Metric",
     "MetricsBuild",
     "MetricsData",
@@ -122,8 +144,12 @@ __all__ = (
     "MetricStatus",
     "MetricType",
     "ObjectType",
+    "ParameterSweep",
+    "ParameterSweepStatus",
+    "ParameterSweepStatusHistoryItem",
     "Project",
     "SetupSandboxJsonBody",
+    "SweepParameter",
     "UpdateExperienceJsonBody",
     "UpdateExperienceTagJsonBody",
     "UpdateLaunchProfileJsonBody",
