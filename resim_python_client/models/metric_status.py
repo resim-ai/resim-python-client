@@ -1,9 +1,10 @@
 from enum import Enum
 
-
 class MetricStatus(str, Enum):
-    FAILED = "FAILED"
+    FAIL_BLOCK = "FAIL_BLOCK"
+    FAIL_WARN = "FAIL_WARN"
     NOT_APPLICABLE = "NOT_APPLICABLE"
+    NO_STATUS_REPORTED = "NO_STATUS_REPORTED"
     PASSED = "PASSED"
     RAW = "RAW"
 

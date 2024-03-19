@@ -1,38 +1,52 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from typing import Dict
+from typing import cast
+from ...models.project_update_input import ProjectUpdateInput
 from ...models.project import Project
-from ...models.update_project_json_body import UpdateProjectJsonBody
-from ...types import Response
+
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    json_body: UpdateProjectJsonBody,
+    body: ProjectUpdateInput,
+
 ) -> Dict[str, Any]:
-    pass
+    headers: Dict[str, Any] = {}
 
-    json_json_body = json_body.to_dict()
 
-    return {
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/projects/{projectID}".format(
-            projectID=project_id,
-        ),
-        "json": json_json_body,
+        "url": "/projects/{project_id}".format(project_id=project_id,),
     }
 
+    _body = body.to_dict()
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, Project]]:
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Project]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = Project.from_dict(response.json())
+
+
 
         return response_200
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -50,9 +64,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Project]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Project]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,13 +77,14 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateProjectJsonBody,
+    body: ProjectUpdateInput,
+
 ) -> Response[Union[Any, Project]]:
-    """Updates the project.
+    """  Updates the project.
 
     Args:
         project_id (str):
-        json_body (UpdateProjectJsonBody):
+        body (ProjectUpdateInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -79,11 +92,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Project]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        json_body=json_body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -92,18 +107,18 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateProjectJsonBody,
+    body: ProjectUpdateInput,
+
 ) -> Optional[Union[Any, Project]]:
-    """Updates the project.
+    """  Updates the project.
 
     Args:
         project_id (str):
-        json_body (UpdateProjectJsonBody):
+        body (ProjectUpdateInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,26 +126,28 @@ def sync(
 
     Returns:
         Union[Any, Project]
-    """
+     """
+
 
     return sync_detailed(
         project_id=project_id,
-        client=client,
-        json_body=json_body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateProjectJsonBody,
+    body: ProjectUpdateInput,
+
 ) -> Response[Union[Any, Project]]:
-    """Updates the project.
+    """  Updates the project.
 
     Args:
         project_id (str):
-        json_body (UpdateProjectJsonBody):
+        body (ProjectUpdateInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -138,29 +155,33 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Project]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        json_body=json_body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateProjectJsonBody,
+    body: ProjectUpdateInput,
+
 ) -> Optional[Union[Any, Project]]:
-    """Updates the project.
+    """  Updates the project.
 
     Args:
         project_id (str):
-        json_body (UpdateProjectJsonBody):
+        body (ProjectUpdateInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -168,12 +189,12 @@ async def asyncio(
 
     Returns:
         Union[Any, Project]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            project_id=project_id,
-            client=client,
-            json_body=json_body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        project_id=project_id,
+client=client,
+body=body,
+
+    )).parsed

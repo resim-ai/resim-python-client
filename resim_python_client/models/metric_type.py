@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class MetricType(str, Enum):
     COMPOSITE = "COMPOSITE"
     SCALAR = "SCALAR"

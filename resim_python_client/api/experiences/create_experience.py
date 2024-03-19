@@ -1,34 +1,51 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from typing import cast
+from typing import Dict
 from ...models.experience import Experience
-from ...types import Response
+
 
 
 def _get_kwargs(
+    project_id: str,
     *,
-    json_body: Experience,
+    body: Experience,
+
 ) -> Dict[str, Any]:
-    pass
+    headers: Dict[str, Any] = {}
 
-    json_json_body = json_body.to_dict()
 
-    return {
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/experiences",
-        "json": json_json_body,
+        "url": "/projects/{project_id}/experiences".format(project_id=project_id,),
     }
 
+    _body = body.to_dict()
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, Experience]]:
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Experience]]:
     if response.status_code == HTTPStatus.CREATED:
         response_201 = Experience.from_dict(response.json())
+
+
 
         return response_201
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -46,9 +63,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Experience]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Experience]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,14 +73,17 @@ def _build_response(
 
 
 def sync_detailed(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: Experience,
+    body: Experience,
+
 ) -> Response[Union[Any, Experience]]:
-    """Adds an experience.  ID should be omitted and will be returned in the response.
+    """  Adds an experience.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (Experience):
+        project_id (str):
+        body (Experience):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -73,10 +91,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Experience]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        project_id=project_id,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -85,16 +106,18 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: Experience,
+    body: Experience,
+
 ) -> Optional[Union[Any, Experience]]:
-    """Adds an experience.  ID should be omitted and will be returned in the response.
+    """  Adds an experience.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (Experience):
+        project_id (str):
+        body (Experience):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -102,23 +125,28 @@ def sync(
 
     Returns:
         Union[Any, Experience]
-    """
+     """
+
 
     return sync_detailed(
-        client=client,
-        json_body=json_body,
+        project_id=project_id,
+client=client,
+body=body,
+
     ).parsed
 
-
 async def asyncio_detailed(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: Experience,
+    body: Experience,
+
 ) -> Response[Union[Any, Experience]]:
-    """Adds an experience.  ID should be omitted and will be returned in the response.
+    """  Adds an experience.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (Experience):
+        project_id (str):
+        body (Experience):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,26 +154,33 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Experience]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        project_id=project_id,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
 
-
 async def asyncio(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: Experience,
+    body: Experience,
+
 ) -> Optional[Union[Any, Experience]]:
-    """Adds an experience.  ID should be omitted and will be returned in the response.
+    """  Adds an experience.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (Experience):
+        project_id (str):
+        body (Experience):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,11 +188,12 @@ async def asyncio(
 
     Returns:
         Union[Any, Experience]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            json_body=json_body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        project_id=project_id,
+client=client,
+body=body,
+
+    )).parsed

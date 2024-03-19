@@ -1,34 +1,51 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.launch_profile import LaunchProfile
-from ...types import Response
+from typing import cast
+from typing import Dict
+
 
 
 def _get_kwargs(
+    project_id: str,
     *,
-    json_body: LaunchProfile,
+    body: LaunchProfile,
+
 ) -> Dict[str, Any]:
-    pass
+    headers: Dict[str, Any] = {}
 
-    json_json_body = json_body.to_dict()
 
-    return {
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/launchProfiles",
-        "json": json_json_body,
+        "url": "/projects/{project_id}/launchProfiles".format(project_id=project_id,),
     }
 
+    _body = body.to_dict()
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, LaunchProfile]]:
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, LaunchProfile]]:
     if response.status_code == HTTPStatus.CREATED:
         response_201 = LaunchProfile.from_dict(response.json())
+
+
 
         return response_201
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -46,9 +63,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, LaunchProfile]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, LaunchProfile]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,14 +73,17 @@ def _build_response(
 
 
 def sync_detailed(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: LaunchProfile,
+    body: LaunchProfile,
+
 ) -> Response[Union[Any, LaunchProfile]]:
-    """Adds a launch profile.  ID should be omitted and will be returned in the response.
+    """  Adds a launch profile.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (LaunchProfile):
+        project_id (str):
+        body (LaunchProfile):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -73,10 +91,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, LaunchProfile]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        project_id=project_id,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -85,16 +106,18 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: LaunchProfile,
+    body: LaunchProfile,
+
 ) -> Optional[Union[Any, LaunchProfile]]:
-    """Adds a launch profile.  ID should be omitted and will be returned in the response.
+    """  Adds a launch profile.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (LaunchProfile):
+        project_id (str):
+        body (LaunchProfile):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -102,23 +125,28 @@ def sync(
 
     Returns:
         Union[Any, LaunchProfile]
-    """
+     """
+
 
     return sync_detailed(
-        client=client,
-        json_body=json_body,
+        project_id=project_id,
+client=client,
+body=body,
+
     ).parsed
 
-
 async def asyncio_detailed(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: LaunchProfile,
+    body: LaunchProfile,
+
 ) -> Response[Union[Any, LaunchProfile]]:
-    """Adds a launch profile.  ID should be omitted and will be returned in the response.
+    """  Adds a launch profile.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (LaunchProfile):
+        project_id (str):
+        body (LaunchProfile):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,26 +154,33 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, LaunchProfile]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        project_id=project_id,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
 
-
 async def asyncio(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: LaunchProfile,
+    body: LaunchProfile,
+
 ) -> Optional[Union[Any, LaunchProfile]]:
-    """Adds a launch profile.  ID should be omitted and will be returned in the response.
+    """  Adds a launch profile.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (LaunchProfile):
+        project_id (str):
+        body (LaunchProfile):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,11 +188,12 @@ async def asyncio(
 
     Returns:
         Union[Any, LaunchProfile]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            json_body=json_body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        project_id=project_id,
+client=client,
+body=body,
+
+    )).parsed

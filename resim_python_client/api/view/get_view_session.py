@@ -1,32 +1,42 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.get_view_session_response_200 import GetViewSessionResponse200
-from ...types import Response
+from ...types import Response, UNSET
+from ... import errors
+
+from ...models.view_object_and_metadata import ViewObjectAndMetadata
+from typing import cast
+from typing import Dict
+
 
 
 def _get_kwargs(
     view_session_id: str,
-) -> Dict[str, Any]:
-    pass
 
-    return {
+) -> Dict[str, Any]:
+    
+
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/view/sessions/{viewSessionID}".format(
-            viewSessionID=view_session_id,
-        ),
+        "url": "/view/sessions/{view_session_id}".format(view_session_id=view_session_id,),
     }
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, GetViewSessionResponse200]]:
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ViewObjectAndMetadata]]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = GetViewSessionResponse200.from_dict(response.json())
+        response_200 = ViewObjectAndMetadata.from_dict(response.json())
+
+
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -44,9 +54,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, GetViewSessionResponse200]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ViewObjectAndMetadata]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -59,8 +67,9 @@ def sync_detailed(
     view_session_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[Any, GetViewSessionResponse200]]:
-    """Lists the view object and metadata associated with a specific view.
+
+) -> Response[Union[Any, ViewObjectAndMetadata]]:
+    """  Lists the view object and metadata associated with a specific view.
 
     Args:
         view_session_id (str):
@@ -70,11 +79,13 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, GetViewSessionResponse200]]
-    """
+        Response[Union[Any, ViewObjectAndMetadata]]
+     """
+
 
     kwargs = _get_kwargs(
         view_session_id=view_session_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -83,13 +94,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     view_session_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[Any, GetViewSessionResponse200]]:
-    """Lists the view object and metadata associated with a specific view.
+
+) -> Optional[Union[Any, ViewObjectAndMetadata]]:
+    """  Lists the view object and metadata associated with a specific view.
 
     Args:
         view_session_id (str):
@@ -99,21 +110,23 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, GetViewSessionResponse200]
-    """
+        Union[Any, ViewObjectAndMetadata]
+     """
+
 
     return sync_detailed(
         view_session_id=view_session_id,
-        client=client,
-    ).parsed
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     view_session_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[Any, GetViewSessionResponse200]]:
-    """Lists the view object and metadata associated with a specific view.
+
+) -> Response[Union[Any, ViewObjectAndMetadata]]:
+    """  Lists the view object and metadata associated with a specific view.
 
     Args:
         view_session_id (str):
@@ -123,24 +136,28 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, GetViewSessionResponse200]]
-    """
+        Response[Union[Any, ViewObjectAndMetadata]]
+     """
+
 
     kwargs = _get_kwargs(
         view_session_id=view_session_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     view_session_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[Any, GetViewSessionResponse200]]:
-    """Lists the view object and metadata associated with a specific view.
+
+) -> Optional[Union[Any, ViewObjectAndMetadata]]:
+    """  Lists the view object and metadata associated with a specific view.
 
     Args:
         view_session_id (str):
@@ -150,12 +167,12 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, GetViewSessionResponse200]
-    """
+        Union[Any, ViewObjectAndMetadata]
+     """
 
-    return (
-        await asyncio_detailed(
-            view_session_id=view_session_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        view_session_id=view_session_id,
+client=client,
+
+    )).parsed

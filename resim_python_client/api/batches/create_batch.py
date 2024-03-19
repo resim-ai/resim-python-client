@@ -1,35 +1,52 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.batch import Batch
-from ...models.create_batch_json_body import CreateBatchJsonBody
-from ...types import Response
+from typing import cast
+from typing import Dict
+from ...models.batch_input import BatchInput
+
 
 
 def _get_kwargs(
+    project_id: str,
     *,
-    json_body: CreateBatchJsonBody,
+    body: BatchInput,
+
 ) -> Dict[str, Any]:
-    pass
+    headers: Dict[str, Any] = {}
 
-    json_json_body = json_body.to_dict()
 
-    return {
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/batches",
-        "json": json_json_body,
+        "url": "/projects/{project_id}/batches".format(project_id=project_id,),
     }
 
+    _body = body.to_dict()
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, Batch]]:
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Batch]]:
     if response.status_code == HTTPStatus.CREATED:
         response_201 = Batch.from_dict(response.json())
+
+
 
         return response_201
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -41,9 +58,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Batch]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Batch]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,14 +68,17 @@ def _build_response(
 
 
 def sync_detailed(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: CreateBatchJsonBody,
+    body: BatchInput,
+
 ) -> Response[Union[Any, Batch]]:
-    """Adds a batch.  ID should be omitted and will be returned in the response.
+    """  Adds a batch.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (CreateBatchJsonBody):
+        project_id (str):
+        body (BatchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -68,10 +86,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Batch]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        project_id=project_id,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -80,16 +101,18 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: CreateBatchJsonBody,
+    body: BatchInput,
+
 ) -> Optional[Union[Any, Batch]]:
-    """Adds a batch.  ID should be omitted and will be returned in the response.
+    """  Adds a batch.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (CreateBatchJsonBody):
+        project_id (str):
+        body (BatchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -97,23 +120,28 @@ def sync(
 
     Returns:
         Union[Any, Batch]
-    """
+     """
+
 
     return sync_detailed(
-        client=client,
-        json_body=json_body,
+        project_id=project_id,
+client=client,
+body=body,
+
     ).parsed
 
-
 async def asyncio_detailed(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: CreateBatchJsonBody,
+    body: BatchInput,
+
 ) -> Response[Union[Any, Batch]]:
-    """Adds a batch.  ID should be omitted and will be returned in the response.
+    """  Adds a batch.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (CreateBatchJsonBody):
+        project_id (str):
+        body (BatchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -121,26 +149,33 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Batch]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        project_id=project_id,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
 
-
 async def asyncio(
+    project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: CreateBatchJsonBody,
+    body: BatchInput,
+
 ) -> Optional[Union[Any, Batch]]:
-    """Adds a batch.  ID should be omitted and will be returned in the response.
+    """  Adds a batch.  ID should be omitted and will be returned in the response.
 
     Args:
-        json_body (CreateBatchJsonBody):
+        project_id (str):
+        body (BatchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -148,11 +183,12 @@ async def asyncio(
 
     Returns:
         Union[Any, Batch]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            json_body=json_body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        project_id=project_id,
+client=client,
+body=body,
+
+    )).parsed

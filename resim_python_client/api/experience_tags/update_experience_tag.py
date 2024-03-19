@@ -1,38 +1,53 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from ...models.experience_tag_input import ExperienceTagInput
+from typing import cast
 from ...models.experience_tag import ExperienceTag
-from ...models.update_experience_tag_json_body import UpdateExperienceTagJsonBody
-from ...types import Response
+from typing import Dict
+
 
 
 def _get_kwargs(
+    project_id: str,
     experience_tag_id: str,
     *,
-    json_body: UpdateExperienceTagJsonBody,
+    body: ExperienceTagInput,
+
 ) -> Dict[str, Any]:
-    pass
+    headers: Dict[str, Any] = {}
 
-    json_json_body = json_body.to_dict()
 
-    return {
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/experienceTags/{experienceTagID}".format(
-            experienceTagID=experience_tag_id,
-        ),
-        "json": json_json_body,
+        "url": "/projects/{project_id}/experienceTags/{experience_tag_id}".format(project_id=project_id,experience_tag_id=experience_tag_id,),
     }
 
+    _body = body.to_dict()
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, ExperienceTag]]:
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ExperienceTag]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = ExperienceTag.from_dict(response.json())
+
+
 
         return response_200
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -50,9 +65,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, ExperienceTag]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ExperienceTag]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -62,16 +75,19 @@ def _build_response(
 
 
 def sync_detailed(
+    project_id: str,
     experience_tag_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateExperienceTagJsonBody,
+    body: ExperienceTagInput,
+
 ) -> Response[Union[Any, ExperienceTag]]:
-    """Updates the experience tag.  Experience membership cannot be changed with this method.
+    """  Updates the experience tag.  Experience membership cannot be changed with this method.
 
     Args:
+        project_id (str):
         experience_tag_id (str):
-        json_body (UpdateExperienceTagJsonBody):
+        body (ExperienceTagInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -79,11 +95,14 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, ExperienceTag]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        experience_tag_id=experience_tag_id,
-        json_body=json_body,
+        project_id=project_id,
+experience_tag_id=experience_tag_id,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -92,18 +111,20 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
+    project_id: str,
     experience_tag_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateExperienceTagJsonBody,
+    body: ExperienceTagInput,
+
 ) -> Optional[Union[Any, ExperienceTag]]:
-    """Updates the experience tag.  Experience membership cannot be changed with this method.
+    """  Updates the experience tag.  Experience membership cannot be changed with this method.
 
     Args:
+        project_id (str):
         experience_tag_id (str):
-        json_body (UpdateExperienceTagJsonBody):
+        body (ExperienceTagInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,26 +132,31 @@ def sync(
 
     Returns:
         Union[Any, ExperienceTag]
-    """
+     """
+
 
     return sync_detailed(
-        experience_tag_id=experience_tag_id,
-        client=client,
-        json_body=json_body,
+        project_id=project_id,
+experience_tag_id=experience_tag_id,
+client=client,
+body=body,
+
     ).parsed
 
-
 async def asyncio_detailed(
+    project_id: str,
     experience_tag_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateExperienceTagJsonBody,
+    body: ExperienceTagInput,
+
 ) -> Response[Union[Any, ExperienceTag]]:
-    """Updates the experience tag.  Experience membership cannot be changed with this method.
+    """  Updates the experience tag.  Experience membership cannot be changed with this method.
 
     Args:
+        project_id (str):
         experience_tag_id (str):
-        json_body (UpdateExperienceTagJsonBody):
+        body (ExperienceTagInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -138,29 +164,36 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, ExperienceTag]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        experience_tag_id=experience_tag_id,
-        json_body=json_body,
+        project_id=project_id,
+experience_tag_id=experience_tag_id,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
 
-
 async def asyncio(
+    project_id: str,
     experience_tag_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateExperienceTagJsonBody,
+    body: ExperienceTagInput,
+
 ) -> Optional[Union[Any, ExperienceTag]]:
-    """Updates the experience tag.  Experience membership cannot be changed with this method.
+    """  Updates the experience tag.  Experience membership cannot be changed with this method.
 
     Args:
+        project_id (str):
         experience_tag_id (str):
-        json_body (UpdateExperienceTagJsonBody):
+        body (ExperienceTagInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -168,12 +201,13 @@ async def asyncio(
 
     Returns:
         Union[Any, ExperienceTag]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            experience_tag_id=experience_tag_id,
-            client=client,
-            json_body=json_body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        project_id=project_id,
+experience_tag_id=experience_tag_id,
+client=client,
+body=body,
+
+    )).parsed
