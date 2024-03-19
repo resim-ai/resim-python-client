@@ -1,24 +1,33 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...types import Response
+from ...types import Response, UNSET
+from ... import errors
+
+
 
 
 def _get_kwargs(
+    project_id: str,
     experience_tag_id: str,
-) -> Dict[str, Any]:
-    pass
 
-    return {
+) -> Dict[str, Any]:
+    
+
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "delete",
-        "url": "/experienceTags/{experienceTagID}".format(
-            experienceTagID=experience_tag_id,
-        ),
+        "url": "/projects/{project_id}/experienceTags/{experience_tag_id}".format(project_id=project_id,experience_tag_id=experience_tag_id,),
     }
+
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
@@ -44,13 +53,16 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 
 def sync_detailed(
+    project_id: str,
     experience_tag_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Any]:
-    """Deletes an experience tag.
+    """  Deletes an experience tag.
 
     Args:
+        project_id (str):
         experience_tag_id (str):
 
     Raises:
@@ -59,10 +71,13 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        experience_tag_id=experience_tag_id,
+        project_id=project_id,
+experience_tag_id=experience_tag_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -73,13 +88,16 @@ def sync_detailed(
 
 
 async def asyncio_detailed(
+    project_id: str,
     experience_tag_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Any]:
-    """Deletes an experience tag.
+    """  Deletes an experience tag.
 
     Args:
+        project_id (str):
         experience_tag_id (str):
 
     Raises:
@@ -88,12 +106,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        experience_tag_id=experience_tag_id,
+        project_id=project_id,
+experience_tag_id=experience_tag_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
+

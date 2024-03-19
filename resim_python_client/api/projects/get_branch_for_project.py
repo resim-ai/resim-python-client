@@ -1,34 +1,43 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.branch import Branch
-from ...types import Response
+from typing import cast
+from typing import Dict
+
 
 
 def _get_kwargs(
     project_id: str,
     branch_id: str,
-) -> Dict[str, Any]:
-    pass
 
-    return {
+) -> Dict[str, Any]:
+    
+
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/branches/{branchID}".format(
-            projectID=project_id,
-            branchID=branch_id,
-        ),
+        "url": "/projects/{project_id}/branches/{branch_id}".format(project_id=project_id,branch_id=branch_id,),
     }
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, Branch]]:
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Branch]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = Branch.from_dict(response.json())
+
+
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -43,9 +52,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Branch]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Branch]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -59,8 +66,9 @@ def sync_detailed(
     branch_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Union[Any, Branch]]:
-    """Returns a specific branch for a project.
+    """  Returns a specific branch for a project.
 
     Args:
         project_id (str):
@@ -72,11 +80,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Branch]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        branch_id=branch_id,
+branch_id=branch_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -85,14 +95,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     project_id: str,
     branch_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Optional[Union[Any, Branch]]:
-    """Returns a specific branch for a project.
+    """  Returns a specific branch for a project.
 
     Args:
         project_id (str):
@@ -104,22 +114,24 @@ def sync(
 
     Returns:
         Union[Any, Branch]
-    """
+     """
+
 
     return sync_detailed(
         project_id=project_id,
-        branch_id=branch_id,
-        client=client,
-    ).parsed
+branch_id=branch_id,
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     project_id: str,
     branch_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Union[Any, Branch]]:
-    """Returns a specific branch for a project.
+    """  Returns a specific branch for a project.
 
     Args:
         project_id (str):
@@ -131,25 +143,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Branch]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        branch_id=branch_id,
+branch_id=branch_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     project_id: str,
     branch_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Optional[Union[Any, Branch]]:
-    """Returns a specific branch for a project.
+    """  Returns a specific branch for a project.
 
     Args:
         project_id (str):
@@ -161,12 +177,12 @@ async def asyncio(
 
     Returns:
         Union[Any, Branch]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            project_id=project_id,
-            branch_id=branch_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        project_id=project_id,
+branch_id=branch_id,
+client=client,
+
+    )).parsed

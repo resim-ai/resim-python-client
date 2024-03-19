@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class ObjectType(str, Enum):
     TYPE_DCURVE_SE3 = "TYPE_DCURVE_SE3"
     TYPE_FRAME = "TYPE_FRAME"

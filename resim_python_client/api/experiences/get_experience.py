@@ -1,32 +1,43 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from typing import cast
+from typing import Dict
 from ...models.experience import Experience
-from ...types import Response
+
 
 
 def _get_kwargs(
+    project_id: str,
     experience_id: str,
-) -> Dict[str, Any]:
-    pass
 
-    return {
+) -> Dict[str, Any]:
+    
+
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/experiences/{experienceID}".format(
-            experienceID=experience_id,
-        ),
+        "url": "/projects/{project_id}/experiences/{experience_id}".format(project_id=project_id,experience_id=experience_id,),
     }
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, Experience]]:
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Experience]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = Experience.from_dict(response.json())
+
+
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -41,9 +52,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Experience]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Experience]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,13 +62,16 @@ def _build_response(
 
 
 def sync_detailed(
+    project_id: str,
     experience_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Union[Any, Experience]]:
-    """Returns a specific experience.
+    """  Returns a specific experience.
 
     Args:
+        project_id (str):
         experience_id (str):
 
     Raises:
@@ -68,10 +80,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Experience]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        experience_id=experience_id,
+        project_id=project_id,
+experience_id=experience_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -80,15 +95,17 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
+    project_id: str,
     experience_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Optional[Union[Any, Experience]]:
-    """Returns a specific experience.
+    """  Returns a specific experience.
 
     Args:
+        project_id (str):
         experience_id (str):
 
     Raises:
@@ -97,22 +114,27 @@ def sync(
 
     Returns:
         Union[Any, Experience]
-    """
+     """
+
 
     return sync_detailed(
-        experience_id=experience_id,
-        client=client,
+        project_id=project_id,
+experience_id=experience_id,
+client=client,
+
     ).parsed
 
-
 async def asyncio_detailed(
+    project_id: str,
     experience_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Union[Any, Experience]]:
-    """Returns a specific experience.
+    """  Returns a specific experience.
 
     Args:
+        project_id (str):
         experience_id (str):
 
     Raises:
@@ -121,25 +143,32 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Experience]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
-        experience_id=experience_id,
+        project_id=project_id,
+experience_id=experience_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
 
-
 async def asyncio(
+    project_id: str,
     experience_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Optional[Union[Any, Experience]]:
-    """Returns a specific experience.
+    """  Returns a specific experience.
 
     Args:
+        project_id (str):
         experience_id (str):
 
     Raises:
@@ -148,11 +177,12 @@ async def asyncio(
 
     Returns:
         Union[Any, Experience]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            experience_id=experience_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        project_id=project_id,
+experience_id=experience_id,
+client=client,
+
+    )).parsed

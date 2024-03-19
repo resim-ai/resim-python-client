@@ -1,43 +1,57 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.list_batch_metrics_data_response_200 import ListBatchMetricsDataResponse200
-from ...types import UNSET, Response, Unset
+from ...types import Response, UNSET
+from ... import errors
+
+from ...types import UNSET, Unset
+from typing import cast
+from ...models.list_batch_metrics_data_output import ListBatchMetricsDataOutput
+from typing import Dict
+from typing import Union
+
 
 
 def _get_kwargs(
+    project_id: str,
     batch_id: str,
     *,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+
 ) -> Dict[str, Any]:
-    pass
+    
+
+    
 
     params: Dict[str, Any] = {}
+
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/batches/{batchID}/metricsData".format(
-            batchID=batch_id,
-        ),
+        "url": "/projects/{project_id}/batches/{batch_id}/metricsData".format(project_id=project_id,batch_id=batch_id,),
         "params": params,
     }
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, ListBatchMetricsDataResponse200]]:
+    return _kwargs
+
+
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ListBatchMetricsDataOutput]]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = ListBatchMetricsDataResponse200.from_dict(response.json())
+        response_200 = ListBatchMetricsDataOutput.from_dict(response.json())
+
+
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -52,9 +66,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, ListBatchMetricsDataResponse200]]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ListBatchMetricsDataOutput]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,31 +76,37 @@ def _build_response(
 
 
 def sync_detailed(
+    project_id: str,
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-) -> Response[Union[Any, ListBatchMetricsDataResponse200]]:
-    """Returns the metrics data associated with a given batch ID
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+
+) -> Response[Union[Any, ListBatchMetricsDataOutput]]:
+    """  Returns the metrics data associated with a given batch ID
 
     Args:
+        project_id (str):
         batch_id (str):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, ListBatchMetricsDataResponse200]]
-    """
+        Response[Union[Any, ListBatchMetricsDataOutput]]
+     """
+
 
     kwargs = _get_kwargs(
-        batch_id=batch_id,
-        page_size=page_size,
-        page_token=page_token,
+        project_id=project_id,
+batch_id=batch_id,
+page_size=page_size,
+page_token=page_token,
+
     )
 
     response = client.get_httpx_client().request(
@@ -97,97 +115,112 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
+    project_id: str,
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-) -> Optional[Union[Any, ListBatchMetricsDataResponse200]]:
-    """Returns the metrics data associated with a given batch ID
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+
+) -> Optional[Union[Any, ListBatchMetricsDataOutput]]:
+    """  Returns the metrics data associated with a given batch ID
 
     Args:
+        project_id (str):
         batch_id (str):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ListBatchMetricsDataResponse200]
-    """
+        Union[Any, ListBatchMetricsDataOutput]
+     """
+
 
     return sync_detailed(
-        batch_id=batch_id,
-        client=client,
-        page_size=page_size,
-        page_token=page_token,
+        project_id=project_id,
+batch_id=batch_id,
+client=client,
+page_size=page_size,
+page_token=page_token,
+
     ).parsed
 
-
 async def asyncio_detailed(
+    project_id: str,
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-) -> Response[Union[Any, ListBatchMetricsDataResponse200]]:
-    """Returns the metrics data associated with a given batch ID
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+
+) -> Response[Union[Any, ListBatchMetricsDataOutput]]:
+    """  Returns the metrics data associated with a given batch ID
 
     Args:
+        project_id (str):
         batch_id (str):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, ListBatchMetricsDataResponse200]]
-    """
+        Response[Union[Any, ListBatchMetricsDataOutput]]
+     """
+
 
     kwargs = _get_kwargs(
-        batch_id=batch_id,
-        page_size=page_size,
-        page_token=page_token,
+        project_id=project_id,
+batch_id=batch_id,
+page_size=page_size,
+page_token=page_token,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
 
-
 async def asyncio(
+    project_id: str,
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-) -> Optional[Union[Any, ListBatchMetricsDataResponse200]]:
-    """Returns the metrics data associated with a given batch ID
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+
+) -> Optional[Union[Any, ListBatchMetricsDataOutput]]:
+    """  Returns the metrics data associated with a given batch ID
 
     Args:
+        project_id (str):
         batch_id (str):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ListBatchMetricsDataResponse200]
-    """
+        Union[Any, ListBatchMetricsDataOutput]
+     """
 
-    return (
-        await asyncio_detailed(
-            batch_id=batch_id,
-            client=client,
-            page_size=page_size,
-            page_token=page_token,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        project_id=project_id,
+batch_id=batch_id,
+client=client,
+page_size=page_size,
+page_token=page_token,
+
+    )).parsed

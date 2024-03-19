@@ -1,28 +1,34 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...types import Response
+from ...types import Response, UNSET
+from ... import errors
+
+
 
 
 def _get_kwargs(
     project_id: str,
     branch_id: str,
     build_id: str,
-) -> Dict[str, Any]:
-    pass
 
-    return {
+) -> Dict[str, Any]:
+    
+
+    
+
+    
+
+    _kwargs: Dict[str, Any] = {
         "method": "delete",
-        "url": "/projects/{projectID}/branches/{branchID}/builds/{buildID}".format(
-            projectID=project_id,
-            branchID=branch_id,
-            buildID=build_id,
-        ),
+        "url": "/projects/{project_id}/branches/{branch_id}/builds/{build_id}".format(project_id=project_id,branch_id=branch_id,build_id=build_id,),
     }
+
+
+    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
@@ -53,8 +59,9 @@ def sync_detailed(
     build_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Any]:
-    """Delete a build.
+    """  Delete a build.
 
     Args:
         project_id (str):
@@ -67,12 +74,14 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        branch_id=branch_id,
-        build_id=build_id,
+branch_id=branch_id,
+build_id=build_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -88,8 +97,9 @@ async def asyncio_detailed(
     build_id: str,
     *,
     client: AuthenticatedClient,
+
 ) -> Response[Any]:
-    """Delete a build.
+    """  Delete a build.
 
     Args:
         project_id (str):
@@ -102,14 +112,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        branch_id=branch_id,
-        build_id=build_id,
+branch_id=branch_id,
+build_id=build_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
+
