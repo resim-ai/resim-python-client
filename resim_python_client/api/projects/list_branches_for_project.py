@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
@@ -8,11 +8,7 @@ from ...types import Response, UNSET
 from ... import errors
 
 from ...models.list_branches_output import ListBranchesOutput
-from ...types import UNSET, Unset
-from typing import cast
-from typing import Dict
-from typing import Union
-
+from ...types import Unset
 
 
 def _get_kwargs(
@@ -21,12 +17,7 @@ def _get_kwargs(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
     params: Dict[str, Any] = {}
 
     params["pageSize"] = page_size
@@ -35,25 +26,24 @@ def _get_kwargs(
 
     params["orderBy"] = order_by
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{project_id}/branches".format(project_id=project_id,),
+        "url": "/projects/{project_id}/branches".format(
+            project_id=project_id,
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ListBranchesOutput]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, ListBranchesOutput]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = ListBranchesOutput.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -68,7 +58,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ListBranchesOutput]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, ListBranchesOutput]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -84,9 +76,8 @@ def sync_detailed(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Response[Union[Any, ListBranchesOutput]]:
-    """  Returns the list of branches for a project.
+    """Returns the list of branches for a project.
 
     Args:
         project_id (str):
@@ -100,15 +91,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, ListBranchesOutput]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     )
 
     response = client.get_httpx_client().request(
@@ -117,6 +106,7 @@ order_by=order_by,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     *,
@@ -124,9 +114,8 @@ def sync(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Optional[Union[Any, ListBranchesOutput]]:
-    """  Returns the list of branches for a project.
+    """Returns the list of branches for a project.
 
     Args:
         project_id (str):
@@ -140,17 +129,16 @@ def sync(
 
     Returns:
         Union[Any, ListBranchesOutput]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-client=client,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        client=client,
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -159,9 +147,8 @@ async def asyncio_detailed(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Response[Union[Any, ListBranchesOutput]]:
-    """  Returns the list of branches for a project.
+    """Returns the list of branches for a project.
 
     Args:
         project_id (str):
@@ -175,22 +162,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, ListBranchesOutput]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -199,9 +183,8 @@ async def asyncio(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Optional[Union[Any, ListBranchesOutput]]:
-    """  Returns the list of branches for a project.
+    """Returns the list of branches for a project.
 
     Args:
         project_id (str):
@@ -215,14 +198,14 @@ async def asyncio(
 
     Returns:
         Union[Any, ListBranchesOutput]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-client=client,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            client=client,
+            page_size=page_size,
+            page_token=page_token,
+            order_by=order_by,
+        )
+    ).parsed

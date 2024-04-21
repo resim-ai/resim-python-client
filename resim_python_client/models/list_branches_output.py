@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
 
 from typing import List
 
@@ -8,17 +8,10 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Dict
-from typing import cast
-from ..types import UNSET, Unset
-from typing import cast, List
 from typing import Union
 
 if TYPE_CHECKING:
-  from ..models.branch import Branch
-
-
-
+    from ..models.branch import Branch
 
 
 T = TypeVar("T", bound="ListBranchesOutput")
@@ -26,19 +19,17 @@ T = TypeVar("T", bound="ListBranchesOutput")
 
 @_attrs_define
 class ListBranchesOutput:
-    """ 
-        Attributes:
-            branches (Union[Unset, List['Branch']]):
-            next_page_token (Union[Unset, str]):
-     """
+    """
+    Attributes:
+        branches (Union[Unset, List['Branch']]):
+        next_page_token (Union[Unset, str]):
+    """
 
-    branches: Union[Unset, List['Branch']] = UNSET
+    branches: Union[Unset, List["Branch"]] = UNSET
     next_page_token: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.branch import Branch
         branches: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.branches, Unset):
             branches = []
@@ -46,17 +37,11 @@ class ListBranchesOutput:
                 branches_item = branches_item_data.to_dict()
                 branches.append(branches_item)
 
-
-
-
-
         next_page_token = self.next_page_token
-
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if branches is not UNSET:
             field_dict["branches"] = branches
         if next_page_token is not UNSET:
@@ -64,21 +49,17 @@ class ListBranchesOutput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.branch import Branch
+
         d = src_dict.copy()
         branches = []
         _branches = d.pop("branches", UNSET)
-        for branches_item_data in (_branches or []):
+        for branches_item_data in _branches or []:
             branches_item = Branch.from_dict(branches_item_data)
 
-
-
             branches.append(branches_item)
-
 
         next_page_token = d.pop("nextPageToken", UNSET)
 

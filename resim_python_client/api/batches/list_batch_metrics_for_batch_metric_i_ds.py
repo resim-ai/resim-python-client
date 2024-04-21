@@ -7,13 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...types import UNSET, Unset
-from typing import cast
+from ...types import Unset
 from ...models.list_batch_metrics_output import ListBatchMetricsOutput
-from typing import Dict
-from typing import cast, List
-from typing import Union
-
 
 
 def _get_kwargs(
@@ -23,37 +18,33 @@ def _get_kwargs(
     *,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
     params: Dict[str, Any] = {}
 
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{project_id}/batches/{batch_id}/metrics/{metric_id}".format(project_id=project_id,batch_id=batch_id,metric_id=metric_id,),
+        "url": "/projects/{project_id}/batches/{batch_id}/metrics/{metric_id}".format(
+            project_id=project_id,
+            batch_id=batch_id,
+            metric_id=metric_id,
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ListBatchMetricsOutput]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, ListBatchMetricsOutput]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = ListBatchMetricsOutput.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -68,7 +59,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ListBatchMetricsOutput]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, ListBatchMetricsOutput]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -85,9 +78,8 @@ def sync_detailed(
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-
 ) -> Response[Union[Any, ListBatchMetricsOutput]]:
-    """  Lists the batch metrics associated with given batch metric IDs
+    """Lists the batch metrics associated with given batch metric IDs
 
     Args:
         project_id (str):
@@ -102,16 +94,14 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, ListBatchMetricsOutput]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-metric_id=metric_id,
-page_size=page_size,
-page_token=page_token,
-
+        batch_id=batch_id,
+        metric_id=metric_id,
+        page_size=page_size,
+        page_token=page_token,
     )
 
     response = client.get_httpx_client().request(
@@ -119,6 +109,7 @@ page_token=page_token,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     project_id: str,
@@ -128,9 +119,8 @@ def sync(
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-
 ) -> Optional[Union[Any, ListBatchMetricsOutput]]:
-    """  Lists the batch metrics associated with given batch metric IDs
+    """Lists the batch metrics associated with given batch metric IDs
 
     Args:
         project_id (str):
@@ -145,18 +135,17 @@ def sync(
 
     Returns:
         Union[Any, ListBatchMetricsOutput]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-batch_id=batch_id,
-metric_id=metric_id,
-client=client,
-page_size=page_size,
-page_token=page_token,
-
+        batch_id=batch_id,
+        metric_id=metric_id,
+        client=client,
+        page_size=page_size,
+        page_token=page_token,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -166,9 +155,8 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-
 ) -> Response[Union[Any, ListBatchMetricsOutput]]:
-    """  Lists the batch metrics associated with given batch metric IDs
+    """Lists the batch metrics associated with given batch metric IDs
 
     Args:
         project_id (str):
@@ -183,23 +171,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, ListBatchMetricsOutput]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-metric_id=metric_id,
-page_size=page_size,
-page_token=page_token,
-
+        batch_id=batch_id,
+        metric_id=metric_id,
+        page_size=page_size,
+        page_token=page_token,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -209,9 +194,8 @@ async def asyncio(
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-
 ) -> Optional[Union[Any, ListBatchMetricsOutput]]:
-    """  Lists the batch metrics associated with given batch metric IDs
+    """Lists the batch metrics associated with given batch metric IDs
 
     Args:
         project_id (str):
@@ -226,15 +210,15 @@ async def asyncio(
 
     Returns:
         Union[Any, ListBatchMetricsOutput]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-batch_id=batch_id,
-metric_id=metric_id,
-client=client,
-page_size=page_size,
-page_token=page_token,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            batch_id=batch_id,
+            metric_id=metric_id,
+            client=client,
+            page_size=page_size,
+            page_token=page_token,
+        )
+    ).parsed

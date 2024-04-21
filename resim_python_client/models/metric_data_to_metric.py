@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+from typing import Any, Dict, Type, TypeVar
 
 from typing import List
 
@@ -8,13 +8,8 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast, List
 from typing import Union
-
-
-
-
+from typing import cast
 
 
 T = TypeVar("T", bound="MetricDataToMetric")
@@ -22,16 +17,15 @@ T = TypeVar("T", bound="MetricDataToMetric")
 
 @_attrs_define
 class MetricDataToMetric:
-    """ 
-        Attributes:
-            metric_id (Union[Unset, str]):
-            metrics_data_i_ds (Union[Unset, List[str]]):
-     """
+    """
+    Attributes:
+        metric_id (Union[Unset, str]):
+        metrics_data_i_ds (Union[Unset, List[str]]):
+    """
 
     metric_id: Union[Unset, str] = UNSET
     metrics_data_i_ds: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-
 
     def to_dict(self) -> Dict[str, Any]:
         metric_id = self.metric_id
@@ -40,15 +34,9 @@ class MetricDataToMetric:
         if not isinstance(self.metrics_data_i_ds, Unset):
             metrics_data_i_ds = self.metrics_data_i_ds
 
-
-
-
-
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if metric_id is not UNSET:
             field_dict["metricID"] = metric_id
         if metrics_data_i_ds is not UNSET:
@@ -56,15 +44,12 @@ class MetricDataToMetric:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         metric_id = d.pop("metricID", UNSET)
 
         metrics_data_i_ds = cast(List[str], d.pop("metricsDataIDs", UNSET))
-
 
         metric_data_to_metric = cls(
             metric_id=metric_id,

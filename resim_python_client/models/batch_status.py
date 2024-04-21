@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class BatchStatus(str, Enum):
     BATCH_METRICS_QUEUED = "BATCH_METRICS_QUEUED"
     BATCH_METRICS_RUNNING = "BATCH_METRICS_RUNNING"

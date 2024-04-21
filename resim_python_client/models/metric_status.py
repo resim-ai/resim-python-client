@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class MetricStatus(str, Enum):
     FAIL_BLOCK = "FAIL_BLOCK"
     FAIL_WARN = "FAIL_WARN"

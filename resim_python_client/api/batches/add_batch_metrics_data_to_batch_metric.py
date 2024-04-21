@@ -4,14 +4,10 @@ from typing import Any, Dict, List, Optional, Union, cast
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
+from ...types import Response
 from ... import errors
 
 from ...models.batch_metrics_data_to_batch_metric import BatchMetricsDataToBatchMetric
-from typing import cast
-from typing import cast, List
-from typing import Dict
-
 
 
 def _get_kwargs(
@@ -20,26 +16,19 @@ def _get_kwargs(
     metric_id: str,
     *,
     body: List[str],
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{project_id}/batches/{batch_id}/metrics/{metric_id}/metricsData".format(project_id=project_id,batch_id=batch_id,metric_id=metric_id,),
+        "url": "/projects/{project_id}/batches/{batch_id}/metrics/{metric_id}/metricsData".format(
+            project_id=project_id,
+            batch_id=batch_id,
+            metric_id=metric_id,
+        ),
     }
 
     _body = body
-
-
-
-
-
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -48,11 +37,11 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, BatchMetricsDataToBatchMetric]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, BatchMetricsDataToBatchMetric]]:
     if response.status_code == HTTPStatus.CREATED:
         response_201 = BatchMetricsDataToBatchMetric.from_dict(response.json())
-
-
 
         return response_201
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -64,7 +53,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, BatchMetricsDataToBatchMetric]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, BatchMetricsDataToBatchMetric]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,9 +71,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: List[str],
-
 ) -> Response[Union[Any, BatchMetricsDataToBatchMetric]]:
-    """  Adds batch metrics data (IDs) to a given batch metric
+    """Adds batch metrics data (IDs) to a given batch metric
 
     Args:
         project_id (str):
@@ -96,15 +86,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, BatchMetricsDataToBatchMetric]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-metric_id=metric_id,
-body=body,
-
+        batch_id=batch_id,
+        metric_id=metric_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -113,6 +101,7 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     batch_id: str,
@@ -120,9 +109,8 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: List[str],
-
 ) -> Optional[Union[Any, BatchMetricsDataToBatchMetric]]:
-    """  Adds batch metrics data (IDs) to a given batch metric
+    """Adds batch metrics data (IDs) to a given batch metric
 
     Args:
         project_id (str):
@@ -136,17 +124,16 @@ def sync(
 
     Returns:
         Union[Any, BatchMetricsDataToBatchMetric]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-batch_id=batch_id,
-metric_id=metric_id,
-client=client,
-body=body,
-
+        batch_id=batch_id,
+        metric_id=metric_id,
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -155,9 +142,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: List[str],
-
 ) -> Response[Union[Any, BatchMetricsDataToBatchMetric]]:
-    """  Adds batch metrics data (IDs) to a given batch metric
+    """Adds batch metrics data (IDs) to a given batch metric
 
     Args:
         project_id (str):
@@ -171,22 +157,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, BatchMetricsDataToBatchMetric]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-metric_id=metric_id,
-body=body,
-
+        batch_id=batch_id,
+        metric_id=metric_id,
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -195,9 +178,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: List[str],
-
 ) -> Optional[Union[Any, BatchMetricsDataToBatchMetric]]:
-    """  Adds batch metrics data (IDs) to a given batch metric
+    """Adds batch metrics data (IDs) to a given batch metric
 
     Args:
         project_id (str):
@@ -211,14 +193,14 @@ async def asyncio(
 
     Returns:
         Union[Any, BatchMetricsDataToBatchMetric]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-batch_id=batch_id,
-metric_id=metric_id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            batch_id=batch_id,
+            metric_id=metric_id,
+            client=client,
+            body=body,
+        )
+    ).parsed

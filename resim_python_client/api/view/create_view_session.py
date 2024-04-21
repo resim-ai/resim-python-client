@@ -1,34 +1,25 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
+from ...types import Response
 from ... import errors
 
 
-
-
-def _get_kwargs(
-    
-) -> Dict[str, Any]:
-    
-
-    
-
-    
-
+def _get_kwargs() -> Dict[str, Any]:
     _kwargs: Dict[str, Any] = {
         "method": "post",
         "url": "/view/sessions",
     }
 
-
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, str]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, str]]:
     if response.status_code == HTTPStatus.CREATED:
         response_201 = cast(str, response.json())
         return response_201
@@ -41,7 +32,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, str]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, str]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,9 +46,8 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Union[Any, str]]:
-    """  Creates a new View session.
+    """Creates a new View session.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -63,12 +55,9 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, str]]
-     """
+    """
 
-
-    kwargs = _get_kwargs(
-        
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -76,12 +65,12 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[Union[Any, str]]:
-    """  Creates a new View session.
+    """Creates a new View session.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -89,20 +78,18 @@ def sync(
 
     Returns:
         Union[Any, str]
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Union[Any, str]]:
-    """  Creates a new View session.
+    """Creates a new View session.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -110,25 +97,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, str]]
-     """
+    """
 
+    kwargs = _get_kwargs()
 
-    kwargs = _get_kwargs(
-        
-    )
-
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[Union[Any, str]]:
-    """  Creates a new View session.
+    """Creates a new View session.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -136,10 +118,10 @@ async def asyncio(
 
     Returns:
         Union[Any, str]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+        )
+    ).parsed

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ParameterSweepStatus(str, Enum):
     ERROR = "ERROR"
     RUNNING = "RUNNING"

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class LogType(str, Enum):
     ARCHIVE_LOG = "ARCHIVE_LOG"
     CONTAINER_LOG = "CONTAINER_LOG"

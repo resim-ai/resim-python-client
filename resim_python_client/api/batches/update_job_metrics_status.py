@@ -1,17 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
+from ...types import Response
 from ... import errors
 
-from typing import cast
 from ...models.job import Job
-from typing import Dict
 from ...models.metric_status import MetricStatus
-
 
 
 def _get_kwargs(
@@ -20,22 +17,19 @@ def _get_kwargs(
     job_id: str,
     *,
     body: MetricStatus,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/metricsStatus".format(project_id=project_id,batch_id=batch_id,job_id=job_id,),
+        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/metricsStatus".format(
+            project_id=project_id,
+            batch_id=batch_id,
+            job_id=job_id,
+        ),
     }
 
     _body = body.value
-
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -44,11 +38,11 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Job]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, Job]]:
     if response.status_code == HTTPStatus.CREATED:
         response_201 = Job.from_dict(response.json())
-
-
 
         return response_201
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -63,7 +57,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Job]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, Job]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,9 +75,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: MetricStatus,
-
 ) -> Response[Union[Any, Job]]:
-    """  Updates a job's metrics status.
+    """Updates a job's metrics status.
 
     Args:
         project_id (str):
@@ -95,15 +90,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Job]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-body=body,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -112,6 +105,7 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     batch_id: str,
@@ -119,9 +113,8 @@ def sync(
     *,
     client: AuthenticatedClient,
     body: MetricStatus,
-
 ) -> Optional[Union[Any, Job]]:
-    """  Updates a job's metrics status.
+    """Updates a job's metrics status.
 
     Args:
         project_id (str):
@@ -135,17 +128,16 @@ def sync(
 
     Returns:
         Union[Any, Job]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-client=client,
-body=body,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -154,9 +146,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: MetricStatus,
-
 ) -> Response[Union[Any, Job]]:
-    """  Updates a job's metrics status.
+    """Updates a job's metrics status.
 
     Args:
         project_id (str):
@@ -170,22 +161,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Job]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-body=body,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -194,9 +182,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: MetricStatus,
-
 ) -> Optional[Union[Any, Job]]:
-    """  Updates a job's metrics status.
+    """Updates a job's metrics status.
 
     Args:
         project_id (str):
@@ -210,14 +197,14 @@ async def asyncio(
 
     Returns:
         Union[Any, Job]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            batch_id=batch_id,
+            job_id=job_id,
+            client=client,
+            body=body,
+        )
+    ).parsed

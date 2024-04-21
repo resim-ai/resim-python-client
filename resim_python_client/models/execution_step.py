@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ExecutionStep(str, Enum):
     BATCH_METRICS = "BATCH_METRICS"
     EXPERIENCE = "EXPERIENCE"

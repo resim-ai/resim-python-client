@@ -1,30 +1,21 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
+from ...types import Response
 from ... import errors
 
-from typing import Dict
-from typing import cast
 from ...models.experience_location import ExperienceLocation
 from ...models.experience_location_contents import ExperienceLocationContents
-
 
 
 def _get_kwargs(
     *,
     body: ExperienceLocation,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: Dict[str, Any] = {
         "method": "post",
@@ -33,7 +24,6 @@ def _get_kwargs(
 
     _body = body.to_dict()
 
-
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
 
@@ -41,11 +31,11 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ExperienceLocationContents]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, ExperienceLocationContents]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = ExperienceLocationContents.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -60,7 +50,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ExperienceLocationContents]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, ExperienceLocationContents]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,9 +65,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: ExperienceLocation,
-
 ) -> Response[Union[Any, ExperienceLocationContents]]:
-    """  Validates an experience location can be reached by ReSim.
+    """Validates an experience location can be reached by ReSim.
 
     Args:
         body (ExperienceLocation):
@@ -86,12 +77,10 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, ExperienceLocationContents]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -100,13 +89,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     body: ExperienceLocation,
-
 ) -> Optional[Union[Any, ExperienceLocationContents]]:
-    """  Validates an experience location can be reached by ReSim.
+    """Validates an experience location can be reached by ReSim.
 
     Args:
         body (ExperienceLocation):
@@ -117,22 +106,20 @@ def sync(
 
     Returns:
         Union[Any, ExperienceLocationContents]
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: ExperienceLocation,
-
 ) -> Response[Union[Any, ExperienceLocationContents]]:
-    """  Validates an experience location can be reached by ReSim.
+    """Validates an experience location can be reached by ReSim.
 
     Args:
         body (ExperienceLocation):
@@ -143,27 +130,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, ExperienceLocationContents]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient,
     body: ExperienceLocation,
-
 ) -> Optional[Union[Any, ExperienceLocationContents]]:
-    """  Validates an experience location can be reached by ReSim.
+    """Validates an experience location can be reached by ReSim.
 
     Args:
         body (ExperienceLocation):
@@ -174,11 +157,11 @@ async def asyncio(
 
     Returns:
         Union[Any, ExperienceLocationContents]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

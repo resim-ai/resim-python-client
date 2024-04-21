@@ -1,16 +1,13 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
+from ...types import Response
 from ... import errors
 
-from typing import cast
 from ...models.build import Build
-from typing import Dict
-
 
 
 def _get_kwargs(
@@ -18,22 +15,18 @@ def _get_kwargs(
     branch_id: str,
     *,
     body: Build,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{project_id}/branches/{branch_id}/builds".format(project_id=project_id,branch_id=branch_id,),
+        "url": "/projects/{project_id}/branches/{branch_id}/builds".format(
+            project_id=project_id,
+            branch_id=branch_id,
+        ),
     }
 
     _body = body.to_dict()
-
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -42,11 +35,11 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Build]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, Build]]:
     if response.status_code == HTTPStatus.CREATED:
         response_201 = Build.from_dict(response.json())
-
-
 
         return response_201
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -61,7 +54,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Build]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, Build]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +71,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: Build,
-
 ) -> Response[Union[Any, Build]]:
-    """  Adds a build.  ID should be omitted and will be returned in the response.
+    """Adds a build.  ID should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
@@ -91,14 +85,12 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Build]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-branch_id=branch_id,
-body=body,
-
+        branch_id=branch_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -107,15 +99,15 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     branch_id: str,
     *,
     client: AuthenticatedClient,
     body: Build,
-
 ) -> Optional[Union[Any, Build]]:
-    """  Adds a build.  ID should be omitted and will be returned in the response.
+    """Adds a build.  ID should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
@@ -128,16 +120,15 @@ def sync(
 
     Returns:
         Union[Any, Build]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-branch_id=branch_id,
-client=client,
-body=body,
-
+        branch_id=branch_id,
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -145,9 +136,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: Build,
-
 ) -> Response[Union[Any, Build]]:
-    """  Adds a build.  ID should be omitted and will be returned in the response.
+    """Adds a build.  ID should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
@@ -160,21 +150,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Build]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-branch_id=branch_id,
-body=body,
-
+        branch_id=branch_id,
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -182,9 +169,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: Build,
-
 ) -> Optional[Union[Any, Build]]:
-    """  Adds a build.  ID should be omitted and will be returned in the response.
+    """Adds a build.  ID should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
@@ -197,13 +183,13 @@ async def asyncio(
 
     Returns:
         Union[Any, Build]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-branch_id=branch_id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            branch_id=branch_id,
+            client=client,
+            body=body,
+        )
+    ).parsed

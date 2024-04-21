@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
@@ -7,12 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
+from ...types import Unset
 from ...models.list_view_objects_output import ListViewObjectsOutput
-from ...types import UNSET, Unset
-from typing import cast
-from typing import Dict
-from typing import Union
-
 
 
 def _get_kwargs(
@@ -20,12 +16,7 @@ def _get_kwargs(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Dict[str, Any]:
-    
-
-    
-
     params: Dict[str, Any] = {}
 
     params["pageSize"] = page_size
@@ -34,9 +25,7 @@ def _get_kwargs(
 
     params["orderBy"] = order_by
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: Dict[str, Any] = {
         "method": "get",
@@ -44,15 +33,14 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[ListViewObjectsOutput]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[ListViewObjectsOutput]:
     if response.status_code == HTTPStatus.OK:
         response_200 = ListViewObjectsOutput.from_dict(response.json())
-
-
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -61,7 +49,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[ListViewObjectsOutput]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[ListViewObjectsOutput]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +66,8 @@ def sync_detailed(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Response[ListViewObjectsOutput]:
-    """  Lists all View sessions.
+    """Lists all View sessions.
 
     Args:
         page_size (Union[Unset, int]):
@@ -91,14 +80,12 @@ def sync_detailed(
 
     Returns:
         Response[ListViewObjectsOutput]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        page_token=page_token,
+        order_by=order_by,
     )
 
     response = client.get_httpx_client().request(
@@ -107,15 +94,15 @@ order_by=order_by,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Optional[ListViewObjectsOutput]:
-    """  Lists all View sessions.
+    """Lists all View sessions.
 
     Args:
         page_size (Union[Unset, int]):
@@ -128,16 +115,15 @@ def sync(
 
     Returns:
         ListViewObjectsOutput
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -145,9 +131,8 @@ async def asyncio_detailed(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Response[ListViewObjectsOutput]:
-    """  Lists all View sessions.
+    """Lists all View sessions.
 
     Args:
         page_size (Union[Unset, int]):
@@ -160,21 +145,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[ListViewObjectsOutput]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        page_token=page_token,
+        order_by=order_by,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -182,9 +164,8 @@ async def asyncio(
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
     order_by: Union[Unset, str] = UNSET,
-
 ) -> Optional[ListViewObjectsOutput]:
-    """  Lists all View sessions.
+    """Lists all View sessions.
 
     Args:
         page_size (Union[Unset, int]):
@@ -197,13 +178,13 @@ async def asyncio(
 
     Returns:
         ListViewObjectsOutput
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            page_size=page_size,
+            page_token=page_token,
+            order_by=order_by,
+        )
+    ).parsed

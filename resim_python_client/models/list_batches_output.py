@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
 
 from typing import List
 
@@ -8,17 +8,10 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Dict
-from typing import cast
-from ..types import UNSET, Unset
-from typing import cast, List
 from typing import Union
 
 if TYPE_CHECKING:
-  from ..models.batch import Batch
-
-
-
+    from ..models.batch import Batch
 
 
 T = TypeVar("T", bound="ListBatchesOutput")
@@ -26,19 +19,17 @@ T = TypeVar("T", bound="ListBatchesOutput")
 
 @_attrs_define
 class ListBatchesOutput:
-    """ 
-        Attributes:
-            batches (Union[Unset, List['Batch']]):
-            next_page_token (Union[Unset, str]):
-     """
+    """
+    Attributes:
+        batches (Union[Unset, List['Batch']]):
+        next_page_token (Union[Unset, str]):
+    """
 
-    batches: Union[Unset, List['Batch']] = UNSET
+    batches: Union[Unset, List["Batch"]] = UNSET
     next_page_token: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.batch import Batch
         batches: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.batches, Unset):
             batches = []
@@ -46,17 +37,11 @@ class ListBatchesOutput:
                 batches_item = batches_item_data.to_dict()
                 batches.append(batches_item)
 
-
-
-
-
         next_page_token = self.next_page_token
-
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if batches is not UNSET:
             field_dict["batches"] = batches
         if next_page_token is not UNSET:
@@ -64,21 +49,17 @@ class ListBatchesOutput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.batch import Batch
+
         d = src_dict.copy()
         batches = []
         _batches = d.pop("batches", UNSET)
-        for batches_item_data in (_batches or []):
+        for batches_item_data in _batches or []:
             batches_item = Batch.from_dict(batches_item_data)
 
-
-
             batches.append(batches_item)
-
 
         next_page_token = d.pop("nextPageToken", UNSET)
 

@@ -1,17 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
+from ...types import Response
 from ... import errors
 
-from ...models.experience_tag_input import ExperienceTagInput
-from typing import cast
 from ...models.experience_tag import ExperienceTag
-from typing import Dict
-
+from ...models.experience_tag_input import ExperienceTagInput
 
 
 def _get_kwargs(
@@ -19,22 +16,18 @@ def _get_kwargs(
     experience_tag_id: str,
     *,
     body: ExperienceTagInput,
-
 ) -> Dict[str, Any]:
     headers: Dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/projects/{project_id}/experienceTags/{experience_tag_id}".format(project_id=project_id,experience_tag_id=experience_tag_id,),
+        "url": "/projects/{project_id}/experienceTags/{experience_tag_id}".format(
+            project_id=project_id,
+            experience_tag_id=experience_tag_id,
+        ),
     }
 
     _body = body.to_dict()
-
 
     _kwargs["json"] = _body
     headers["Content-Type"] = "application/json"
@@ -43,11 +36,11 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ExperienceTag]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, ExperienceTag]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = ExperienceTag.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -65,7 +58,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ExperienceTag]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, ExperienceTag]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,9 +75,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     body: ExperienceTagInput,
-
 ) -> Response[Union[Any, ExperienceTag]]:
-    """  Updates the experience tag.  Experience membership cannot be changed with this method.
+    """Updates the experience tag.  Experience membership cannot be changed with this method.
 
     Args:
         project_id (str):
@@ -95,14 +89,12 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, ExperienceTag]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-experience_tag_id=experience_tag_id,
-body=body,
-
+        experience_tag_id=experience_tag_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -111,15 +103,15 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     experience_tag_id: str,
     *,
     client: AuthenticatedClient,
     body: ExperienceTagInput,
-
 ) -> Optional[Union[Any, ExperienceTag]]:
-    """  Updates the experience tag.  Experience membership cannot be changed with this method.
+    """Updates the experience tag.  Experience membership cannot be changed with this method.
 
     Args:
         project_id (str):
@@ -132,16 +124,15 @@ def sync(
 
     Returns:
         Union[Any, ExperienceTag]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-experience_tag_id=experience_tag_id,
-client=client,
-body=body,
-
+        experience_tag_id=experience_tag_id,
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -149,9 +140,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     body: ExperienceTagInput,
-
 ) -> Response[Union[Any, ExperienceTag]]:
-    """  Updates the experience tag.  Experience membership cannot be changed with this method.
+    """Updates the experience tag.  Experience membership cannot be changed with this method.
 
     Args:
         project_id (str):
@@ -164,21 +154,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, ExperienceTag]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-experience_tag_id=experience_tag_id,
-body=body,
-
+        experience_tag_id=experience_tag_id,
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -186,9 +173,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     body: ExperienceTagInput,
-
 ) -> Optional[Union[Any, ExperienceTag]]:
-    """  Updates the experience tag.  Experience membership cannot be changed with this method.
+    """Updates the experience tag.  Experience membership cannot be changed with this method.
 
     Args:
         project_id (str):
@@ -201,13 +187,13 @@ async def asyncio(
 
     Returns:
         Union[Any, ExperienceTag]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-experience_tag_id=experience_tag_id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            experience_tag_id=experience_tag_id,
+            client=client,
+            body=body,
+        )
+    ).parsed

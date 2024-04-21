@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+from typing import Any, Dict, Type, TypeVar
 
 from typing import List
 
@@ -8,12 +8,7 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
 from typing import Union
-
-
-
-
 
 
 T = TypeVar("T", bound="ExperienceLocation")
@@ -21,29 +16,24 @@ T = TypeVar("T", bound="ExperienceLocation")
 
 @_attrs_define
 class ExperienceLocation:
-    """ 
-        Attributes:
-            location (Union[Unset, str]):
-     """
+    """
+    Attributes:
+        location (Union[Unset, str]):
+    """
 
     location: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
         location = self.location
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if location is not UNSET:
             field_dict["location"] = location
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:

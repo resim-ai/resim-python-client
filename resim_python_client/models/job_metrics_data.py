@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
+from typing import Any, Dict, Type, TypeVar
 
 from typing import List
 
@@ -8,15 +8,9 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-import datetime
 from dateutil.parser import isoparse
-from typing import cast
-from ..types import UNSET, Unset
 from typing import Union
-
-
-
-
+import datetime
 
 
 T = TypeVar("T", bound="JobMetricsData")
@@ -24,33 +18,38 @@ T = TypeVar("T", bound="JobMetricsData")
 
 @_attrs_define
 class JobMetricsData:
-    """ 
-        Attributes:
-            data_id (Union[Unset, str]):
-            file_location (Union[Unset, str]):
-            name (Union[Unset, str]):
-            org_id (Union[Unset, str]):
-            user_id (Union[Unset, str]):
-            metrics_data_url (Union[Unset, str]):
-            creation_timestamp (Union[Unset, datetime.datetime]):
-            job_id (Union[Unset, str]):
-     """
+    """
+    Attributes:
+        creation_timestamp (Union[Unset, datetime.datetime]):
+        data_id (Union[Unset, str]):
+        file_location (Union[Unset, str]):
+        metrics_data_url (Union[Unset, str]):
+        name (Union[Unset, str]):
+        org_id (Union[Unset, str]):
+        user_id (Union[Unset, str]):
+        job_id (Union[Unset, str]):
+    """
 
+    creation_timestamp: Union[Unset, datetime.datetime] = UNSET
     data_id: Union[Unset, str] = UNSET
     file_location: Union[Unset, str] = UNSET
+    metrics_data_url: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
     org_id: Union[Unset, str] = UNSET
     user_id: Union[Unset, str] = UNSET
-    metrics_data_url: Union[Unset, str] = UNSET
-    creation_timestamp: Union[Unset, datetime.datetime] = UNSET
     job_id: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
+        creation_timestamp: Union[Unset, str] = UNSET
+        if not isinstance(self.creation_timestamp, Unset):
+            creation_timestamp = self.creation_timestamp.isoformat()
+
         data_id = self.data_id
 
         file_location = self.file_location
+
+        metrics_data_url = self.metrics_data_url
 
         name = self.name
 
@@ -58,46 +57,45 @@ class JobMetricsData:
 
         user_id = self.user_id
 
-        metrics_data_url = self.metrics_data_url
-
-        creation_timestamp: Union[Unset, str] = UNSET
-        if not isinstance(self.creation_timestamp, Unset):
-            creation_timestamp = self.creation_timestamp.isoformat()
-
         job_id = self.job_id
-
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
+        if creation_timestamp is not UNSET:
+            field_dict["creationTimestamp"] = creation_timestamp
         if data_id is not UNSET:
             field_dict["dataID"] = data_id
         if file_location is not UNSET:
             field_dict["fileLocation"] = file_location
+        if metrics_data_url is not UNSET:
+            field_dict["metricsDataURL"] = metrics_data_url
         if name is not UNSET:
             field_dict["name"] = name
         if org_id is not UNSET:
             field_dict["orgID"] = org_id
         if user_id is not UNSET:
             field_dict["userID"] = user_id
-        if metrics_data_url is not UNSET:
-            field_dict["metricsDataURL"] = metrics_data_url
-        if creation_timestamp is not UNSET:
-            field_dict["creationTimestamp"] = creation_timestamp
         if job_id is not UNSET:
             field_dict["jobID"] = job_id
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+        _creation_timestamp = d.pop("creationTimestamp", UNSET)
+        creation_timestamp: Union[Unset, datetime.datetime]
+        if isinstance(_creation_timestamp, Unset):
+            creation_timestamp = UNSET
+        else:
+            creation_timestamp = isoparse(_creation_timestamp)
+
         data_id = d.pop("dataID", UNSET)
 
         file_location = d.pop("fileLocation", UNSET)
+
+        metrics_data_url = d.pop("metricsDataURL", UNSET)
 
         name = d.pop("name", UNSET)
 
@@ -105,28 +103,16 @@ class JobMetricsData:
 
         user_id = d.pop("userID", UNSET)
 
-        metrics_data_url = d.pop("metricsDataURL", UNSET)
-
-        _creation_timestamp = d.pop("creationTimestamp", UNSET)
-        creation_timestamp: Union[Unset, datetime.datetime]
-        if isinstance(_creation_timestamp,  Unset):
-            creation_timestamp = UNSET
-        else:
-            creation_timestamp = isoparse(_creation_timestamp)
-
-
-
-
         job_id = d.pop("jobID", UNSET)
 
         job_metrics_data = cls(
+            creation_timestamp=creation_timestamp,
             data_id=data_id,
             file_location=file_location,
+            metrics_data_url=metrics_data_url,
             name=name,
             org_id=org_id,
             user_id=user_id,
-            metrics_data_url=metrics_data_url,
-            creation_timestamp=creation_timestamp,
             job_id=job_id,
         )
 
