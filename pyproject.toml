@@ -8,6 +8,7 @@ authors = []
 readme = "README.md"
 packages = [
     {include = "resim_python_client"},
+    {include = "resim_auth_utils"},
 ]
 include = ["CHANGELOG.md", "resim_python_client/py.typed"]
 
