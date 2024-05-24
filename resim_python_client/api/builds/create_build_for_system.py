@@ -3,36 +3,32 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.build import Build
+from ...models.create_build_for_system_input import CreateBuildForSystemInput
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     system_id: str,
     *,
-    body: Build,
+    json_body: CreateBuildForSystemInput,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    pass
+
+    json_json_body = json_body.to_dict()
+
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/systems/{system_id}/builds".format(
-            project_id=project_id,
-            system_id=system_id,
+        "url": "/projects/{projectID}/systems/{systemID}/builds".format(
+            projectID=project_id,
+            systemID=system_id,
         ),
+        "json": json_json_body,
     }
-
-    _body = body.to_dict()
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
 
 
 def _parse_response(
@@ -70,14 +66,14 @@ def sync_detailed(
     system_id: str,
     *,
     client: AuthenticatedClient,
-    body: Build,
+    json_body: CreateBuildForSystemInput,
 ) -> Response[Union[Any, Build]]:
-    """Adds a build.  ID should be omitted and will be returned in the response.
+    """Adds a build.
 
     Args:
         project_id (str):
         system_id (str):
-        body (Build):
+        json_body (CreateBuildForSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -90,7 +86,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         system_id=system_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -105,14 +101,14 @@ def sync(
     system_id: str,
     *,
     client: AuthenticatedClient,
-    body: Build,
+    json_body: CreateBuildForSystemInput,
 ) -> Optional[Union[Any, Build]]:
-    """Adds a build.  ID should be omitted and will be returned in the response.
+    """Adds a build.
 
     Args:
         project_id (str):
         system_id (str):
-        body (Build):
+        json_body (CreateBuildForSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,7 +122,7 @@ def sync(
         project_id=project_id,
         system_id=system_id,
         client=client,
-        body=body,
+        json_body=json_body,
     ).parsed
 
 
@@ -135,14 +131,14 @@ async def asyncio_detailed(
     system_id: str,
     *,
     client: AuthenticatedClient,
-    body: Build,
+    json_body: CreateBuildForSystemInput,
 ) -> Response[Union[Any, Build]]:
-    """Adds a build.  ID should be omitted and will be returned in the response.
+    """Adds a build.
 
     Args:
         project_id (str):
         system_id (str):
-        body (Build):
+        json_body (CreateBuildForSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -155,7 +151,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         system_id=system_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -168,14 +164,14 @@ async def asyncio(
     system_id: str,
     *,
     client: AuthenticatedClient,
-    body: Build,
+    json_body: CreateBuildForSystemInput,
 ) -> Optional[Union[Any, Build]]:
-    """Adds a build.  ID should be omitted and will be returned in the response.
+    """Adds a build.
 
     Args:
         project_id (str):
         system_id (str):
-        body (Build):
+        json_body (CreateBuildForSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,6 +186,6 @@ async def asyncio(
             project_id=project_id,
             system_id=system_id,
             client=client,
-            body=body,
+            json_body=json_body,
         )
     ).parsed

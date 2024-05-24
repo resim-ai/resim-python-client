@@ -3,26 +3,26 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.system import System
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     system_id: str,
 ) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+
+    pass
+
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/systems/{system_id}".format(
-            project_id=project_id,
-            system_id=system_id,
+        "url": "/projects/{projectID}/systems/{systemID}".format(
+            projectID=project_id,
+            systemID=system_id,
         ),
     }
-
-    return _kwargs
 
 
 def _parse_response(

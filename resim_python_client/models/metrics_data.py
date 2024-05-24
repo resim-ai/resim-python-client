@@ -1,17 +1,11 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
-
-from dateutil.parser import isoparse
-from typing import Union
-import datetime
-
 
 T = TypeVar("T", bound="MetricsData")
 
@@ -44,15 +38,10 @@ class MetricsData:
             creation_timestamp = self.creation_timestamp.isoformat()
 
         data_id = self.data_id
-
         file_location = self.file_location
-
         metrics_data_url = self.metrics_data_url
-
         name = self.name
-
         org_id = self.org_id
-
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}

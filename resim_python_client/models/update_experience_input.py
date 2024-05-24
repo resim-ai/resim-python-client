@@ -1,39 +1,33 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Union
-from typing import cast
-
 if TYPE_CHECKING:
-    from ..models.project import Project
+    from ..models.update_experience_fields import UpdateExperienceFields
 
 
-T = TypeVar("T", bound="ProjectUpdateInput")
+T = TypeVar("T", bound="UpdateExperienceInput")
 
 
 @_attrs_define
-class ProjectUpdateInput:
+class UpdateExperienceInput:
     """
     Attributes:
-        project (Union[Unset, Project]):
+        experience (Union[Unset, UpdateExperienceFields]):
         update_mask (Union[Unset, List[str]]):
     """
 
-    project: Union[Unset, "Project"] = UNSET
+    experience: Union[Unset, "UpdateExperienceFields"] = UNSET
     update_mask: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        project: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.project, Unset):
-            project = self.project.to_dict()
+        experience: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.experience, Unset):
+            experience = self.experience.to_dict()
 
         update_mask: Union[Unset, List[str]] = UNSET
         if not isinstance(self.update_mask, Unset):
@@ -42,8 +36,8 @@ class ProjectUpdateInput:
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if project is not UNSET:
-            field_dict["project"] = project
+        if experience is not UNSET:
+            field_dict["experience"] = experience
         if update_mask is not UNSET:
             field_dict["updateMask"] = update_mask
 
@@ -51,25 +45,25 @@ class ProjectUpdateInput:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.project import Project
+        from ..models.update_experience_fields import UpdateExperienceFields
 
         d = src_dict.copy()
-        _project = d.pop("project", UNSET)
-        project: Union[Unset, Project]
-        if isinstance(_project, Unset):
-            project = UNSET
+        _experience = d.pop("experience", UNSET)
+        experience: Union[Unset, UpdateExperienceFields]
+        if isinstance(_experience, Unset):
+            experience = UNSET
         else:
-            project = Project.from_dict(_project)
+            experience = UpdateExperienceFields.from_dict(_experience)
 
         update_mask = cast(List[str], d.pop("updateMask", UNSET))
 
-        project_update_input = cls(
-            project=project,
+        update_experience_input = cls(
+            experience=experience,
             update_mask=update_mask,
         )
 
-        project_update_input.additional_properties = d
-        return project_update_input
+        update_experience_input.additional_properties = d
+        return update_experience_input
 
     @property
     def additional_keys(self) -> List[str]:

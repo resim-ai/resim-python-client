@@ -3,35 +3,30 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
-from ...models.parameter_sweep_input import ParameterSweepInput
+from ...client import AuthenticatedClient, Client
 from ...models.parameter_sweep import ParameterSweep
+from ...models.parameter_sweep_input import ParameterSweepInput
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    body: ParameterSweepInput,
+    json_body: ParameterSweepInput,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    pass
+
+    json_json_body = json_body.to_dict()
+
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/sweeps".format(
-            project_id=project_id,
+        "url": "/projects/{projectID}/sweeps".format(
+            projectID=project_id,
         ),
+        "json": json_json_body,
     }
-
-    _body = body.to_dict()
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
 
 
 def _parse_response(
@@ -68,13 +63,13 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: ParameterSweepInput,
+    json_body: ParameterSweepInput,
 ) -> Response[Union[Any, ParameterSweep]]:
     """Adds a parameter sweep.  ID should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
-        body (ParameterSweepInput):
+        json_body (ParameterSweepInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,7 +81,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -100,13 +95,13 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: ParameterSweepInput,
+    json_body: ParameterSweepInput,
 ) -> Optional[Union[Any, ParameterSweep]]:
     """Adds a parameter sweep.  ID should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
-        body (ParameterSweepInput):
+        json_body (ParameterSweepInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -119,7 +114,7 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
-        body=body,
+        json_body=json_body,
     ).parsed
 
 
@@ -127,13 +122,13 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: ParameterSweepInput,
+    json_body: ParameterSweepInput,
 ) -> Response[Union[Any, ParameterSweep]]:
     """Adds a parameter sweep.  ID should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
-        body (ParameterSweepInput):
+        json_body (ParameterSweepInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -145,7 +140,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -157,13 +152,13 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: ParameterSweepInput,
+    json_body: ParameterSweepInput,
 ) -> Optional[Union[Any, ParameterSweep]]:
     """Adds a parameter sweep.  ID should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
-        body (ParameterSweepInput):
+        json_body (ParameterSweepInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -177,6 +172,6 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
-            body=body,
+            json_body=json_body,
         )
     ).parsed

@@ -3,26 +3,26 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.parameter_sweep import ParameterSweep
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     sweep_id: str,
 ) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+
+    pass
+
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/sweeps/{sweep_id}".format(
-            project_id=project_id,
-            sweep_id=sweep_id,
+        "url": "/projects/{projectID}/sweeps/{sweepID}".format(
+            projectID=project_id,
+            sweepID=sweep_id,
         ),
     }
-
-    return _kwargs
 
 
 def _parse_response(
@@ -61,7 +61,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Union[Any, ParameterSweep]]:
-    """Returns a specific parameer sweep.
+    """Returns a specific parameter sweep.
 
     Args:
         project_id (str):
@@ -93,7 +93,7 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Optional[Union[Any, ParameterSweep]]:
-    """Returns a specific parameer sweep.
+    """Returns a specific parameter sweep.
 
     Args:
         project_id (str):
@@ -120,7 +120,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Union[Any, ParameterSweep]]:
-    """Returns a specific parameer sweep.
+    """Returns a specific parameter sweep.
 
     Args:
         project_id (str):
@@ -150,7 +150,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Optional[Union[Any, ParameterSweep]]:
-    """Returns a specific parameer sweep.
+    """Returns a specific parameter sweep.
 
     Args:
         project_id (str):

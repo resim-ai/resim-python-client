@@ -1,17 +1,9 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
 from dateutil.parser import isoparse
-from typing import Union
-import datetime
-
 
 T = TypeVar("T", bound="ExperienceTag")
 
@@ -20,82 +12,66 @@ T = TypeVar("T", bound="ExperienceTag")
 class ExperienceTag:
     """
     Attributes:
-        creation_timestamp (Union[Unset, datetime.datetime]):
-        description (Union[Unset, str]):
-        experience_tag_id (Union[Unset, str]):
-        name (Union[Unset, str]):
-        org_id (Union[Unset, str]):
-        project_id (Union[Unset, str]):
-        user_id (Union[Unset, str]):
+        creation_timestamp (datetime.datetime):
+        description (str):
+        experience_tag_id (str):
+        name (str):
+        org_id (str):
+        project_id (str):
+        user_id (str):
     """
 
-    creation_timestamp: Union[Unset, datetime.datetime] = UNSET
-    description: Union[Unset, str] = UNSET
-    experience_tag_id: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
-    org_id: Union[Unset, str] = UNSET
-    project_id: Union[Unset, str] = UNSET
-    user_id: Union[Unset, str] = UNSET
+    creation_timestamp: datetime.datetime
+    description: str
+    experience_tag_id: str
+    name: str
+    org_id: str
+    project_id: str
+    user_id: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        creation_timestamp: Union[Unset, str] = UNSET
-        if not isinstance(self.creation_timestamp, Unset):
-            creation_timestamp = self.creation_timestamp.isoformat()
+        creation_timestamp = self.creation_timestamp.isoformat()
 
         description = self.description
-
         experience_tag_id = self.experience_tag_id
-
         name = self.name
-
         org_id = self.org_id
-
         project_id = self.project_id
-
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if creation_timestamp is not UNSET:
-            field_dict["creationTimestamp"] = creation_timestamp
-        if description is not UNSET:
-            field_dict["description"] = description
-        if experience_tag_id is not UNSET:
-            field_dict["experienceTagID"] = experience_tag_id
-        if name is not UNSET:
-            field_dict["name"] = name
-        if org_id is not UNSET:
-            field_dict["orgID"] = org_id
-        if project_id is not UNSET:
-            field_dict["projectID"] = project_id
-        if user_id is not UNSET:
-            field_dict["userID"] = user_id
+        field_dict.update(
+            {
+                "creationTimestamp": creation_timestamp,
+                "description": description,
+                "experienceTagID": experience_tag_id,
+                "name": name,
+                "orgID": org_id,
+                "projectID": project_id,
+                "userID": user_id,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        _creation_timestamp = d.pop("creationTimestamp", UNSET)
-        creation_timestamp: Union[Unset, datetime.datetime]
-        if isinstance(_creation_timestamp, Unset):
-            creation_timestamp = UNSET
-        else:
-            creation_timestamp = isoparse(_creation_timestamp)
+        creation_timestamp = isoparse(d.pop("creationTimestamp"))
 
-        description = d.pop("description", UNSET)
+        description = d.pop("description")
 
-        experience_tag_id = d.pop("experienceTagID", UNSET)
+        experience_tag_id = d.pop("experienceTagID")
 
-        name = d.pop("name", UNSET)
+        name = d.pop("name")
 
-        org_id = d.pop("orgID", UNSET)
+        org_id = d.pop("orgID")
 
-        project_id = d.pop("projectID", UNSET)
+        project_id = d.pop("projectID")
 
-        user_id = d.pop("userID", UNSET)
+        user_id = d.pop("userID")
 
         experience_tag = cls(
             creation_timestamp=creation_timestamp,

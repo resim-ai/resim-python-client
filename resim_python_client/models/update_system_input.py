@@ -1,39 +1,33 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Union
-from typing import cast
-
 if TYPE_CHECKING:
-    from ..models.experience import Experience
+    from ..models.update_system_fields import UpdateSystemFields
 
 
-T = TypeVar("T", bound="ExperienceInput")
+T = TypeVar("T", bound="UpdateSystemInput")
 
 
 @_attrs_define
-class ExperienceInput:
+class UpdateSystemInput:
     """
     Attributes:
-        experience (Union[Unset, Experience]):
+        system (Union[Unset, UpdateSystemFields]):
         update_mask (Union[Unset, List[str]]):
     """
 
-    experience: Union[Unset, "Experience"] = UNSET
+    system: Union[Unset, "UpdateSystemFields"] = UNSET
     update_mask: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        experience: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.experience, Unset):
-            experience = self.experience.to_dict()
+        system: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.system, Unset):
+            system = self.system.to_dict()
 
         update_mask: Union[Unset, List[str]] = UNSET
         if not isinstance(self.update_mask, Unset):
@@ -42,8 +36,8 @@ class ExperienceInput:
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if experience is not UNSET:
-            field_dict["experience"] = experience
+        if system is not UNSET:
+            field_dict["system"] = system
         if update_mask is not UNSET:
             field_dict["updateMask"] = update_mask
 
@@ -51,25 +45,25 @@ class ExperienceInput:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.experience import Experience
+        from ..models.update_system_fields import UpdateSystemFields
 
         d = src_dict.copy()
-        _experience = d.pop("experience", UNSET)
-        experience: Union[Unset, Experience]
-        if isinstance(_experience, Unset):
-            experience = UNSET
+        _system = d.pop("system", UNSET)
+        system: Union[Unset, UpdateSystemFields]
+        if isinstance(_system, Unset):
+            system = UNSET
         else:
-            experience = Experience.from_dict(_experience)
+            system = UpdateSystemFields.from_dict(_system)
 
         update_mask = cast(List[str], d.pop("updateMask", UNSET))
 
-        experience_input = cls(
-            experience=experience,
+        update_system_input = cls(
+            system=system,
             update_mask=update_mask,
         )
 
-        experience_input.additional_properties = d
-        return experience_input
+        update_system_input.additional_properties = d
+        return update_system_input
 
     @property
     def additional_keys(self) -> List[str]:

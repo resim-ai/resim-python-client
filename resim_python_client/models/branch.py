@@ -1,18 +1,11 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
 from dateutil.parser import isoparse
-from typing import Union
-from ..models.branch_type import BranchType
-import datetime
 
+from ..models.branch_type import BranchType
 
 T = TypeVar("T", bound="Branch")
 
@@ -21,89 +14,67 @@ T = TypeVar("T", bound="Branch")
 class Branch:
     """
     Attributes:
-        branch_id (Union[Unset, str]):
-        branch_type (Union[Unset, BranchType]):
-        creation_timestamp (Union[Unset, datetime.datetime]):
-        name (Union[Unset, str]):
-        org_id (Union[Unset, str]):
-        project_id (Union[Unset, str]):
-        user_id (Union[Unset, str]):
+        branch_id (str):
+        branch_type (BranchType):
+        creation_timestamp (datetime.datetime):
+        name (str):
+        org_id (str):
+        project_id (str):
+        user_id (str):
     """
 
-    branch_id: Union[Unset, str] = UNSET
-    branch_type: Union[Unset, BranchType] = UNSET
-    creation_timestamp: Union[Unset, datetime.datetime] = UNSET
-    name: Union[Unset, str] = UNSET
-    org_id: Union[Unset, str] = UNSET
-    project_id: Union[Unset, str] = UNSET
-    user_id: Union[Unset, str] = UNSET
+    branch_id: str
+    branch_type: BranchType
+    creation_timestamp: datetime.datetime
+    name: str
+    org_id: str
+    project_id: str
+    user_id: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         branch_id = self.branch_id
+        branch_type = self.branch_type.value
 
-        branch_type: Union[Unset, str] = UNSET
-        if not isinstance(self.branch_type, Unset):
-            branch_type = self.branch_type.value
-
-        creation_timestamp: Union[Unset, str] = UNSET
-        if not isinstance(self.creation_timestamp, Unset):
-            creation_timestamp = self.creation_timestamp.isoformat()
+        creation_timestamp = self.creation_timestamp.isoformat()
 
         name = self.name
-
         org_id = self.org_id
-
         project_id = self.project_id
-
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if branch_id is not UNSET:
-            field_dict["branchID"] = branch_id
-        if branch_type is not UNSET:
-            field_dict["branchType"] = branch_type
-        if creation_timestamp is not UNSET:
-            field_dict["creationTimestamp"] = creation_timestamp
-        if name is not UNSET:
-            field_dict["name"] = name
-        if org_id is not UNSET:
-            field_dict["orgID"] = org_id
-        if project_id is not UNSET:
-            field_dict["projectID"] = project_id
-        if user_id is not UNSET:
-            field_dict["userID"] = user_id
+        field_dict.update(
+            {
+                "branchID": branch_id,
+                "branchType": branch_type,
+                "creationTimestamp": creation_timestamp,
+                "name": name,
+                "orgID": org_id,
+                "projectID": project_id,
+                "userID": user_id,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        branch_id = d.pop("branchID", UNSET)
+        branch_id = d.pop("branchID")
 
-        _branch_type = d.pop("branchType", UNSET)
-        branch_type: Union[Unset, BranchType]
-        if isinstance(_branch_type, Unset):
-            branch_type = UNSET
-        else:
-            branch_type = BranchType(_branch_type)
+        branch_type = BranchType(d.pop("branchType"))
 
-        _creation_timestamp = d.pop("creationTimestamp", UNSET)
-        creation_timestamp: Union[Unset, datetime.datetime]
-        if isinstance(_creation_timestamp, Unset):
-            creation_timestamp = UNSET
-        else:
-            creation_timestamp = isoparse(_creation_timestamp)
+        creation_timestamp = isoparse(d.pop("creationTimestamp"))
 
-        name = d.pop("name", UNSET)
+        name = d.pop("name")
 
-        org_id = d.pop("orgID", UNSET)
+        org_id = d.pop("orgID")
 
-        project_id = d.pop("projectID", UNSET)
+        project_id = d.pop("projectID")
 
-        user_id = d.pop("userID", UNSET)
+        user_id = d.pop("userID")
 
         branch = cls(
             branch_id=branch_id,

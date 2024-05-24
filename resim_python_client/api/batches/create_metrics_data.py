@@ -3,11 +3,10 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.job_metrics_data import JobMetricsData
+from ...types import Response
 
 
 def _get_kwargs(
@@ -15,26 +14,22 @@ def _get_kwargs(
     batch_id: str,
     job_id: str,
     *,
-    body: JobMetricsData,
+    json_body: JobMetricsData,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    pass
+
+    json_json_body = json_body.to_dict()
+
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/metricsData".format(
-            project_id=project_id,
-            batch_id=batch_id,
-            job_id=job_id,
+        "url": "/projects/{projectID}/batches/{batchID}/jobs/{jobID}/metricsData".format(
+            projectID=project_id,
+            batchID=batch_id,
+            jobID=job_id,
         ),
+        "json": json_json_body,
     }
-
-    _body = body.to_dict()
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
 
 
 def _parse_response(
@@ -70,7 +65,7 @@ def sync_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    body: JobMetricsData,
+    json_body: JobMetricsData,
 ) -> Response[Union[Any, JobMetricsData]]:
     """Creates new metrics data associated with a job
 
@@ -78,7 +73,7 @@ def sync_detailed(
         project_id (str):
         batch_id (str):
         job_id (str):
-        body (JobMetricsData):
+        json_body (JobMetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -92,7 +87,7 @@ def sync_detailed(
         project_id=project_id,
         batch_id=batch_id,
         job_id=job_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -108,7 +103,7 @@ def sync(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    body: JobMetricsData,
+    json_body: JobMetricsData,
 ) -> Optional[Union[Any, JobMetricsData]]:
     """Creates new metrics data associated with a job
 
@@ -116,7 +111,7 @@ def sync(
         project_id (str):
         batch_id (str):
         job_id (str):
-        body (JobMetricsData):
+        json_body (JobMetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -131,7 +126,7 @@ def sync(
         batch_id=batch_id,
         job_id=job_id,
         client=client,
-        body=body,
+        json_body=json_body,
     ).parsed
 
 
@@ -141,7 +136,7 @@ async def asyncio_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    body: JobMetricsData,
+    json_body: JobMetricsData,
 ) -> Response[Union[Any, JobMetricsData]]:
     """Creates new metrics data associated with a job
 
@@ -149,7 +144,7 @@ async def asyncio_detailed(
         project_id (str):
         batch_id (str):
         job_id (str):
-        body (JobMetricsData):
+        json_body (JobMetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,7 +158,7 @@ async def asyncio_detailed(
         project_id=project_id,
         batch_id=batch_id,
         job_id=job_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -177,7 +172,7 @@ async def asyncio(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    body: JobMetricsData,
+    json_body: JobMetricsData,
 ) -> Optional[Union[Any, JobMetricsData]]:
     """Creates new metrics data associated with a job
 
@@ -185,7 +180,7 @@ async def asyncio(
         project_id (str):
         batch_id (str):
         job_id (str):
-        body (JobMetricsData):
+        json_body (JobMetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -201,6 +196,6 @@ async def asyncio(
             batch_id=batch_id,
             job_id=job_id,
             client=client,
-            body=body,
+            json_body=json_body,
         )
     ).parsed

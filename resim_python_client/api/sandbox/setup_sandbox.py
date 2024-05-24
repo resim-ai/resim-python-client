@@ -3,36 +3,29 @@ from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.sandbox_input import SandboxInput
+from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: SandboxInput,
+    json_body: SandboxInput,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    pass
+
+    json_json_body = json_body.to_dict()
+
+    return {
         "method": "post",
         "url": "/sandbox/:setup",
+        "json": json_json_body,
     }
 
-    _body = body.to_dict()
 
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
-
-
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Any]:
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
     if response.status_code == HTTPStatus.OK:
         return None
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -43,9 +36,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Any]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Any]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -57,12 +48,12 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: SandboxInput,
+    json_body: SandboxInput,
 ) -> Response[Any]:
     """Initializes a sandbox environment.
 
     Args:
-        body (SandboxInput):
+        json_body (SandboxInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -73,7 +64,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        body=body,
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -86,12 +77,12 @@ def sync_detailed(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: SandboxInput,
+    json_body: SandboxInput,
 ) -> Response[Any]:
     """Initializes a sandbox environment.
 
     Args:
-        body (SandboxInput):
+        json_body (SandboxInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -102,7 +93,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        body=body,
+        json_body=json_body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)

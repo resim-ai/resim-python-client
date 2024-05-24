@@ -1,18 +1,12 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
 from dateutil.parser import isoparse
-from typing import Union
-import datetime
-from ..models.job_status import JobStatus
 
+from ..models.job_status import JobStatus
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="JobStatusHistoryType")
 

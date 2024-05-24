@@ -18,7 +18,6 @@ from http import HTTPStatus
 import polling2
 import requests
 
-
 DEFAULT_SCOPE = "offline_access"
 DEFAULT_AUDIENCE = "https://api.resim.ai"
 DEFAULT_CACHE_LOCATION = pathlib.Path.home() / ".resim" / "token.json"
@@ -56,9 +55,7 @@ class DeviceCodeClient:
     def get_jwt(self) -> dict[str, typing.Any]:
         """Get the current token, fetching if necessary."""
         if self._token is None and self._cache_location.exists():
-            assert (
-                self._cache_location.is_file()
-            ), "Directory detected in cache location!"
+            assert self._cache_location.is_file(), "Directory detected in cache location!"
             with open(self._cache_location, "r", encoding="utf-8") as cache:
                 self._token = json.load(cache)
         elif self._token is None:
@@ -73,9 +70,7 @@ class DeviceCodeClient:
         return self._token
 
 
-def _get_new_token(
-    *, domain: str, client_id: str, scope: str, audience: str
-) -> dict[str, typing.Any]:
+def _get_new_token(*, domain: str, client_id: str, scope: str, audience: str) -> dict[str, typing.Any]:
     payload = {
         "client_id": client_id,
         "scope": scope,

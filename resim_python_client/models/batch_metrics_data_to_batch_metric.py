@@ -1,16 +1,9 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
-from typing import cast
-
 
 T = TypeVar("T", bound="BatchMetricsDataToBatchMetric")
 
@@ -29,7 +22,6 @@ class BatchMetricsDataToBatchMetric:
 
     def to_dict(self) -> Dict[str, Any]:
         batch_metric_id = self.batch_metric_id
-
         batch_metrics_data_i_ds: Union[Unset, List[str]] = UNSET
         if not isinstance(self.batch_metrics_data_i_ds, Unset):
             batch_metrics_data_i_ds = self.batch_metrics_data_i_ds

@@ -3,24 +3,24 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.view_object_and_metadata import ViewObjectAndMetadata
+from ...types import Response
 
 
 def _get_kwargs(
     view_session_id: str,
 ) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+
+    pass
+
+    return {
         "method": "get",
-        "url": "/view/sessions/{view_session_id}".format(
-            view_session_id=view_session_id,
+        "url": "/view/sessions/{viewSessionID}".format(
+            viewSessionID=view_session_id,
         ),
     }
-
-    return _kwargs
 
 
 def _parse_response(

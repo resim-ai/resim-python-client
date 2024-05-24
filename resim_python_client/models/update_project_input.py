@@ -1,39 +1,33 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Union
-from typing import cast
-
 if TYPE_CHECKING:
-    from ..models.experience_tag import ExperienceTag
+    from ..models.update_project_fields import UpdateProjectFields
 
 
-T = TypeVar("T", bound="ExperienceTagInput")
+T = TypeVar("T", bound="UpdateProjectInput")
 
 
 @_attrs_define
-class ExperienceTagInput:
+class UpdateProjectInput:
     """
     Attributes:
-        experience_tag (Union[Unset, ExperienceTag]):
+        project (Union[Unset, UpdateProjectFields]):
         update_mask (Union[Unset, List[str]]):
     """
 
-    experience_tag: Union[Unset, "ExperienceTag"] = UNSET
+    project: Union[Unset, "UpdateProjectFields"] = UNSET
     update_mask: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        experience_tag: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.experience_tag, Unset):
-            experience_tag = self.experience_tag.to_dict()
+        project: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.project, Unset):
+            project = self.project.to_dict()
 
         update_mask: Union[Unset, List[str]] = UNSET
         if not isinstance(self.update_mask, Unset):
@@ -42,8 +36,8 @@ class ExperienceTagInput:
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if experience_tag is not UNSET:
-            field_dict["experienceTag"] = experience_tag
+        if project is not UNSET:
+            field_dict["project"] = project
         if update_mask is not UNSET:
             field_dict["updateMask"] = update_mask
 
@@ -51,25 +45,25 @@ class ExperienceTagInput:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.experience_tag import ExperienceTag
+        from ..models.update_project_fields import UpdateProjectFields
 
         d = src_dict.copy()
-        _experience_tag = d.pop("experienceTag", UNSET)
-        experience_tag: Union[Unset, ExperienceTag]
-        if isinstance(_experience_tag, Unset):
-            experience_tag = UNSET
+        _project = d.pop("project", UNSET)
+        project: Union[Unset, UpdateProjectFields]
+        if isinstance(_project, Unset):
+            project = UNSET
         else:
-            experience_tag = ExperienceTag.from_dict(_experience_tag)
+            project = UpdateProjectFields.from_dict(_project)
 
         update_mask = cast(List[str], d.pop("updateMask", UNSET))
 
-        experience_tag_input = cls(
-            experience_tag=experience_tag,
+        update_project_input = cls(
+            project=project,
             update_mask=update_mask,
         )
 
-        experience_tag_input.additional_properties = d
-        return experience_tag_input
+        update_project_input.additional_properties = d
+        return update_project_input
 
     @property
     def additional_keys(self) -> List[str]:

@@ -1,15 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
-from typing import cast
 
 if TYPE_CHECKING:
     from ..models.sweep_parameter import SweepParameter
@@ -22,75 +16,71 @@ T = TypeVar("T", bound="ParameterSweepInput")
 class ParameterSweepInput:
     """
     Attributes:
+        associated_account (Union[Unset, str]):
         build_id (Union[Unset, str]):
-        experience_i_ds (Union[List[str], None, Unset]):
-        experience_names (Union[List[str], None, Unset]):
-        experience_tag_i_ds (Union[List[str], None, Unset]):
-        experience_tag_names (Union[List[str], None, Unset]):
+        experience_i_ds (Union[Unset, None, List[str]]):
+        experience_names (Union[Unset, None, List[str]]):
+        experience_tag_i_ds (Union[Unset, None, List[str]]):
+        experience_tag_names (Union[Unset, None, List[str]]):
         metrics_build_id (Union[Unset, str]):
         parameters (Union[Unset, List['SweepParameter']]):
     """
 
+    associated_account: Union[Unset, str] = UNSET
     build_id: Union[Unset, str] = UNSET
-    experience_i_ds: Union[List[str], None, Unset] = UNSET
-    experience_names: Union[List[str], None, Unset] = UNSET
-    experience_tag_i_ds: Union[List[str], None, Unset] = UNSET
-    experience_tag_names: Union[List[str], None, Unset] = UNSET
+    experience_i_ds: Union[Unset, None, List[str]] = UNSET
+    experience_names: Union[Unset, None, List[str]] = UNSET
+    experience_tag_i_ds: Union[Unset, None, List[str]] = UNSET
+    experience_tag_names: Union[Unset, None, List[str]] = UNSET
     metrics_build_id: Union[Unset, str] = UNSET
     parameters: Union[Unset, List["SweepParameter"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        associated_account = self.associated_account
         build_id = self.build_id
+        experience_i_ds: Union[Unset, None, List[str]] = UNSET
+        if not isinstance(self.experience_i_ds, Unset):
+            if self.experience_i_ds is None:
+                experience_i_ds = None
+            else:
+                experience_i_ds = self.experience_i_ds
 
-        experience_i_ds: Union[List[str], None, Unset]
-        if isinstance(self.experience_i_ds, Unset):
-            experience_i_ds = UNSET
-        elif isinstance(self.experience_i_ds, list):
-            experience_i_ds = self.experience_i_ds
+        experience_names: Union[Unset, None, List[str]] = UNSET
+        if not isinstance(self.experience_names, Unset):
+            if self.experience_names is None:
+                experience_names = None
+            else:
+                experience_names = self.experience_names
 
-        else:
-            experience_i_ds = self.experience_i_ds
+        experience_tag_i_ds: Union[Unset, None, List[str]] = UNSET
+        if not isinstance(self.experience_tag_i_ds, Unset):
+            if self.experience_tag_i_ds is None:
+                experience_tag_i_ds = None
+            else:
+                experience_tag_i_ds = self.experience_tag_i_ds
 
-        experience_names: Union[List[str], None, Unset]
-        if isinstance(self.experience_names, Unset):
-            experience_names = UNSET
-        elif isinstance(self.experience_names, list):
-            experience_names = self.experience_names
-
-        else:
-            experience_names = self.experience_names
-
-        experience_tag_i_ds: Union[List[str], None, Unset]
-        if isinstance(self.experience_tag_i_ds, Unset):
-            experience_tag_i_ds = UNSET
-        elif isinstance(self.experience_tag_i_ds, list):
-            experience_tag_i_ds = self.experience_tag_i_ds
-
-        else:
-            experience_tag_i_ds = self.experience_tag_i_ds
-
-        experience_tag_names: Union[List[str], None, Unset]
-        if isinstance(self.experience_tag_names, Unset):
-            experience_tag_names = UNSET
-        elif isinstance(self.experience_tag_names, list):
-            experience_tag_names = self.experience_tag_names
-
-        else:
-            experience_tag_names = self.experience_tag_names
+        experience_tag_names: Union[Unset, None, List[str]] = UNSET
+        if not isinstance(self.experience_tag_names, Unset):
+            if self.experience_tag_names is None:
+                experience_tag_names = None
+            else:
+                experience_tag_names = self.experience_tag_names
 
         metrics_build_id = self.metrics_build_id
-
         parameters: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.parameters, Unset):
             parameters = []
             for parameters_item_data in self.parameters:
                 parameters_item = parameters_item_data.to_dict()
+
                 parameters.append(parameters_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if associated_account is not UNSET:
+            field_dict["associatedAccount"] = associated_account
         if build_id is not UNSET:
             field_dict["buildID"] = build_id
         if experience_i_ds is not UNSET:
@@ -113,79 +103,17 @@ class ParameterSweepInput:
         from ..models.sweep_parameter import SweepParameter
 
         d = src_dict.copy()
+        associated_account = d.pop("associatedAccount", UNSET)
+
         build_id = d.pop("buildID", UNSET)
 
-        def _parse_experience_i_ds(data: object) -> Union[List[str], None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, list):
-                    raise TypeError()
-                experience_i_ds_type_0 = cast(List[str], data)
+        experience_i_ds = cast(List[str], d.pop("experienceIDs", UNSET))
 
-                return experience_i_ds_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[List[str], None, Unset], data)
+        experience_names = cast(List[str], d.pop("experienceNames", UNSET))
 
-        experience_i_ds = _parse_experience_i_ds(d.pop("experienceIDs", UNSET))
+        experience_tag_i_ds = cast(List[str], d.pop("experienceTagIDs", UNSET))
 
-        def _parse_experience_names(data: object) -> Union[List[str], None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, list):
-                    raise TypeError()
-                experience_names_type_0 = cast(List[str], data)
-
-                return experience_names_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[List[str], None, Unset], data)
-
-        experience_names = _parse_experience_names(d.pop("experienceNames", UNSET))
-
-        def _parse_experience_tag_i_ds(data: object) -> Union[List[str], None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, list):
-                    raise TypeError()
-                experience_tag_i_ds_type_0 = cast(List[str], data)
-
-                return experience_tag_i_ds_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[List[str], None, Unset], data)
-
-        experience_tag_i_ds = _parse_experience_tag_i_ds(
-            d.pop("experienceTagIDs", UNSET)
-        )
-
-        def _parse_experience_tag_names(data: object) -> Union[List[str], None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, list):
-                    raise TypeError()
-                experience_tag_names_type_0 = cast(List[str], data)
-
-                return experience_tag_names_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union[List[str], None, Unset], data)
-
-        experience_tag_names = _parse_experience_tag_names(
-            d.pop("experienceTagNames", UNSET)
-        )
+        experience_tag_names = cast(List[str], d.pop("experienceTagNames", UNSET))
 
         metrics_build_id = d.pop("metricsBuildID", UNSET)
 
@@ -197,6 +125,7 @@ class ParameterSweepInput:
             parameters.append(parameters_item)
 
         parameter_sweep_input = cls(
+            associated_account=associated_account,
             build_id=build_id,
             experience_i_ds=experience_i_ds,
             experience_names=experience_names,

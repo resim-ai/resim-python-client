@@ -1,16 +1,9 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
-from typing import cast
-
 
 T = TypeVar("T", bound="SweepParameter")
 
@@ -29,7 +22,6 @@ class SweepParameter:
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
-
         values: Union[Unset, List[str]] = UNSET
         if not isinstance(self.values, Unset):
             values = self.values

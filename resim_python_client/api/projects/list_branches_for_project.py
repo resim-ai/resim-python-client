@@ -3,22 +3,33 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
+from ...models.branch_type import BranchType
 from ...models.list_branches_output import ListBranchesOutput
-from ...types import Unset
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    branch_type: Union[Unset, None, BranchType] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
+
+    pass
+
     params: Dict[str, Any] = {}
+    params["name"] = name
+
+    json_branch_type: Union[Unset, None, str] = UNSET
+    if not isinstance(branch_type, Unset):
+        json_branch_type = branch_type.value if branch_type else None
+
+    params["branchType"] = json_branch_type
 
     params["pageSize"] = page_size
 
@@ -28,15 +39,13 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/branches".format(
-            project_id=project_id,
+        "url": "/projects/{projectID}/branches".format(
+            projectID=project_id,
         ),
         "params": params,
     }
-
-    return _kwargs
 
 
 def _parse_response(
@@ -73,17 +82,21 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    branch_type: Union[Unset, None, BranchType] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBranchesOutput]]:
     """Returns the list of branches for a project.
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        name (Union[Unset, None, str]):
+        branch_type (Union[Unset, None, BranchType]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -95,6 +108,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        name=name,
+        branch_type=branch_type,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -111,17 +126,21 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    branch_type: Union[Unset, None, BranchType] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBranchesOutput]]:
     """Returns the list of branches for a project.
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        name (Union[Unset, None, str]):
+        branch_type (Union[Unset, None, BranchType]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -134,6 +153,8 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
+        name=name,
+        branch_type=branch_type,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -144,17 +165,21 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    branch_type: Union[Unset, None, BranchType] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBranchesOutput]]:
     """Returns the list of branches for a project.
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        name (Union[Unset, None, str]):
+        branch_type (Union[Unset, None, BranchType]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -166,6 +191,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        name=name,
+        branch_type=branch_type,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -180,17 +207,21 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    branch_type: Union[Unset, None, BranchType] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBranchesOutput]]:
     """Returns the list of branches for a project.
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        name (Union[Unset, None, str]):
+        branch_type (Union[Unset, None, BranchType]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -204,6 +235,8 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
+            name=name,
+            branch_type=branch_type,
             page_size=page_size,
             page_token=page_token,
             order_by=order_by,

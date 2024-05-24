@@ -1,17 +1,9 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
 from dateutil.parser import isoparse
-from typing import Union
-import datetime
-
 
 T = TypeVar("T", bound="MetricsBuild")
 
@@ -20,90 +12,72 @@ T = TypeVar("T", bound="MetricsBuild")
 class MetricsBuild:
     """
     Attributes:
-        creation_timestamp (Union[Unset, datetime.datetime]):
-        image_uri (Union[Unset, str]):
-        metrics_build_id (Union[Unset, str]):
-        name (Union[Unset, str]):
-        org_id (Union[Unset, str]):
-        project_id (Union[Unset, str]):
-        user_id (Union[Unset, str]):
-        version (Union[Unset, str]):
+        creation_timestamp (datetime.datetime):
+        image_uri (str):
+        metrics_build_id (str):
+        name (str):
+        org_id (str):
+        project_id (str):
+        user_id (str):
+        version (str):
     """
 
-    creation_timestamp: Union[Unset, datetime.datetime] = UNSET
-    image_uri: Union[Unset, str] = UNSET
-    metrics_build_id: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
-    org_id: Union[Unset, str] = UNSET
-    project_id: Union[Unset, str] = UNSET
-    user_id: Union[Unset, str] = UNSET
-    version: Union[Unset, str] = UNSET
+    creation_timestamp: datetime.datetime
+    image_uri: str
+    metrics_build_id: str
+    name: str
+    org_id: str
+    project_id: str
+    user_id: str
+    version: str
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        creation_timestamp: Union[Unset, str] = UNSET
-        if not isinstance(self.creation_timestamp, Unset):
-            creation_timestamp = self.creation_timestamp.isoformat()
+        creation_timestamp = self.creation_timestamp.isoformat()
 
         image_uri = self.image_uri
-
         metrics_build_id = self.metrics_build_id
-
         name = self.name
-
         org_id = self.org_id
-
         project_id = self.project_id
-
         user_id = self.user_id
-
         version = self.version
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if creation_timestamp is not UNSET:
-            field_dict["creationTimestamp"] = creation_timestamp
-        if image_uri is not UNSET:
-            field_dict["imageUri"] = image_uri
-        if metrics_build_id is not UNSET:
-            field_dict["metricsBuildID"] = metrics_build_id
-        if name is not UNSET:
-            field_dict["name"] = name
-        if org_id is not UNSET:
-            field_dict["orgID"] = org_id
-        if project_id is not UNSET:
-            field_dict["projectID"] = project_id
-        if user_id is not UNSET:
-            field_dict["userID"] = user_id
-        if version is not UNSET:
-            field_dict["version"] = version
+        field_dict.update(
+            {
+                "creationTimestamp": creation_timestamp,
+                "imageUri": image_uri,
+                "metricsBuildID": metrics_build_id,
+                "name": name,
+                "orgID": org_id,
+                "projectID": project_id,
+                "userID": user_id,
+                "version": version,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        _creation_timestamp = d.pop("creationTimestamp", UNSET)
-        creation_timestamp: Union[Unset, datetime.datetime]
-        if isinstance(_creation_timestamp, Unset):
-            creation_timestamp = UNSET
-        else:
-            creation_timestamp = isoparse(_creation_timestamp)
+        creation_timestamp = isoparse(d.pop("creationTimestamp"))
 
-        image_uri = d.pop("imageUri", UNSET)
+        image_uri = d.pop("imageUri")
 
-        metrics_build_id = d.pop("metricsBuildID", UNSET)
+        metrics_build_id = d.pop("metricsBuildID")
 
-        name = d.pop("name", UNSET)
+        name = d.pop("name")
 
-        org_id = d.pop("orgID", UNSET)
+        org_id = d.pop("orgID")
 
-        project_id = d.pop("projectID", UNSET)
+        project_id = d.pop("projectID")
 
-        user_id = d.pop("userID", UNSET)
+        user_id = d.pop("userID")
 
-        version = d.pop("version", UNSET)
+        version = d.pop("version")
 
         metrics_build = cls(
             creation_timestamp=creation_timestamp,
