@@ -1,43 +1,35 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.batch import Batch
-from typing import cast
-from typing import Dict
-
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     batch_id: str,
-
 ) -> Dict[str, Any]:
-    
 
-    
+    pass
 
-    
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/batches/{batch_id}".format(project_id=project_id,batch_id=batch_id,),
+        "url": "/projects/{projectID}/batches/{batchID}".format(
+            projectID=project_id,
+            batchID=batch_id,
+        ),
     }
 
 
-    return _kwargs
-
-
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Batch]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, Batch]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = Batch.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -52,7 +44,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Batch]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, Batch]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,9 +60,8 @@ def sync_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Union[Any, Batch]]:
-    """  Returns a batch.
+    """Returns a batch.
 
     Args:
         project_id (str):
@@ -80,13 +73,11 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Batch]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-
+        batch_id=batch_id,
     )
 
     response = client.get_httpx_client().request(
@@ -95,14 +86,14 @@ batch_id=batch_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     batch_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[Union[Any, Batch]]:
-    """  Returns a batch.
+    """Returns a batch.
 
     Args:
         project_id (str):
@@ -114,24 +105,22 @@ def sync(
 
     Returns:
         Union[Any, Batch]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-batch_id=batch_id,
-client=client,
-
+        batch_id=batch_id,
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
     batch_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Union[Any, Batch]]:
-    """  Returns a batch.
+    """Returns a batch.
 
     Args:
         project_id (str):
@@ -143,29 +132,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Batch]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-
+        batch_id=batch_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
     batch_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[Union[Any, Batch]]:
-    """  Returns a batch.
+    """Returns a batch.
 
     Args:
         project_id (str):
@@ -177,12 +162,12 @@ async def asyncio(
 
     Returns:
         Union[Any, Batch]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-batch_id=batch_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            batch_id=batch_id,
+            client=client,
+        )
+    ).parsed

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class JobStatus(str, Enum):
     CANCELLED = "CANCELLED"
     ERROR = "ERROR"

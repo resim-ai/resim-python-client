@@ -1,43 +1,28 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from typing import cast
-from typing import Dict
+from ...client import AuthenticatedClient, Client
 from ...models.sandbox_input import SandboxInput
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: SandboxInput,
-
+    json_body: SandboxInput,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
+    pass
 
-    
+    json_json_body = json_body.to_dict()
 
-    
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "delete",
         "url": "/sandbox/:destroy",
+        "json": json_json_body,
     }
-
-    _body = body.to_dict()
-
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
@@ -63,13 +48,12 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: SandboxInput,
-
+    json_body: SandboxInput,
 ) -> Response[Any]:
-    """  Destroys a sandbox environment.
+    """Destroys a sandbox environment.
 
     Args:
-        body (SandboxInput):
+        json_body (SandboxInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -77,12 +61,10 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
-        body=body,
-
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -95,13 +77,12 @@ def sync_detailed(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: SandboxInput,
-
+    json_body: SandboxInput,
 ) -> Response[Any]:
-    """  Destroys a sandbox environment.
+    """Destroys a sandbox environment.
 
     Args:
-        body (SandboxInput):
+        json_body (SandboxInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,17 +90,12 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
-        body=body,
-
+        json_body=json_body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
-

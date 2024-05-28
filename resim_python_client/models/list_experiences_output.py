@@ -1,24 +1,12 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Dict
-from typing import cast
-from ..types import UNSET, Unset
-from typing import cast, List
-from typing import Union
-
 if TYPE_CHECKING:
-  from ..models.experience import Experience
-
-
-
+    from ..models.experience import Experience
 
 
 T = TypeVar("T", bound="ListExperiencesOutput")
@@ -26,37 +14,30 @@ T = TypeVar("T", bound="ListExperiencesOutput")
 
 @_attrs_define
 class ListExperiencesOutput:
-    """ 
-        Attributes:
-            experiences (Union[Unset, List['Experience']]):
-            next_page_token (Union[Unset, str]):
-     """
+    """
+    Attributes:
+        experiences (Union[Unset, List['Experience']]):
+        next_page_token (Union[Unset, str]):
+    """
 
-    experiences: Union[Unset, List['Experience']] = UNSET
+    experiences: Union[Unset, List["Experience"]] = UNSET
     next_page_token: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.experience import Experience
         experiences: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.experiences, Unset):
             experiences = []
             for experiences_item_data in self.experiences:
                 experiences_item = experiences_item_data.to_dict()
+
                 experiences.append(experiences_item)
-
-
-
-
 
         next_page_token = self.next_page_token
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if experiences is not UNSET:
             field_dict["experiences"] = experiences
         if next_page_token is not UNSET:
@@ -64,21 +45,17 @@ class ListExperiencesOutput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.experience import Experience
+
         d = src_dict.copy()
         experiences = []
         _experiences = d.pop("experiences", UNSET)
-        for experiences_item_data in (_experiences or []):
+        for experiences_item_data in _experiences or []:
             experiences_item = Experience.from_dict(experiences_item_data)
 
-
-
             experiences.append(experiences_item)
-
 
         next_page_token = d.pop("nextPageToken", UNSET)
 

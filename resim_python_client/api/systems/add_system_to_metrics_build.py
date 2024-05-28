@@ -1,41 +1,39 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-
+from ...client import AuthenticatedClient, Client
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
-    launch_profile_id: str,
-
+    system_id: str,
+    metrics_build_id: str,
 ) -> Dict[str, Any]:
-    
 
-    
+    pass
 
-    
-
-    _kwargs: Dict[str, Any] = {
-        "method": "delete",
-        "url": "/projects/{project_id}/launchProfiles/{launch_profile_id}".format(project_id=project_id,launch_profile_id=launch_profile_id,),
+    return {
+        "method": "post",
+        "url": "/projects/{projectID}/systems/{systemID}/metricsBuilds/{metricsBuildID}".format(
+            projectID=project_id,
+            systemID=system_id,
+            metricsBuildID=metrics_build_id,
+        ),
     }
 
 
-    return _kwargs
-
-
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
-    if response.status_code == HTTPStatus.NO_CONTENT:
+    if response.status_code == HTTPStatus.CREATED:
         return None
     if response.status_code == HTTPStatus.UNAUTHORIZED:
         return None
     if response.status_code == HTTPStatus.NOT_FOUND:
+        return None
+    if response.status_code == HTTPStatus.CONFLICT:
         return None
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -54,16 +52,17 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 def sync_detailed(
     project_id: str,
-    launch_profile_id: str,
+    system_id: str,
+    metrics_build_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """  Deletes a launch profile.
+    """Registers the given metrics build as applicable for the system
 
     Args:
         project_id (str):
-        launch_profile_id (str):
+        system_id (str):
+        metrics_build_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -71,13 +70,12 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-launch_profile_id=launch_profile_id,
-
+        system_id=system_id,
+        metrics_build_id=metrics_build_id,
     )
 
     response = client.get_httpx_client().request(
@@ -89,16 +87,17 @@ launch_profile_id=launch_profile_id,
 
 async def asyncio_detailed(
     project_id: str,
-    launch_profile_id: str,
+    system_id: str,
+    metrics_build_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """  Deletes a launch profile.
+    """Registers the given metrics build as applicable for the system
 
     Args:
         project_id (str):
-        launch_profile_id (str):
+        system_id (str):
+        metrics_build_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -106,18 +105,14 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-launch_profile_id=launch_profile_id,
-
+        system_id=system_id,
+        metrics_build_id=metrics_build_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
-

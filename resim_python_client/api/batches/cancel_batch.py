@@ -1,33 +1,27 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-
+from ...client import AuthenticatedClient, Client
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     batch_id: str,
-
 ) -> Dict[str, Any]:
-    
 
-    
+    pass
 
-    
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/batches/{batch_id}/:cancel".format(project_id=project_id,batch_id=batch_id,),
+        "url": "/projects/{projectID}/batches/{batchID}/:cancel".format(
+            projectID=project_id,
+            batchID=batch_id,
+        ),
     }
-
-
-    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
@@ -57,9 +51,8 @@ def sync_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """  Cancels a batch.
+    """Cancels a batch.
 
     Args:
         project_id (str):
@@ -71,13 +64,11 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-
+        batch_id=batch_id,
     )
 
     response = client.get_httpx_client().request(
@@ -92,9 +83,8 @@ async def asyncio_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """  Cancels a batch.
+    """Cancels a batch.
 
     Args:
         project_id (str):
@@ -106,18 +96,13 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-
+        batch_id=batch_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
-

@@ -1,51 +1,39 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.branch import Branch
-from typing import cast
-from typing import Dict
-
+from ...models.create_branch_input import CreateBranchInput
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    body: Branch,
-
+    json_body: CreateBranchInput,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
+    pass
 
-    
+    json_json_body = json_body.to_dict()
 
-    
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/branches".format(project_id=project_id,),
+        "url": "/projects/{projectID}/branches".format(
+            projectID=project_id,
+        ),
+        "json": json_json_body,
     }
 
-    _body = body.to_dict()
 
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
-
-
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, Branch]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, Branch]]:
     if response.status_code == HTTPStatus.CREATED:
         response_201 = Branch.from_dict(response.json())
-
-
 
         return response_201
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -63,7 +51,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, Branch]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, Branch]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,14 +66,13 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: Branch,
-
+    json_body: CreateBranchInput,
 ) -> Response[Union[Any, Branch]]:
-    """  Adds a branch for a project.  ID should be omitted and will be returned in the response.
+    """Adds a branch for a project.
 
     Args:
         project_id (str):
-        body (Branch):
+        json_body (CreateBranchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -91,13 +80,11 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, Branch]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-body=body,
-
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -106,18 +93,18 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: Branch,
-
+    json_body: CreateBranchInput,
 ) -> Optional[Union[Any, Branch]]:
-    """  Adds a branch for a project.  ID should be omitted and will be returned in the response.
+    """Adds a branch for a project.
 
     Args:
         project_id (str):
-        body (Branch):
+        json_body (CreateBranchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -125,28 +112,26 @@ def sync(
 
     Returns:
         Union[Any, Branch]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-client=client,
-body=body,
-
+        client=client,
+        json_body=json_body,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: Branch,
-
+    json_body: CreateBranchInput,
 ) -> Response[Union[Any, Branch]]:
-    """  Adds a branch for a project.  ID should be omitted and will be returned in the response.
+    """Adds a branch for a project.
 
     Args:
         project_id (str):
-        body (Branch):
+        json_body (CreateBranchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -154,33 +139,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, Branch]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-body=body,
-
+        json_body=json_body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: Branch,
-
+    json_body: CreateBranchInput,
 ) -> Optional[Union[Any, Branch]]:
-    """  Adds a branch for a project.  ID should be omitted and will be returned in the response.
+    """Adds a branch for a project.
 
     Args:
         project_id (str):
-        body (Branch):
+        json_body (CreateBranchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -188,12 +169,12 @@ async def asyncio(
 
     Returns:
         Union[Any, Branch]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            client=client,
+            json_body=json_body,
+        )
+    ).parsed

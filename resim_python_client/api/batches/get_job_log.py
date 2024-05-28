@@ -1,16 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.job_log import JobLog
-from typing import cast
-from typing import Dict
-
+from ...types import Response
 
 
 def _get_kwargs(
@@ -18,28 +14,26 @@ def _get_kwargs(
     batch_id: str,
     job_id: str,
     log_id: str,
-
 ) -> Dict[str, Any]:
-    
 
-    
+    pass
 
-    
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/logs/{log_id}".format(project_id=project_id,batch_id=batch_id,job_id=job_id,log_id=log_id,),
+        "url": "/projects/{projectID}/batches/{batchID}/jobs/{jobID}/logs/{logID}".format(
+            projectID=project_id,
+            batchID=batch_id,
+            jobID=job_id,
+            logID=log_id,
+        ),
     }
 
 
-    return _kwargs
-
-
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, JobLog]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, JobLog]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = JobLog.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -54,7 +48,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, JobLog]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, JobLog]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,9 +66,8 @@ def sync_detailed(
     log_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Union[Any, JobLog]]:
-    """  Get an individual log file
+    """Get an individual log file
 
     Args:
         project_id (str):
@@ -86,15 +81,13 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, JobLog]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-log_id=log_id,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        log_id=log_id,
     )
 
     response = client.get_httpx_client().request(
@@ -103,6 +96,7 @@ log_id=log_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     batch_id: str,
@@ -110,9 +104,8 @@ def sync(
     log_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[Union[Any, JobLog]]:
-    """  Get an individual log file
+    """Get an individual log file
 
     Args:
         project_id (str):
@@ -126,17 +119,16 @@ def sync(
 
     Returns:
         Union[Any, JobLog]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-log_id=log_id,
-client=client,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        log_id=log_id,
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -145,9 +137,8 @@ async def asyncio_detailed(
     log_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Union[Any, JobLog]]:
-    """  Get an individual log file
+    """Get an individual log file
 
     Args:
         project_id (str):
@@ -161,22 +152,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, JobLog]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-log_id=log_id,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        log_id=log_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -185,9 +173,8 @@ async def asyncio(
     log_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Optional[Union[Any, JobLog]]:
-    """  Get an individual log file
+    """Get an individual log file
 
     Args:
         project_id (str):
@@ -201,14 +188,14 @@ async def asyncio(
 
     Returns:
         Union[Any, JobLog]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-log_id=log_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            batch_id=batch_id,
+            job_id=job_id,
+            log_id=log_id,
+            client=client,
+        )
+    ).parsed

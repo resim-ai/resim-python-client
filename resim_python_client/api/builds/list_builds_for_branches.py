@@ -3,59 +3,47 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...types import UNSET, Unset
-from typing import cast
+from ...client import AuthenticatedClient, Client
 from ...models.list_builds_output import ListBuildsOutput
-from typing import Dict
-from typing import cast, List
-from typing import Union
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     branch_id: List[str],
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    
 
-    
+    pass
 
     params: Dict[str, Any] = {}
-
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
 
     params["orderBy"] = order_by
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/branches/{branch_id}/builds".format(project_id=project_id,branch_id=branch_id,),
+        "url": "/projects/{projectID}/branches/{branchID}/builds".format(
+            projectID=project_id,
+            branchID=branch_id,
+        ),
         "params": params,
     }
 
 
-    return _kwargs
-
-
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ListBuildsOutput]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, ListBuildsOutput]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = ListBuildsOutput.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -70,7 +58,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ListBuildsOutput]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, ListBuildsOutput]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -84,19 +74,18 @@ def sync_detailed(
     branch_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBuildsOutput]]:
-    """  Returns the list of builds for a branch.
+    """Returns the list of builds for a branch.
 
     Args:
         project_id (str):
         branch_id (List[str]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -104,16 +93,14 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, ListBuildsOutput]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-branch_id=branch_id,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        branch_id=branch_id,
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     )
 
     response = client.get_httpx_client().request(
@@ -122,24 +109,24 @@ order_by=order_by,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     branch_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBuildsOutput]]:
-    """  Returns the list of builds for a branch.
+    """Returns the list of builds for a branch.
 
     Args:
         project_id (str):
         branch_id (List[str]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -147,37 +134,35 @@ def sync(
 
     Returns:
         Union[Any, ListBuildsOutput]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-branch_id=branch_id,
-client=client,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        branch_id=branch_id,
+        client=client,
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
     branch_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBuildsOutput]]:
-    """  Returns the list of builds for a branch.
+    """Returns the list of builds for a branch.
 
     Args:
         project_id (str):
         branch_id (List[str]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -185,42 +170,38 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, ListBuildsOutput]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-branch_id=branch_id,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
+        branch_id=branch_id,
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
     branch_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBuildsOutput]]:
-    """  Returns the list of builds for a branch.
+    """Returns the list of builds for a branch.
 
     Args:
         project_id (str):
         branch_id (List[str]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -228,15 +209,15 @@ async def asyncio(
 
     Returns:
         Union[Any, ListBuildsOutput]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-branch_id=branch_id,
-client=client,
-page_size=page_size,
-page_token=page_token,
-order_by=order_by,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            branch_id=branch_id,
+            client=client,
+            page_size=page_size,
+            page_token=page_token,
+            order_by=order_by,
+        )
+    ).parsed

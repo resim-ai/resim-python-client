@@ -1,24 +1,12 @@
-from typing import Any, Dict, Type, TypeVar, Tuple, Optional, BinaryIO, TextIO, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Dict
-from typing import cast
-from ..types import UNSET, Unset
-from typing import cast, List
-from typing import Union
-
 if TYPE_CHECKING:
-  from ..models.job_metric import JobMetric
-
-
-
+    from ..models.job_metric import JobMetric
 
 
 T = TypeVar("T", bound="ListJobMetricsOutput")
@@ -26,37 +14,30 @@ T = TypeVar("T", bound="ListJobMetricsOutput")
 
 @_attrs_define
 class ListJobMetricsOutput:
-    """ 
-        Attributes:
-            metrics (Union[Unset, List['JobMetric']]):
-            next_page_token (Union[Unset, str]):
-     """
+    """
+    Attributes:
+        metrics (Union[Unset, List['JobMetric']]):
+        next_page_token (Union[Unset, str]):
+    """
 
-    metrics: Union[Unset, List['JobMetric']] = UNSET
+    metrics: Union[Unset, List["JobMetric"]] = UNSET
     next_page_token: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.job_metric import JobMetric
         metrics: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.metrics, Unset):
             metrics = []
             for metrics_item_data in self.metrics:
                 metrics_item = metrics_item_data.to_dict()
+
                 metrics.append(metrics_item)
-
-
-
-
 
         next_page_token = self.next_page_token
 
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if metrics is not UNSET:
             field_dict["metrics"] = metrics
         if next_page_token is not UNSET:
@@ -64,21 +45,17 @@ class ListJobMetricsOutput:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.job_metric import JobMetric
+
         d = src_dict.copy()
         metrics = []
         _metrics = d.pop("metrics", UNSET)
-        for metrics_item_data in (_metrics or []):
+        for metrics_item_data in _metrics or []:
             metrics_item = JobMetric.from_dict(metrics_item_data)
 
-
-
             metrics.append(metrics_item)
-
 
         next_page_token = d.pop("nextPageToken", UNSET)
 

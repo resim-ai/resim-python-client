@@ -1,34 +1,29 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-
+from ...client import AuthenticatedClient, Client
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     experience_tag_id: str,
     experience_id: str,
-
 ) -> Dict[str, Any]:
-    
 
-    
+    pass
 
-    
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "delete",
-        "url": "/projects/{project_id}/experienceTags/{experience_tag_id}/experiences/{experience_id}".format(project_id=project_id,experience_tag_id=experience_tag_id,experience_id=experience_id,),
+        "url": "/projects/{projectID}/experienceTags/{experienceTagID}/experiences/{experienceID}".format(
+            projectID=project_id,
+            experienceTagID=experience_tag_id,
+            experienceID=experience_id,
+        ),
     }
-
-
-    return _kwargs
 
 
 def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
@@ -59,9 +54,8 @@ def sync_detailed(
     experience_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """  Removes the given experience tag from the given experience.
+    """Removes the given experience tag from the given experience.
 
     Args:
         project_id (str):
@@ -74,14 +68,12 @@ def sync_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-experience_tag_id=experience_tag_id,
-experience_id=experience_id,
-
+        experience_tag_id=experience_tag_id,
+        experience_id=experience_id,
     )
 
     response = client.get_httpx_client().request(
@@ -97,9 +89,8 @@ async def asyncio_detailed(
     experience_id: str,
     *,
     client: AuthenticatedClient,
-
 ) -> Response[Any]:
-    """  Removes the given experience tag from the given experience.
+    """Removes the given experience tag from the given experience.
 
     Args:
         project_id (str):
@@ -112,19 +103,14 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-experience_tag_id=experience_tag_id,
-experience_id=experience_id,
-
+        experience_tag_id=experience_tag_id,
+        experience_id=experience_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
-

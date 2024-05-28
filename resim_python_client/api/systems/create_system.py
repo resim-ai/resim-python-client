@@ -1,51 +1,39 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...models.launch_profile import LaunchProfile
-from typing import cast
-from typing import Dict
-
+from ...client import AuthenticatedClient, Client
+from ...models.create_system_input import CreateSystemInput
+from ...models.system import System
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    body: LaunchProfile,
-
+    json_body: CreateSystemInput,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
+    pass
 
-    
+    json_json_body = json_body.to_dict()
 
-    
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/launchProfiles".format(project_id=project_id,),
+        "url": "/projects/{projectID}/systems".format(
+            projectID=project_id,
+        ),
+        "json": json_json_body,
     }
 
-    _body = body.to_dict()
 
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
-
-
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, LaunchProfile]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, System]]:
     if response.status_code == HTTPStatus.CREATED:
-        response_201 = LaunchProfile.from_dict(response.json())
-
-
+        response_201 = System.from_dict(response.json())
 
         return response_201
     if response.status_code == HTTPStatus.BAD_REQUEST:
@@ -63,7 +51,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, LaunchProfile]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, System]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,28 +66,25 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: LaunchProfile,
-
-) -> Response[Union[Any, LaunchProfile]]:
-    """  Adds a launch profile.  ID should be omitted and will be returned in the response.
+    json_body: CreateSystemInput,
+) -> Response[Union[Any, System]]:
+    """Adds a system.
 
     Args:
         project_id (str):
-        body (LaunchProfile):
+        json_body (CreateSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, LaunchProfile]]
-     """
-
+        Response[Union[Any, System]]
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-body=body,
-
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -106,94 +93,88 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: LaunchProfile,
-
-) -> Optional[Union[Any, LaunchProfile]]:
-    """  Adds a launch profile.  ID should be omitted and will be returned in the response.
+    json_body: CreateSystemInput,
+) -> Optional[Union[Any, System]]:
+    """Adds a system.
 
     Args:
         project_id (str):
-        body (LaunchProfile):
+        json_body (CreateSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, LaunchProfile]
-     """
-
+        Union[Any, System]
+    """
 
     return sync_detailed(
         project_id=project_id,
-client=client,
-body=body,
-
+        client=client,
+        json_body=json_body,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: LaunchProfile,
-
-) -> Response[Union[Any, LaunchProfile]]:
-    """  Adds a launch profile.  ID should be omitted and will be returned in the response.
+    json_body: CreateSystemInput,
+) -> Response[Union[Any, System]]:
+    """Adds a system.
 
     Args:
         project_id (str):
-        body (LaunchProfile):
+        json_body (CreateSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, LaunchProfile]]
-     """
-
+        Response[Union[Any, System]]
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-body=body,
-
+        json_body=json_body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: LaunchProfile,
-
-) -> Optional[Union[Any, LaunchProfile]]:
-    """  Adds a launch profile.  ID should be omitted and will be returned in the response.
+    json_body: CreateSystemInput,
+) -> Optional[Union[Any, System]]:
+    """Adds a system.
 
     Args:
         project_id (str):
-        body (LaunchProfile):
+        json_body (CreateSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, LaunchProfile]
-     """
+        Union[Any, System]
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            client=client,
+            json_body=json_body,
+        )
+    ).parsed

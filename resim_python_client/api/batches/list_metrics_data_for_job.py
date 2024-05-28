@@ -1,18 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...types import UNSET, Unset
-from typing import cast
-from typing import Dict
-from typing import Union
+from ...client import AuthenticatedClient, Client
 from ...models.list_job_metrics_data_output import ListJobMetricsDataOutput
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -20,39 +14,35 @@ def _get_kwargs(
     batch_id: str,
     job_id: str,
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    
 
-    
+    pass
 
     params: Dict[str, Any] = {}
-
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/metricsData".format(project_id=project_id,batch_id=batch_id,job_id=job_id,),
+        "url": "/projects/{projectID}/batches/{batchID}/jobs/{jobID}/metricsData".format(
+            projectID=project_id,
+            batchID=batch_id,
+            jobID=job_id,
+        ),
         "params": params,
     }
 
 
-    return _kwargs
-
-
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Union[Any, ListJobMetricsDataOutput]]:
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[Any, ListJobMetricsDataOutput]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = ListJobMetricsDataOutput.from_dict(response.json())
-
-
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -67,7 +57,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Union[Any, ListJobMetricsDataOutput]]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[Any, ListJobMetricsDataOutput]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,18 +74,17 @@ def sync_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListJobMetricsDataOutput]]:
-    """  Returns the metrics data associated with a given job ID
+    """Returns the metrics data associated with a given job ID
 
     Args:
         project_id (str):
         batch_id (str):
         job_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -101,16 +92,14 @@ def sync_detailed(
 
     Returns:
         Response[Union[Any, ListJobMetricsDataOutput]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-page_size=page_size,
-page_token=page_token,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        page_size=page_size,
+        page_token=page_token,
     )
 
     response = client.get_httpx_client().request(
@@ -119,24 +108,24 @@ page_token=page_token,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     project_id: str,
     batch_id: str,
     job_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListJobMetricsDataOutput]]:
-    """  Returns the metrics data associated with a given job ID
+    """Returns the metrics data associated with a given job ID
 
     Args:
         project_id (str):
         batch_id (str):
         job_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -144,18 +133,17 @@ def sync(
 
     Returns:
         Union[Any, ListJobMetricsDataOutput]
-     """
-
+    """
 
     return sync_detailed(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-client=client,
-page_size=page_size,
-page_token=page_token,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        client=client,
+        page_size=page_size,
+        page_token=page_token,
     ).parsed
+
 
 async def asyncio_detailed(
     project_id: str,
@@ -163,18 +151,17 @@ async def asyncio_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListJobMetricsDataOutput]]:
-    """  Returns the metrics data associated with a given job ID
+    """Returns the metrics data associated with a given job ID
 
     Args:
         project_id (str):
         batch_id (str):
         job_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -182,23 +169,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[Union[Any, ListJobMetricsDataOutput]]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-page_size=page_size,
-page_token=page_token,
-
+        batch_id=batch_id,
+        job_id=job_id,
+        page_size=page_size,
+        page_token=page_token,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     project_id: str,
@@ -206,18 +190,17 @@ async def asyncio(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListJobMetricsDataOutput]]:
-    """  Returns the metrics data associated with a given job ID
+    """Returns the metrics data associated with a given job ID
 
     Args:
         project_id (str):
         batch_id (str):
         job_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -225,15 +208,15 @@ async def asyncio(
 
     Returns:
         Union[Any, ListJobMetricsDataOutput]
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        project_id=project_id,
-batch_id=batch_id,
-job_id=job_id,
-client=client,
-page_size=page_size,
-page_token=page_token,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            project_id=project_id,
+            batch_id=batch_id,
+            job_id=job_id,
+            client=client,
+            page_size=page_size,
+            page_token=page_token,
+        )
+    ).parsed
