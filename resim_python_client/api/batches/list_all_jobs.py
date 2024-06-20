@@ -3,24 +3,24 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from ...types import Unset
 from ...models.list_all_jobs_output import ListAllJobsOutput
-from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    search: Union[Unset, None, str] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    search: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
-
-    pass
-
     params: Dict[str, Any] = {}
+
     params["search"] = search
 
     params["pageSize"] = page_size
@@ -31,13 +31,15 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/batches/-/jobs".format(
-            projectID=project_id,
+        "url": "/projects/{project_id}/batches/-/jobs".format(
+            project_id=project_id,
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(
@@ -71,19 +73,19 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    search: Union[Unset, None, str] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    search: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListAllJobsOutput]]:
     """List jobs across all batches in a project
 
     Args:
         project_id (str):
-        search (Union[Unset, None, str]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
-        order_by (Union[Unset, None, str]):
+        search (Union[Unset, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -112,19 +114,19 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    search: Union[Unset, None, str] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    search: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListAllJobsOutput]]:
     """List jobs across all batches in a project
 
     Args:
         project_id (str):
-        search (Union[Unset, None, str]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
-        order_by (Union[Unset, None, str]):
+        search (Union[Unset, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -148,19 +150,19 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    search: Union[Unset, None, str] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    search: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListAllJobsOutput]]:
     """List jobs across all batches in a project
 
     Args:
         project_id (str):
-        search (Union[Unset, None, str]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
-        order_by (Union[Unset, None, str]):
+        search (Union[Unset, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -187,19 +189,19 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    search: Union[Unset, None, str] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    search: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListAllJobsOutput]]:
     """List jobs across all batches in a project
 
     Args:
         project_id (str):
-        search (Union[Unset, None, str]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
-        order_by (Union[Unset, None, str]):
+        search (Union[Unset, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

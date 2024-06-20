@@ -1,9 +1,16 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import cast
+from typing import Union
+
 
 T = TypeVar("T", bound="BatchObjectDescription")
 
@@ -34,8 +41,11 @@ class BatchObjectDescription:
 
     def to_dict(self) -> Dict[str, Any]:
         associated_account = self.associated_account
+
         build_branch_name = self.build_branch_name
+
         build_version = self.build_version
+
         experience_names: Union[Unset, List[str]] = UNSET
         if not isinstance(self.experience_names, Unset):
             experience_names = self.experience_names
@@ -45,7 +55,9 @@ class BatchObjectDescription:
             experience_tag_names = self.experience_tag_names
 
         metrics_build_name = self.metrics_build_name
+
         metrics_build_version = self.metrics_build_version
+
         project_name = self.project_name
 
         field_dict: Dict[str, Any] = {}

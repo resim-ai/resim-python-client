@@ -1,13 +1,20 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
+from ..types import UNSET, Unset
+
+from typing import Union
+from typing import cast
+from dateutil.parser import isoparse
 from ..models.metric_status import MetricStatus
 from ..models.metric_type import MetricType
-from ..types import UNSET, Unset
+import datetime
+
 
 T = TypeVar("T", bound="Metric")
 
@@ -26,7 +33,7 @@ class Metric:
         status (Union[Unset, MetricStatus]):
         type (Union[Unset, MetricType]):
         user_id (Union[Unset, str]):
-        value (Union[Unset, None, float]):
+        value (Union[None, Unset, float]):
     """
 
     creation_timestamp: Union[Unset, datetime.datetime] = UNSET
@@ -39,7 +46,7 @@ class Metric:
     status: Union[Unset, MetricStatus] = UNSET
     type: Union[Unset, MetricType] = UNSET
     user_id: Union[Unset, str] = UNSET
-    value: Union[Unset, None, float] = UNSET
+    value: Union[None, Unset, float] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -52,10 +59,15 @@ class Metric:
             data_i_ds = self.data_i_ds
 
         file_location = self.file_location
+
         metric_id = self.metric_id
+
         metric_url = self.metric_url
+
         name = self.name
+
         org_id = self.org_id
+
         status: Union[Unset, str] = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
@@ -65,7 +77,12 @@ class Metric:
             type = self.type.value
 
         user_id = self.user_id
-        value = self.value
+
+        value: Union[None, Unset, float]
+        if isinstance(self.value, Unset):
+            value = UNSET
+        else:
+            value = self.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -133,7 +150,14 @@ class Metric:
 
         user_id = d.pop("userID", UNSET)
 
-        value = d.pop("value", UNSET)
+        def _parse_value(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        value = _parse_value(d.pop("value", UNSET))
 
         metric = cls(
             creation_timestamp=creation_timestamp,

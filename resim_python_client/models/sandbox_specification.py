@@ -1,20 +1,29 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from typing import Union
+
 if TYPE_CHECKING:
-    from ..models.batch_object_description import BatchObjectDescription
-    from ..models.branch_object_description import BranchObjectDescription
-    from ..models.build_object_description import BuildObjectDescription
-    from ..models.experience_object_description import ExperienceObjectDescription
-    from ..models.experience_tag_object_description import ExperienceTagObjectDescription
     from ..models.metrics_build_object_description import MetricsBuildObjectDescription
+    from ..models.experience_object_description import ExperienceObjectDescription
+    from ..models.test_suite_object_description import TestSuiteObjectDescription
+    from ..models.build_object_description import BuildObjectDescription
+    from ..models.batch_object_description import BatchObjectDescription
     from ..models.project_object_description import ProjectObjectDescription
-    from ..models.sweep_object_description import SweepObjectDescription
+    from ..models.branch_object_description import BranchObjectDescription
     from ..models.system_object_description import SystemObjectDescription
+    from ..models.test_suite_run_object_description import TestSuiteRunObjectDescription
+    from ..models.experience_tag_object_description import (
+        ExperienceTagObjectDescription,
+    )
+    from ..models.sweep_object_description import SweepObjectDescription
 
 
 T = TypeVar("T", bound="SandboxSpecification")
@@ -33,6 +42,8 @@ class SandboxSpecification:
         projects (Union[Unset, List['ProjectObjectDescription']]):
         sweeps (Union[Unset, List['SweepObjectDescription']]):
         systems (Union[Unset, List['SystemObjectDescription']]):
+        test_suite_runs (Union[Unset, List['TestSuiteRunObjectDescription']]):
+        test_suites (Union[Unset, List['TestSuiteObjectDescription']]):
     """
 
     batches: Union[Unset, List["BatchObjectDescription"]] = UNSET
@@ -44,6 +55,8 @@ class SandboxSpecification:
     projects: Union[Unset, List["ProjectObjectDescription"]] = UNSET
     sweeps: Union[Unset, List["SweepObjectDescription"]] = UNSET
     systems: Union[Unset, List["SystemObjectDescription"]] = UNSET
+    test_suite_runs: Union[Unset, List["TestSuiteRunObjectDescription"]] = UNSET
+    test_suites: Union[Unset, List["TestSuiteObjectDescription"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -52,7 +65,6 @@ class SandboxSpecification:
             batches = []
             for batches_item_data in self.batches:
                 batches_item = batches_item_data.to_dict()
-
                 batches.append(batches_item)
 
         branches: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -60,7 +72,6 @@ class SandboxSpecification:
             branches = []
             for branches_item_data in self.branches:
                 branches_item = branches_item_data.to_dict()
-
                 branches.append(branches_item)
 
         builds: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -68,7 +79,6 @@ class SandboxSpecification:
             builds = []
             for builds_item_data in self.builds:
                 builds_item = builds_item_data.to_dict()
-
                 builds.append(builds_item)
 
         experience_tags: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -76,7 +86,6 @@ class SandboxSpecification:
             experience_tags = []
             for experience_tags_item_data in self.experience_tags:
                 experience_tags_item = experience_tags_item_data.to_dict()
-
                 experience_tags.append(experience_tags_item)
 
         experiences: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -84,7 +93,6 @@ class SandboxSpecification:
             experiences = []
             for experiences_item_data in self.experiences:
                 experiences_item = experiences_item_data.to_dict()
-
                 experiences.append(experiences_item)
 
         metrics_builds: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -92,7 +100,6 @@ class SandboxSpecification:
             metrics_builds = []
             for metrics_builds_item_data in self.metrics_builds:
                 metrics_builds_item = metrics_builds_item_data.to_dict()
-
                 metrics_builds.append(metrics_builds_item)
 
         projects: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -100,7 +107,6 @@ class SandboxSpecification:
             projects = []
             for projects_item_data in self.projects:
                 projects_item = projects_item_data.to_dict()
-
                 projects.append(projects_item)
 
         sweeps: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -108,7 +114,6 @@ class SandboxSpecification:
             sweeps = []
             for sweeps_item_data in self.sweeps:
                 sweeps_item = sweeps_item_data.to_dict()
-
                 sweeps.append(sweeps_item)
 
         systems: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -116,8 +121,21 @@ class SandboxSpecification:
             systems = []
             for systems_item_data in self.systems:
                 systems_item = systems_item_data.to_dict()
-
                 systems.append(systems_item)
+
+        test_suite_runs: Union[Unset, List[Dict[str, Any]]] = UNSET
+        if not isinstance(self.test_suite_runs, Unset):
+            test_suite_runs = []
+            for test_suite_runs_item_data in self.test_suite_runs:
+                test_suite_runs_item = test_suite_runs_item_data.to_dict()
+                test_suite_runs.append(test_suite_runs_item)
+
+        test_suites: Union[Unset, List[Dict[str, Any]]] = UNSET
+        if not isinstance(self.test_suites, Unset):
+            test_suites = []
+            for test_suites_item_data in self.test_suites:
+                test_suites_item = test_suites_item_data.to_dict()
+                test_suites.append(test_suites_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -140,20 +158,32 @@ class SandboxSpecification:
             field_dict["sweeps"] = sweeps
         if systems is not UNSET:
             field_dict["systems"] = systems
+        if test_suite_runs is not UNSET:
+            field_dict["testSuiteRuns"] = test_suite_runs
+        if test_suites is not UNSET:
+            field_dict["testSuites"] = test_suites
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.batch_object_description import BatchObjectDescription
-        from ..models.branch_object_description import BranchObjectDescription
-        from ..models.build_object_description import BuildObjectDescription
+        from ..models.metrics_build_object_description import (
+            MetricsBuildObjectDescription,
+        )
         from ..models.experience_object_description import ExperienceObjectDescription
-        from ..models.experience_tag_object_description import ExperienceTagObjectDescription
-        from ..models.metrics_build_object_description import MetricsBuildObjectDescription
+        from ..models.test_suite_object_description import TestSuiteObjectDescription
+        from ..models.build_object_description import BuildObjectDescription
+        from ..models.batch_object_description import BatchObjectDescription
         from ..models.project_object_description import ProjectObjectDescription
-        from ..models.sweep_object_description import SweepObjectDescription
+        from ..models.branch_object_description import BranchObjectDescription
         from ..models.system_object_description import SystemObjectDescription
+        from ..models.test_suite_run_object_description import (
+            TestSuiteRunObjectDescription,
+        )
+        from ..models.experience_tag_object_description import (
+            ExperienceTagObjectDescription,
+        )
+        from ..models.sweep_object_description import SweepObjectDescription
 
         d = src_dict.copy()
         batches = []
@@ -180,21 +210,27 @@ class SandboxSpecification:
         experience_tags = []
         _experience_tags = d.pop("experienceTags", UNSET)
         for experience_tags_item_data in _experience_tags or []:
-            experience_tags_item = ExperienceTagObjectDescription.from_dict(experience_tags_item_data)
+            experience_tags_item = ExperienceTagObjectDescription.from_dict(
+                experience_tags_item_data
+            )
 
             experience_tags.append(experience_tags_item)
 
         experiences = []
         _experiences = d.pop("experiences", UNSET)
         for experiences_item_data in _experiences or []:
-            experiences_item = ExperienceObjectDescription.from_dict(experiences_item_data)
+            experiences_item = ExperienceObjectDescription.from_dict(
+                experiences_item_data
+            )
 
             experiences.append(experiences_item)
 
         metrics_builds = []
         _metrics_builds = d.pop("metricsBuilds", UNSET)
         for metrics_builds_item_data in _metrics_builds or []:
-            metrics_builds_item = MetricsBuildObjectDescription.from_dict(metrics_builds_item_data)
+            metrics_builds_item = MetricsBuildObjectDescription.from_dict(
+                metrics_builds_item_data
+            )
 
             metrics_builds.append(metrics_builds_item)
 
@@ -219,6 +255,24 @@ class SandboxSpecification:
 
             systems.append(systems_item)
 
+        test_suite_runs = []
+        _test_suite_runs = d.pop("testSuiteRuns", UNSET)
+        for test_suite_runs_item_data in _test_suite_runs or []:
+            test_suite_runs_item = TestSuiteRunObjectDescription.from_dict(
+                test_suite_runs_item_data
+            )
+
+            test_suite_runs.append(test_suite_runs_item)
+
+        test_suites = []
+        _test_suites = d.pop("testSuites", UNSET)
+        for test_suites_item_data in _test_suites or []:
+            test_suites_item = TestSuiteObjectDescription.from_dict(
+                test_suites_item_data
+            )
+
+            test_suites.append(test_suites_item)
+
         sandbox_specification = cls(
             batches=batches,
             branches=branches,
@@ -229,6 +283,8 @@ class SandboxSpecification:
             projects=projects,
             sweeps=sweeps,
             systems=systems,
+            test_suite_runs=test_suite_runs,
+            test_suites=test_suites,
         )
 
         sandbox_specification.additional_properties = d

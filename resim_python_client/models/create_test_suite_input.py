@@ -1,9 +1,16 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import cast
+from typing import Union
+
 
 T = TypeVar("T", bound="CreateTestSuiteInput")
 
@@ -28,10 +35,13 @@ class CreateTestSuiteInput:
 
     def to_dict(self) -> Dict[str, Any]:
         description = self.description
+
         experiences = self.experiences
 
         name = self.name
+
         system_id = self.system_id
+
         metrics_build_id = self.metrics_build_id
 
         field_dict: Dict[str, Any] = {}

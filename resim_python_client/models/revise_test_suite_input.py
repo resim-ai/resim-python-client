@@ -1,9 +1,16 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import cast
+from typing import Union
+
 
 T = TypeVar("T", bound="ReviseTestSuiteInput")
 
@@ -32,14 +39,19 @@ class ReviseTestSuiteInput:
 
     def to_dict(self) -> Dict[str, Any]:
         update_metrics_build = self.update_metrics_build
+
         adhoc = self.adhoc
+
         description = self.description
+
         experiences: Union[Unset, List[str]] = UNSET
         if not isinstance(self.experiences, Unset):
             experiences = self.experiences
 
         metrics_build_id = self.metrics_build_id
+
         name = self.name
+
         system_id = self.system_id
 
         field_dict: Dict[str, Any] = {}

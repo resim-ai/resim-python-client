@@ -1,19 +1,24 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from typing import Union
+
 if TYPE_CHECKING:
     from ..models.test_suite import TestSuite
 
 
-T = TypeVar("T", bound="ListTestSuiteRevisionsResponse200")
+T = TypeVar("T", bound="ListTestSuiteRevisionsOutput")
 
 
 @_attrs_define
-class ListTestSuiteRevisionsResponse200:
+class ListTestSuiteRevisionsOutput:
     """
     Attributes:
         test_suites (Union[Unset, List['TestSuite']]):
@@ -28,7 +33,6 @@ class ListTestSuiteRevisionsResponse200:
             test_suites = []
             for test_suites_item_data in self.test_suites:
                 test_suites_item = test_suites_item_data.to_dict()
-
                 test_suites.append(test_suites_item)
 
         field_dict: Dict[str, Any] = {}
@@ -51,12 +55,12 @@ class ListTestSuiteRevisionsResponse200:
 
             test_suites.append(test_suites_item)
 
-        list_test_suite_revisions_response_200 = cls(
+        list_test_suite_revisions_output = cls(
             test_suites=test_suites,
         )
 
-        list_test_suite_revisions_response_200.additional_properties = d
-        return list_test_suite_revisions_response_200
+        list_test_suite_revisions_output.additional_properties = d
+        return list_test_suite_revisions_output
 
     @property
     def additional_keys(self) -> List[str]:

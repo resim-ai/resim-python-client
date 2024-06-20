@@ -1,9 +1,14 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import Union
 
 if TYPE_CHECKING:
     from ..models.job import Job
@@ -18,10 +23,12 @@ class ListJobsOutput:
     Attributes:
         jobs (Union[Unset, List['Job']]):
         next_page_token (Union[Unset, str]):
+        total (Union[Unset, int]):
     """
 
     jobs: Union[Unset, List["Job"]] = UNSET
     next_page_token: Union[Unset, str] = UNSET
+    total: Union[Unset, int] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -30,10 +37,11 @@ class ListJobsOutput:
             jobs = []
             for jobs_item_data in self.jobs:
                 jobs_item = jobs_item_data.to_dict()
-
                 jobs.append(jobs_item)
 
         next_page_token = self.next_page_token
+
+        total = self.total
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -42,6 +50,8 @@ class ListJobsOutput:
             field_dict["jobs"] = jobs
         if next_page_token is not UNSET:
             field_dict["nextPageToken"] = next_page_token
+        if total is not UNSET:
+            field_dict["total"] = total
 
         return field_dict
 
@@ -59,9 +69,12 @@ class ListJobsOutput:
 
         next_page_token = d.pop("nextPageToken", UNSET)
 
+        total = d.pop("total", UNSET)
+
         list_jobs_output = cls(
             jobs=jobs,
             next_page_token=next_page_token,
+            total=total,
         )
 
         list_jobs_output.additional_properties = d

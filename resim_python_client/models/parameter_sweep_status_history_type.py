@@ -1,12 +1,18 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
-from ..models.parameter_sweep_status import ParameterSweepStatus
 from ..types import UNSET, Unset
+
+from typing import Union
+from dateutil.parser import isoparse
+from ..models.parameter_sweep_status import ParameterSweepStatus
+import datetime
+
 
 T = TypeVar("T", bound="ParameterSweepStatusHistoryType")
 

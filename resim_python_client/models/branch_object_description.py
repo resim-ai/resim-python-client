@@ -1,10 +1,16 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.branch_type import BranchType
 from ..types import UNSET, Unset
+
+from ..models.branch_type import BranchType
+from typing import Union
+
 
 T = TypeVar("T", bound="BranchObjectDescription")
 
@@ -25,7 +31,9 @@ class BranchObjectDescription:
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
+
         project_name = self.project_name
+
         type: Union[Unset, str] = UNSET
         if not isinstance(self.type, Unset):
             type = self.type.value

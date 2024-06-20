@@ -1,9 +1,15 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from ..models.triggered_via import TriggeredVia
 
 if TYPE_CHECKING:
     from ..models.batch_parameters import BatchParameters
@@ -19,19 +25,27 @@ class TestSuiteBatchInput:
         build_id (str):
         associated_account (Union[Unset, str]):
         parameters (Union[Unset, BatchParameters]):
+        triggered_via (Union[Unset, TriggeredVia]):
     """
 
     build_id: str
     associated_account: Union[Unset, str] = UNSET
     parameters: Union[Unset, "BatchParameters"] = UNSET
+    triggered_via: Union[Unset, TriggeredVia] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         build_id = self.build_id
+
         associated_account = self.associated_account
+
         parameters: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.parameters, Unset):
             parameters = self.parameters.to_dict()
+
+        triggered_via: Union[Unset, str] = UNSET
+        if not isinstance(self.triggered_via, Unset):
+            triggered_via = self.triggered_via.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -44,6 +58,8 @@ class TestSuiteBatchInput:
             field_dict["associatedAccount"] = associated_account
         if parameters is not UNSET:
             field_dict["parameters"] = parameters
+        if triggered_via is not UNSET:
+            field_dict["triggeredVia"] = triggered_via
 
         return field_dict
 
@@ -63,10 +79,18 @@ class TestSuiteBatchInput:
         else:
             parameters = BatchParameters.from_dict(_parameters)
 
+        _triggered_via = d.pop("triggeredVia", UNSET)
+        triggered_via: Union[Unset, TriggeredVia]
+        if isinstance(_triggered_via, Unset):
+            triggered_via = UNSET
+        else:
+            triggered_via = TriggeredVia(_triggered_via)
+
         test_suite_batch_input = cls(
             build_id=build_id,
             associated_account=associated_account,
             parameters=parameters,
+            triggered_via=triggered_via,
         )
 
         test_suite_batch_input.additional_properties = d

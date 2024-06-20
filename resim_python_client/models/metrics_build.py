@@ -1,9 +1,15 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+
 from dateutil.parser import isoparse
+import datetime
+
 
 T = TypeVar("T", bound="MetricsBuild")
 
@@ -36,11 +42,17 @@ class MetricsBuild:
         creation_timestamp = self.creation_timestamp.isoformat()
 
         image_uri = self.image_uri
+
         metrics_build_id = self.metrics_build_id
+
         name = self.name
+
         org_id = self.org_id
+
         project_id = self.project_id
+
         user_id = self.user_id
+
         version = self.version
 
         field_dict: Dict[str, Any] = {}

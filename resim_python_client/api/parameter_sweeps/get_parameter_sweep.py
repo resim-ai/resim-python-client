@@ -3,26 +3,26 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.parameter_sweep import ParameterSweep
 from ...types import Response
+from ... import errors
+
+from ...models.parameter_sweep import ParameterSweep
 
 
 def _get_kwargs(
     project_id: str,
     sweep_id: str,
 ) -> Dict[str, Any]:
-
-    pass
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/sweeps/{sweepID}".format(
-            projectID=project_id,
-            sweepID=sweep_id,
+        "url": "/projects/{project_id}/sweeps/{sweep_id}".format(
+            project_id=project_id,
+            sweep_id=sweep_id,
         ),
     }
+
+    return _kwargs
 
 
 def _parse_response(

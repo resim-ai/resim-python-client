@@ -1,17 +1,22 @@
-import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
-from ..models.job_status import JobStatus
-from ..models.metric_status import MetricStatus
 from ..types import UNSET, Unset
 
+from typing import Union
+from ..models.job_status import JobStatus
+from dateutil.parser import isoparse
+from ..models.metric_status import MetricStatus
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.batch_parameters import BatchParameters
     from ..models.job_status_history_type import JobStatusHistoryType
+    from ..models.batch_parameters import BatchParameters
 
 
 T = TypeVar("T", bound="Job")
@@ -61,15 +66,21 @@ class Job:
 
     def to_dict(self) -> Dict[str, Any]:
         batch_id = self.batch_id
+
         branch_id = self.branch_id
+
         build_id = self.build_id
+
         creation_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.creation_timestamp, Unset):
             creation_timestamp = self.creation_timestamp.isoformat()
 
         experience_id = self.experience_id
+
         experience_name = self.experience_name
+
         job_id = self.job_id
+
         job_metrics_status: Union[Unset, str] = UNSET
         if not isinstance(self.job_metrics_status, Unset):
             job_metrics_status = self.job_metrics_status.value
@@ -83,21 +94,26 @@ class Job:
             last_updated_timestamp = self.last_updated_timestamp.isoformat()
 
         org_id = self.org_id
+
         output_location = self.output_location
+
         parameters: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.parameters, Unset):
             parameters = self.parameters.to_dict()
 
         project_id = self.project_id
+
         status_history: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.status_history, Unset):
             status_history = []
             for componentsschemasjob_status_history_item_data in self.status_history:
-                componentsschemasjob_status_history_item = componentsschemasjob_status_history_item_data.to_dict()
-
+                componentsschemasjob_status_history_item = (
+                    componentsschemasjob_status_history_item_data.to_dict()
+                )
                 status_history.append(componentsschemasjob_status_history_item)
 
         system_id = self.system_id
+
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
@@ -142,8 +158,8 @@ class Job:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.batch_parameters import BatchParameters
         from ..models.job_status_history_type import JobStatusHistoryType
+        from ..models.batch_parameters import BatchParameters
 
         d = src_dict.copy()
         batch_id = d.pop("batchID", UNSET)

@@ -1,11 +1,18 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from typing import cast
+from dateutil.parser import isoparse
+import datetime
+
 
 T = TypeVar("T", bound="TestSuite")
 
@@ -44,15 +51,23 @@ class TestSuite:
         creation_timestamp = self.creation_timestamp.isoformat()
 
         description = self.description
+
         experiences = self.experiences
 
         name = self.name
+
         org_id = self.org_id
+
         project_id = self.project_id
+
         system_id = self.system_id
+
         test_suite_id = self.test_suite_id
+
         test_suite_revision = self.test_suite_revision
+
         user_id = self.user_id
+
         metrics_build_id = self.metrics_build_id
 
         field_dict: Dict[str, Any] = {}

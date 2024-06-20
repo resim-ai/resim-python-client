@@ -3,41 +3,55 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.list_test_suite_revisions_response_200 import ListTestSuiteRevisionsResponse200
-from ...types import Response
+from ...types import Response, UNSET
+from ... import errors
+
+from ...types import Unset
+from ...models.list_test_suite_output import ListTestSuiteOutput
 
 
 def _get_kwargs(
     project_id: str,
-    test_suite_id: str,
+    *,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
+    params: Dict[str, Any] = {}
 
-    pass
+    params["pageSize"] = page_size
 
-    return {
+    params["pageToken"] = page_token
+
+    params["orderBy"] = order_by
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/suites/{testSuiteID}/revisions".format(
-            projectID=project_id,
-            testSuiteID=test_suite_id,
+        "url": "/projects/{project_id}/suites".format(
+            project_id=project_id,
         ),
+        "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, ListTestSuiteRevisionsResponse200]]:
+) -> Optional[Union[Any, ListTestSuiteOutput]]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = ListTestSuiteRevisionsResponse200.from_dict(response.json())
+        response_200 = ListTestSuiteOutput.from_dict(response.json())
 
         return response_200
+    if response.status_code == HTTPStatus.BAD_REQUEST:
+        response_400 = cast(Any, None)
+        return response_400
     if response.status_code == HTTPStatus.UNAUTHORIZED:
         response_401 = cast(Any, None)
         return response_401
-    if response.status_code == HTTPStatus.NOT_FOUND:
-        response_404 = cast(Any, None)
-        return response_404
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -46,7 +60,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, ListTestSuiteRevisionsResponse200]]:
+) -> Response[Union[Any, ListTestSuiteOutput]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -57,27 +71,33 @@ def _build_response(
 
 def sync_detailed(
     project_id: str,
-    test_suite_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[Any, ListTestSuiteRevisionsResponse200]]:
-    """Returns all the revisions of a specific test suite.
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
+) -> Response[Union[Any, ListTestSuiteOutput]]:
+    """Returns the list of test suites at their latest revision
 
     Args:
         project_id (str):
-        test_suite_id (str):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, ListTestSuiteRevisionsResponse200]]
+        Response[Union[Any, ListTestSuiteOutput]]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        test_suite_id=test_suite_id,
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     )
 
     response = client.get_httpx_client().request(
@@ -89,54 +109,66 @@ def sync_detailed(
 
 def sync(
     project_id: str,
-    test_suite_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[Any, ListTestSuiteRevisionsResponse200]]:
-    """Returns all the revisions of a specific test suite.
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
+) -> Optional[Union[Any, ListTestSuiteOutput]]:
+    """Returns the list of test suites at their latest revision
 
     Args:
         project_id (str):
-        test_suite_id (str):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ListTestSuiteRevisionsResponse200]
+        Union[Any, ListTestSuiteOutput]
     """
 
     return sync_detailed(
         project_id=project_id,
-        test_suite_id=test_suite_id,
         client=client,
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     ).parsed
 
 
 async def asyncio_detailed(
     project_id: str,
-    test_suite_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[Any, ListTestSuiteRevisionsResponse200]]:
-    """Returns all the revisions of a specific test suite.
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
+) -> Response[Union[Any, ListTestSuiteOutput]]:
+    """Returns the list of test suites at their latest revision
 
     Args:
         project_id (str):
-        test_suite_id (str):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, ListTestSuiteRevisionsResponse200]]
+        Response[Union[Any, ListTestSuiteOutput]]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        test_suite_id=test_suite_id,
+        page_size=page_size,
+        page_token=page_token,
+        order_by=order_by,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -146,28 +178,34 @@ async def asyncio_detailed(
 
 async def asyncio(
     project_id: str,
-    test_suite_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[Any, ListTestSuiteRevisionsResponse200]]:
-    """Returns all the revisions of a specific test suite.
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
+) -> Optional[Union[Any, ListTestSuiteOutput]]:
+    """Returns the list of test suites at their latest revision
 
     Args:
         project_id (str):
-        test_suite_id (str):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ListTestSuiteRevisionsResponse200]
+        Union[Any, ListTestSuiteOutput]
     """
 
     return (
         await asyncio_detailed(
             project_id=project_id,
-            test_suite_id=test_suite_id,
             client=client,
+            page_size=page_size,
+            page_token=page_token,
+            order_by=order_by,
         )
     ).parsed
