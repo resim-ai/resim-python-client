@@ -1,11 +1,19 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from ..models.metrics_data_type import MetricsDataType
+from typing import cast
+from dateutil.parser import isoparse
+import datetime
+
 
 T = TypeVar("T", bound="BatchMetricsData")
 
@@ -17,6 +25,8 @@ class BatchMetricsData:
         creation_timestamp (Union[Unset, datetime.datetime]):
         data_id (Union[Unset, str]):
         file_location (Union[Unset, str]):
+        filename (Union[None, Unset, str]):
+        metrics_data_type (Union[Unset, MetricsDataType]):
         metrics_data_url (Union[Unset, str]):
         name (Union[Unset, str]):
         org_id (Union[Unset, str]):
@@ -27,6 +37,8 @@ class BatchMetricsData:
     creation_timestamp: Union[Unset, datetime.datetime] = UNSET
     data_id: Union[Unset, str] = UNSET
     file_location: Union[Unset, str] = UNSET
+    filename: Union[None, Unset, str] = UNSET
+    metrics_data_type: Union[Unset, MetricsDataType] = UNSET
     metrics_data_url: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
     org_id: Union[Unset, str] = UNSET
@@ -40,11 +52,27 @@ class BatchMetricsData:
             creation_timestamp = self.creation_timestamp.isoformat()
 
         data_id = self.data_id
+
         file_location = self.file_location
+
+        filename: Union[None, Unset, str]
+        if isinstance(self.filename, Unset):
+            filename = UNSET
+        else:
+            filename = self.filename
+
+        metrics_data_type: Union[Unset, str] = UNSET
+        if not isinstance(self.metrics_data_type, Unset):
+            metrics_data_type = self.metrics_data_type.value
+
         metrics_data_url = self.metrics_data_url
+
         name = self.name
+
         org_id = self.org_id
+
         user_id = self.user_id
+
         batch_id = self.batch_id
 
         field_dict: Dict[str, Any] = {}
@@ -56,6 +84,10 @@ class BatchMetricsData:
             field_dict["dataID"] = data_id
         if file_location is not UNSET:
             field_dict["fileLocation"] = file_location
+        if filename is not UNSET:
+            field_dict["filename"] = filename
+        if metrics_data_type is not UNSET:
+            field_dict["metricsDataType"] = metrics_data_type
         if metrics_data_url is not UNSET:
             field_dict["metricsDataURL"] = metrics_data_url
         if name is not UNSET:
@@ -83,6 +115,22 @@ class BatchMetricsData:
 
         file_location = d.pop("fileLocation", UNSET)
 
+        def _parse_filename(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        filename = _parse_filename(d.pop("filename", UNSET))
+
+        _metrics_data_type = d.pop("metricsDataType", UNSET)
+        metrics_data_type: Union[Unset, MetricsDataType]
+        if isinstance(_metrics_data_type, Unset):
+            metrics_data_type = UNSET
+        else:
+            metrics_data_type = MetricsDataType(_metrics_data_type)
+
         metrics_data_url = d.pop("metricsDataURL", UNSET)
 
         name = d.pop("name", UNSET)
@@ -97,6 +145,8 @@ class BatchMetricsData:
             creation_timestamp=creation_timestamp,
             data_id=data_id,
             file_location=file_location,
+            filename=filename,
+            metrics_data_type=metrics_data_type,
             metrics_data_url=metrics_data_url,
             name=name,
             org_id=org_id,

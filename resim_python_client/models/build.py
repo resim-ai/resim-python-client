@@ -1,11 +1,17 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from dateutil.parser import isoparse
+import datetime
+
 
 T = TypeVar("T", bound="Build")
 
@@ -40,17 +46,25 @@ class Build:
 
     def to_dict(self) -> Dict[str, Any]:
         branch_id = self.branch_id
+
         build_id = self.build_id
+
         creation_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.creation_timestamp, Unset):
             creation_timestamp = self.creation_timestamp.isoformat()
 
         description = self.description
+
         image_uri = self.image_uri
+
         org_id = self.org_id
+
         project_id = self.project_id
+
         system_id = self.system_id
+
         user_id = self.user_id
+
         version = self.version
 
         field_dict: Dict[str, Any] = {}

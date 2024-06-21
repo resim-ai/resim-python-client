@@ -1,19 +1,25 @@
-import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
-from ..models.batch_status import BatchStatus
-from ..models.metric_status import MetricStatus
 from ..types import UNSET, Unset
 
+from typing import Union
+from typing import cast
+from ..models.metric_status import MetricStatus
+from dateutil.parser import isoparse
+import datetime
+from ..models.batch_status import BatchStatus
+
 if TYPE_CHECKING:
-    from ..models.batch_job_status_counts import BatchJobStatusCounts
-    from ..models.batch_parameters import BatchParameters
-    from ..models.batch_status_history_type import BatchStatusHistoryType
     from ..models.job_metrics_status_counts import JobMetricsStatusCounts
+    from ..models.batch_status_history_type import BatchStatusHistoryType
+    from ..models.batch_parameters import BatchParameters
+    from ..models.batch_job_status_counts import BatchJobStatusCounts
 
 
 T = TypeVar("T", bound="Batch")
@@ -79,18 +85,23 @@ class Batch:
 
     def to_dict(self) -> Dict[str, Any]:
         associated_account = self.associated_account
+
         batch_id = self.batch_id
+
         batch_metrics_status: Union[Unset, str] = UNSET
         if not isinstance(self.batch_metrics_status, Unset):
             batch_metrics_status = self.batch_metrics_status.value
 
         branch_id = self.branch_id
+
         build_id = self.build_id
+
         creation_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.creation_timestamp, Unset):
             creation_timestamp = self.creation_timestamp.isoformat()
 
         friendly_name = self.friendly_name
+
         instantiated_experience_i_ds: Union[Unset, List[str]] = UNSET
         if not isinstance(self.instantiated_experience_i_ds, Unset):
             instantiated_experience_i_ds = self.instantiated_experience_i_ds
@@ -116,7 +127,9 @@ class Batch:
             last_updated_timestamp = self.last_updated_timestamp.isoformat()
 
         metrics_build_id = self.metrics_build_id
+
         org_id = self.org_id
+
         overall_metrics_status: Union[Unset, str] = UNSET
         if not isinstance(self.overall_metrics_status, Unset):
             overall_metrics_status = self.overall_metrics_status.value
@@ -126,6 +139,7 @@ class Batch:
             parameters = self.parameters.to_dict()
 
         project_id = self.project_id
+
         status: Union[Unset, str] = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
@@ -134,14 +148,19 @@ class Batch:
         if not isinstance(self.status_history, Unset):
             status_history = []
             for componentsschemasbatch_status_history_item_data in self.status_history:
-                componentsschemasbatch_status_history_item = componentsschemasbatch_status_history_item_data.to_dict()
-
+                componentsschemasbatch_status_history_item = (
+                    componentsschemasbatch_status_history_item_data.to_dict()
+                )
                 status_history.append(componentsschemasbatch_status_history_item)
 
         system_id = self.system_id
+
         test_suite_id = self.test_suite_id
+
         test_suite_revision = self.test_suite_revision
+
         total_jobs = self.total_jobs
+
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
@@ -166,7 +185,9 @@ class Batch:
         if instantiated_experience_i_ds is not UNSET:
             field_dict["instantiatedExperienceIDs"] = instantiated_experience_i_ds
         if instantiated_experience_tag_i_ds is not UNSET:
-            field_dict["instantiatedExperienceTagIDs"] = instantiated_experience_tag_i_ds
+            field_dict["instantiatedExperienceTagIDs"] = (
+                instantiated_experience_tag_i_ds
+            )
         if job_metrics_status_counts is not UNSET:
             field_dict["jobMetricsStatusCounts"] = job_metrics_status_counts
         if job_status_counts is not UNSET:
@@ -204,10 +225,10 @@ class Batch:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.batch_job_status_counts import BatchJobStatusCounts
-        from ..models.batch_parameters import BatchParameters
-        from ..models.batch_status_history_type import BatchStatusHistoryType
         from ..models.job_metrics_status_counts import JobMetricsStatusCounts
+        from ..models.batch_status_history_type import BatchStatusHistoryType
+        from ..models.batch_parameters import BatchParameters
+        from ..models.batch_job_status_counts import BatchJobStatusCounts
 
         d = src_dict.copy()
         associated_account = d.pop("associatedAccount")
@@ -234,16 +255,22 @@ class Batch:
 
         friendly_name = d.pop("friendlyName", UNSET)
 
-        instantiated_experience_i_ds = cast(List[str], d.pop("instantiatedExperienceIDs", UNSET))
+        instantiated_experience_i_ds = cast(
+            List[str], d.pop("instantiatedExperienceIDs", UNSET)
+        )
 
-        instantiated_experience_tag_i_ds = cast(List[str], d.pop("instantiatedExperienceTagIDs", UNSET))
+        instantiated_experience_tag_i_ds = cast(
+            List[str], d.pop("instantiatedExperienceTagIDs", UNSET)
+        )
 
         _job_metrics_status_counts = d.pop("jobMetricsStatusCounts", UNSET)
         job_metrics_status_counts: Union[Unset, JobMetricsStatusCounts]
         if isinstance(_job_metrics_status_counts, Unset):
             job_metrics_status_counts = UNSET
         else:
-            job_metrics_status_counts = JobMetricsStatusCounts.from_dict(_job_metrics_status_counts)
+            job_metrics_status_counts = JobMetricsStatusCounts.from_dict(
+                _job_metrics_status_counts
+            )
 
         _job_status_counts = d.pop("jobStatusCounts", UNSET)
         job_status_counts: Union[Unset, BatchJobStatusCounts]
@@ -296,8 +323,10 @@ class Batch:
         status_history = []
         _status_history = d.pop("statusHistory", UNSET)
         for componentsschemasbatch_status_history_item_data in _status_history or []:
-            componentsschemasbatch_status_history_item = BatchStatusHistoryType.from_dict(
-                componentsschemasbatch_status_history_item_data
+            componentsschemasbatch_status_history_item = (
+                BatchStatusHistoryType.from_dict(
+                    componentsschemasbatch_status_history_item_data
+                )
             )
 
             status_history.append(componentsschemasbatch_status_history_item)

@@ -3,37 +3,39 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from ...types import Unset
 from ...models.list_systems_output import ListSystemsOutput
-from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     metrics_build_id: str,
     *,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
-
-    pass
-
     params: Dict[str, Any] = {}
+
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/metricsBuilds/{metricsBuildID}/systems".format(
-            projectID=project_id,
-            metricsBuildID=metrics_build_id,
+        "url": "/projects/{project_id}/metricsBuilds/{metrics_build_id}/systems".format(
+            project_id=project_id,
+            metrics_build_id=metrics_build_id,
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(
@@ -71,16 +73,16 @@ def sync_detailed(
     metrics_build_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListSystemsOutput]]:
     """Returns the systems for a given metrics build
 
     Args:
         project_id (str):
         metrics_build_id (str):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,16 +111,16 @@ def sync(
     metrics_build_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListSystemsOutput]]:
     """Returns the systems for a given metrics build
 
     Args:
         project_id (str):
         metrics_build_id (str):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -142,16 +144,16 @@ async def asyncio_detailed(
     metrics_build_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListSystemsOutput]]:
     """Returns the systems for a given metrics build
 
     Args:
         project_id (str):
         metrics_build_id (str):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -178,16 +180,16 @@ async def asyncio(
     metrics_build_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListSystemsOutput]]:
     """Returns the systems for a given metrics build
 
     Args:
         project_id (str):
         metrics_build_id (str):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

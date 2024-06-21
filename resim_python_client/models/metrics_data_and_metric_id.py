@@ -1,9 +1,14 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import Union
 
 if TYPE_CHECKING:
     from ..models.job_metrics_data import JobMetricsData
@@ -26,6 +31,7 @@ class MetricsDataAndMetricID:
 
     def to_dict(self) -> Dict[str, Any]:
         metric_id = self.metric_id
+
         metrics_data: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.metrics_data, Unset):
             metrics_data = self.metrics_data.to_dict()

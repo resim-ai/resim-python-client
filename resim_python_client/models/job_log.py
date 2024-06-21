@@ -1,13 +1,19 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
-from ..models.execution_step import ExecutionStep
-from ..models.log_type import LogType
 from ..types import UNSET, Unset
+
+from ..models.log_type import LogType
+from typing import Union
+from ..models.execution_step import ExecutionStep
+from dateutil.parser import isoparse
+import datetime
+
 
 T = TypeVar("T", bound="JobLog")
 
@@ -46,6 +52,7 @@ class JobLog:
 
     def to_dict(self) -> Dict[str, Any]:
         checksum = self.checksum
+
         creation_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.creation_timestamp, Unset):
             creation_timestamp = self.creation_timestamp.isoformat()
@@ -55,16 +62,23 @@ class JobLog:
             execution_step = self.execution_step.value
 
         file_name = self.file_name
+
         file_size = self.file_size
+
         location = self.location
+
         log_id = self.log_id
+
         log_output_location = self.log_output_location
+
         log_type: Union[Unset, str] = UNSET
         if not isinstance(self.log_type, Unset):
             log_type = self.log_type.value
 
         org_id = self.org_id
+
         user_id = self.user_id
+
         job_id = self.job_id
 
         field_dict: Dict[str, Any] = {}

@@ -1,13 +1,18 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from typing import Union
+
 if TYPE_CHECKING:
-    from ..models.view_metadata import ViewMetadata
     from ..models.view_object import ViewObject
+    from ..models.view_metadata import ViewMetadata
 
 
 T = TypeVar("T", bound="ViewObjectAndMetadata")
@@ -31,7 +36,6 @@ class ViewObjectAndMetadata:
             view_metadata = []
             for view_metadata_item_data in self.view_metadata:
                 view_metadata_item = view_metadata_item_data.to_dict()
-
                 view_metadata.append(view_metadata_item)
 
         view_object: Union[Unset, Dict[str, Any]] = UNSET
@@ -50,8 +54,8 @@ class ViewObjectAndMetadata:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.view_metadata import ViewMetadata
         from ..models.view_object import ViewObject
+        from ..models.view_metadata import ViewMetadata
 
         d = src_dict.copy()
         view_metadata = []

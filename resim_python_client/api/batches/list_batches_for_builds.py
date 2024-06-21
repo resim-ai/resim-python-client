@@ -3,10 +3,12 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
+from ...types import Unset
 from ...models.list_batches_output import ListBatchesOutput
-from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -14,14 +16,12 @@ def _get_kwargs(
     branch_id: str,
     build_id: List[str],
     *,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
-
-    pass
-
     params: Dict[str, Any] = {}
+
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
@@ -30,15 +30,17 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/branches/{branchID}/builds/{buildID}/batches".format(
-            projectID=project_id,
-            branchID=branch_id,
-            buildID=build_id,
+        "url": "/projects/{project_id}/branches/{branch_id}/builds/{build_id}/batches".format(
+            project_id=project_id,
+            branch_id=branch_id,
+            build_id=build_id,
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(
@@ -77,9 +79,9 @@ def sync_detailed(
     build_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListBatchesOutput]]:
     """Returns the batches for a build.
 
@@ -87,9 +89,9 @@ def sync_detailed(
         project_id (str):
         branch_id (str):
         build_id (List[str]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
-        order_by (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -121,9 +123,9 @@ def sync(
     build_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListBatchesOutput]]:
     """Returns the batches for a build.
 
@@ -131,9 +133,9 @@ def sync(
         project_id (str):
         branch_id (str):
         build_id (List[str]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
-        order_by (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -160,9 +162,9 @@ async def asyncio_detailed(
     build_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListBatchesOutput]]:
     """Returns the batches for a build.
 
@@ -170,9 +172,9 @@ async def asyncio_detailed(
         project_id (str):
         branch_id (str):
         build_id (List[str]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
-        order_by (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -202,9 +204,9 @@ async def asyncio(
     build_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListBatchesOutput]]:
     """Returns the batches for a build.
 
@@ -212,9 +214,9 @@ async def asyncio(
         project_id (str):
         branch_id (str):
         build_id (List[str]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
-        order_by (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

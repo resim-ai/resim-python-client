@@ -3,26 +3,26 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.metrics_build import MetricsBuild
 from ...types import Response
+from ... import errors
+
+from ...models.metrics_build import MetricsBuild
 
 
 def _get_kwargs(
     project_id: str,
     metrics_build_id: str,
 ) -> Dict[str, Any]:
-
-    pass
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/metricsBuilds/{metricsBuildID}".format(
-            projectID=project_id,
-            metricsBuildID=metrics_build_id,
+        "url": "/projects/{project_id}/metricsBuilds/{metrics_build_id}".format(
+            project_id=project_id,
+            metrics_build_id=metrics_build_id,
         ),
     }
+
+    return _kwargs
 
 
 def _parse_response(

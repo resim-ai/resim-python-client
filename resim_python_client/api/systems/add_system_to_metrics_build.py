@@ -3,9 +3,9 @@ from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...types import Response
+from ... import errors
 
 
 def _get_kwargs(
@@ -13,20 +13,21 @@ def _get_kwargs(
     system_id: str,
     metrics_build_id: str,
 ) -> Dict[str, Any]:
-
-    pass
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{projectID}/systems/{systemID}/metricsBuilds/{metricsBuildID}".format(
-            projectID=project_id,
-            systemID=system_id,
-            metricsBuildID=metrics_build_id,
+        "url": "/projects/{project_id}/systems/{system_id}/metricsBuilds/{metrics_build_id}".format(
+            project_id=project_id,
+            system_id=system_id,
+            metrics_build_id=metrics_build_id,
         ),
     }
 
+    return _kwargs
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
+
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Any]:
     if response.status_code == HTTPStatus.CREATED:
         return None
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -41,7 +42,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Any]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Any]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,

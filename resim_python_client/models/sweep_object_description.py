@@ -1,9 +1,15 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import Union
+from typing import cast
 
 if TYPE_CHECKING:
     from ..models.sweep_parameter import SweepParameter
@@ -40,8 +46,11 @@ class SweepObjectDescription:
 
     def to_dict(self) -> Dict[str, Any]:
         associated_account = self.associated_account
+
         build_branch_name = self.build_branch_name
+
         build_version = self.build_version
+
         experience_names: Union[Unset, List[str]] = UNSET
         if not isinstance(self.experience_names, Unset):
             experience_names = self.experience_names
@@ -51,13 +60,14 @@ class SweepObjectDescription:
             experience_tag_names = self.experience_tag_names
 
         metrics_build_name = self.metrics_build_name
+
         metrics_build_version = self.metrics_build_version
+
         parameters: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.parameters, Unset):
             parameters = []
             for parameters_item_data in self.parameters:
                 parameters_item = parameters_item_data.to_dict()
-
                 parameters.append(parameters_item)
 
         project_name = self.project_name
