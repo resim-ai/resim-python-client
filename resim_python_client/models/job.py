@@ -9,14 +9,14 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from typing import Union
+from ..models.metric_status import MetricStatus
 from ..models.job_status import JobStatus
 from dateutil.parser import isoparse
-from ..models.metric_status import MetricStatus
 import datetime
 
 if TYPE_CHECKING:
-    from ..models.job_status_history_type import JobStatusHistoryType
     from ..models.batch_parameters import BatchParameters
+    from ..models.job_status_history_type import JobStatusHistoryType
 
 
 T = TypeVar("T", bound="Job")
@@ -158,8 +158,8 @@ class Job:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.job_status_history_type import JobStatusHistoryType
         from ..models.batch_parameters import BatchParameters
+        from ..models.job_status_history_type import JobStatusHistoryType
 
         d = src_dict.copy()
         batch_id = d.pop("batchID", UNSET)

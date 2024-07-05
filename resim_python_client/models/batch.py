@@ -9,17 +9,17 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from typing import Union
-from typing import cast
+from ..models.batch_status import BatchStatus
 from ..models.metric_status import MetricStatus
 from dateutil.parser import isoparse
 import datetime
-from ..models.batch_status import BatchStatus
+from typing import cast
 
 if TYPE_CHECKING:
-    from ..models.job_metrics_status_counts import JobMetricsStatusCounts
-    from ..models.batch_status_history_type import BatchStatusHistoryType
     from ..models.batch_parameters import BatchParameters
     from ..models.batch_job_status_counts import BatchJobStatusCounts
+    from ..models.job_metrics_status_counts import JobMetricsStatusCounts
+    from ..models.batch_status_history_type import BatchStatusHistoryType
 
 
 T = TypeVar("T", bound="Batch")
@@ -30,6 +30,7 @@ class Batch:
     """
     Attributes:
         associated_account (str):
+        adhoc_test_suite (Union[Unset, bool]):
         batch_id (Union[Unset, str]):
         batch_metrics_status (Union[Unset, MetricStatus]):
         branch_id (Union[Unset, str]):
@@ -57,6 +58,7 @@ class Batch:
     """
 
     associated_account: str
+    adhoc_test_suite: Union[Unset, bool] = UNSET
     batch_id: Union[Unset, str] = UNSET
     batch_metrics_status: Union[Unset, MetricStatus] = UNSET
     branch_id: Union[Unset, str] = UNSET
@@ -85,6 +87,8 @@ class Batch:
 
     def to_dict(self) -> Dict[str, Any]:
         associated_account = self.associated_account
+
+        adhoc_test_suite = self.adhoc_test_suite
 
         batch_id = self.batch_id
 
@@ -170,6 +174,8 @@ class Batch:
                 "associatedAccount": associated_account,
             }
         )
+        if adhoc_test_suite is not UNSET:
+            field_dict["adhocTestSuite"] = adhoc_test_suite
         if batch_id is not UNSET:
             field_dict["batchID"] = batch_id
         if batch_metrics_status is not UNSET:
@@ -225,13 +231,15 @@ class Batch:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.job_metrics_status_counts import JobMetricsStatusCounts
-        from ..models.batch_status_history_type import BatchStatusHistoryType
         from ..models.batch_parameters import BatchParameters
         from ..models.batch_job_status_counts import BatchJobStatusCounts
+        from ..models.job_metrics_status_counts import JobMetricsStatusCounts
+        from ..models.batch_status_history_type import BatchStatusHistoryType
 
         d = src_dict.copy()
         associated_account = d.pop("associatedAccount")
+
+        adhoc_test_suite = d.pop("adhocTestSuite", UNSET)
 
         batch_id = d.pop("batchID", UNSET)
 
@@ -343,6 +351,7 @@ class Batch:
 
         batch = cls(
             associated_account=associated_account,
+            adhoc_test_suite=adhoc_test_suite,
             batch_id=batch_id,
             batch_metrics_status=batch_metrics_status,
             branch_id=branch_id,

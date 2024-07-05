@@ -14,6 +14,7 @@ from ..models.triggered_via import TriggeredVia
 
 if TYPE_CHECKING:
     from ..models.batch_parameters import BatchParameters
+    from ..models.batch_input_filters import BatchInputFilters
 
 
 T = TypeVar("T", bound="BatchInput")
@@ -25,10 +26,12 @@ class BatchInput:
     Attributes:
         associated_account (Union[Unset, str]):
         build_id (Union[Unset, str]):
+        excluded_experience_i_ds (Union[List[str], None, Unset]):
         experience_i_ds (Union[List[str], None, Unset]):
         experience_names (Union[List[str], None, Unset]):
         experience_tag_i_ds (Union[List[str], None, Unset]):
         experience_tag_names (Union[List[str], None, Unset]):
+        filters (Union[Unset, BatchInputFilters]):
         metrics_build_id (Union[Unset, str]):
         parameters (Union[Unset, BatchParameters]):
         triggered_via (Union[Unset, TriggeredVia]):
@@ -36,10 +39,12 @@ class BatchInput:
 
     associated_account: Union[Unset, str] = UNSET
     build_id: Union[Unset, str] = UNSET
+    excluded_experience_i_ds: Union[List[str], None, Unset] = UNSET
     experience_i_ds: Union[List[str], None, Unset] = UNSET
     experience_names: Union[List[str], None, Unset] = UNSET
     experience_tag_i_ds: Union[List[str], None, Unset] = UNSET
     experience_tag_names: Union[List[str], None, Unset] = UNSET
+    filters: Union[Unset, "BatchInputFilters"] = UNSET
     metrics_build_id: Union[Unset, str] = UNSET
     parameters: Union[Unset, "BatchParameters"] = UNSET
     triggered_via: Union[Unset, TriggeredVia] = UNSET
@@ -49,6 +54,15 @@ class BatchInput:
         associated_account = self.associated_account
 
         build_id = self.build_id
+
+        excluded_experience_i_ds: Union[List[str], None, Unset]
+        if isinstance(self.excluded_experience_i_ds, Unset):
+            excluded_experience_i_ds = UNSET
+        elif isinstance(self.excluded_experience_i_ds, list):
+            excluded_experience_i_ds = self.excluded_experience_i_ds
+
+        else:
+            excluded_experience_i_ds = self.excluded_experience_i_ds
 
         experience_i_ds: Union[List[str], None, Unset]
         if isinstance(self.experience_i_ds, Unset):
@@ -86,6 +100,10 @@ class BatchInput:
         else:
             experience_tag_names = self.experience_tag_names
 
+        filters: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.filters, Unset):
+            filters = self.filters.to_dict()
+
         metrics_build_id = self.metrics_build_id
 
         parameters: Union[Unset, Dict[str, Any]] = UNSET
@@ -103,6 +121,8 @@ class BatchInput:
             field_dict["associatedAccount"] = associated_account
         if build_id is not UNSET:
             field_dict["buildID"] = build_id
+        if excluded_experience_i_ds is not UNSET:
+            field_dict["excludedExperienceIDs"] = excluded_experience_i_ds
         if experience_i_ds is not UNSET:
             field_dict["experienceIDs"] = experience_i_ds
         if experience_names is not UNSET:
@@ -111,6 +131,8 @@ class BatchInput:
             field_dict["experienceTagIDs"] = experience_tag_i_ds
         if experience_tag_names is not UNSET:
             field_dict["experienceTagNames"] = experience_tag_names
+        if filters is not UNSET:
+            field_dict["filters"] = filters
         if metrics_build_id is not UNSET:
             field_dict["metricsBuildID"] = metrics_build_id
         if parameters is not UNSET:
@@ -123,11 +145,33 @@ class BatchInput:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.batch_parameters import BatchParameters
+        from ..models.batch_input_filters import BatchInputFilters
 
         d = src_dict.copy()
         associated_account = d.pop("associatedAccount", UNSET)
 
         build_id = d.pop("buildID", UNSET)
+
+        def _parse_excluded_experience_i_ds(
+            data: object,
+        ) -> Union[List[str], None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                excluded_experience_i_ds_type_0 = cast(List[str], data)
+
+                return excluded_experience_i_ds_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union[List[str], None, Unset], data)
+
+        excluded_experience_i_ds = _parse_excluded_experience_i_ds(
+            d.pop("excludedExperienceIDs", UNSET)
+        )
 
         def _parse_experience_i_ds(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -201,6 +245,13 @@ class BatchInput:
             d.pop("experienceTagNames", UNSET)
         )
 
+        _filters = d.pop("filters", UNSET)
+        filters: Union[Unset, BatchInputFilters]
+        if isinstance(_filters, Unset):
+            filters = UNSET
+        else:
+            filters = BatchInputFilters.from_dict(_filters)
+
         metrics_build_id = d.pop("metricsBuildID", UNSET)
 
         _parameters = d.pop("parameters", UNSET)
@@ -220,10 +271,12 @@ class BatchInput:
         batch_input = cls(
             associated_account=associated_account,
             build_id=build_id,
+            excluded_experience_i_ds=excluded_experience_i_ds,
             experience_i_ds=experience_i_ds,
             experience_names=experience_names,
             experience_tag_i_ds=experience_tag_i_ds,
             experience_tag_names=experience_tag_names,
+            filters=filters,
             metrics_build_id=metrics_build_id,
             parameters=parameters,
             triggered_via=triggered_via,

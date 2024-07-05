@@ -9,38 +9,42 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from typing import Union
-from typing import cast
 
 
-T = TypeVar("T", bound="SweepParameter")
+T = TypeVar("T", bound="BatchInputFilters")
 
 
 @_attrs_define
-class SweepParameter:
+class BatchInputFilters:
     """
     Attributes:
-        name (Union[Unset, str]):
-        values (Union[Unset, List[str]]):
+        name (Union[Unset, str]): Filter experiences by name
+        search (Union[Unset, str]): A search query. Supports searching by tag_id Example: tag_id IN
+            ("71b96a67-9990-426b-993e-0f3d9c6bbe48").
+        text (Union[Unset, str]): Filter experiences by a text string on name and description
     """
 
     name: Union[Unset, str] = UNSET
-    values: Union[Unset, List[str]] = UNSET
+    search: Union[Unset, str] = UNSET
+    text: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
 
-        values: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.values, Unset):
-            values = self.values
+        search = self.search
+
+        text = self.text
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if name is not UNSET:
             field_dict["name"] = name
-        if values is not UNSET:
-            field_dict["values"] = values
+        if search is not UNSET:
+            field_dict["search"] = search
+        if text is not UNSET:
+            field_dict["text"] = text
 
         return field_dict
 
@@ -49,15 +53,18 @@ class SweepParameter:
         d = src_dict.copy()
         name = d.pop("name", UNSET)
 
-        values = cast(List[str], d.pop("values", UNSET))
+        search = d.pop("search", UNSET)
 
-        sweep_parameter = cls(
+        text = d.pop("text", UNSET)
+
+        batch_input_filters = cls(
             name=name,
-            values=values,
+            search=search,
+            text=text,
         )
 
-        sweep_parameter.additional_properties = d
-        return sweep_parameter
+        batch_input_filters.additional_properties = d
+        return batch_input_filters
 
     @property
     def additional_keys(self) -> List[str]:

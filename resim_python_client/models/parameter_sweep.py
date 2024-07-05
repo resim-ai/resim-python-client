@@ -9,16 +9,16 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from typing import Union
-from typing import cast
-from dateutil.parser import isoparse
 from ..models.parameter_sweep_status import ParameterSweepStatus
+from dateutil.parser import isoparse
 import datetime
+from typing import cast
 
 if TYPE_CHECKING:
+    from ..models.sweep_parameter import SweepParameter
     from ..models.parameter_sweep_status_history_type import (
         ParameterSweepStatusHistoryType,
     )
-    from ..models.sweep_parameter import SweepParameter
 
 
 T = TypeVar("T", bound="ParameterSweep")
@@ -139,10 +139,10 @@ class ParameterSweep:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.sweep_parameter import SweepParameter
         from ..models.parameter_sweep_status_history_type import (
             ParameterSweepStatusHistoryType,
         )
-        from ..models.sweep_parameter import SweepParameter
 
         d = src_dict.copy()
         associated_account = d.pop("associatedAccount")

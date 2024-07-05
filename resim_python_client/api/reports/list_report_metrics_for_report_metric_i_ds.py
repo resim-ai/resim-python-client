@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...types import Unset
 from ...models.list_report_metrics_output import ListReportMetricsOutput
+from ...types import Unset
 
 
 def _get_kwargs(

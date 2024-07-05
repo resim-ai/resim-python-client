@@ -10,8 +10,8 @@ from ..types import UNSET, Unset
 
 from typing import Union
 from dateutil.parser import isoparse
-from ..models.triggered_via import TriggeredVia
 import datetime
+from ..models.triggered_via import TriggeredVia
 
 
 T = TypeVar("T", bound="ReportInput")

@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...types import Unset
 from ...models.job_status import JobStatus
+from ...types import Unset
 from ...models.list_jobs_output import ListJobsOutput
 
 

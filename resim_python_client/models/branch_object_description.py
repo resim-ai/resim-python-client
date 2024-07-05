@@ -8,8 +8,8 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..models.branch_type import BranchType
 from typing import Union
+from ..models.branch_type import BranchType
 
 
 T = TypeVar("T", bound="BranchObjectDescription")

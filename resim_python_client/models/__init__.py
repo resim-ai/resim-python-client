@@ -2,6 +2,7 @@
 
 from .batch import Batch
 from .batch_input import BatchInput
+from .batch_input_filters import BatchInputFilters
 from .batch_job_status_counts import BatchJobStatusCounts
 from .batch_log import BatchLog
 from .batch_metric import BatchMetric
@@ -26,6 +27,9 @@ from .create_metrics_build_input import CreateMetricsBuildInput
 from .create_project_input import CreateProjectInput
 from .create_system_input import CreateSystemInput
 from .create_test_suite_input import CreateTestSuiteInput
+from .event import Event
+from .event_input import EventInput
+from .event_timestamp_type import EventTimestampType
 from .execution_step import ExecutionStep
 from .experience import Experience
 from .experience_location import ExperienceLocation
@@ -52,6 +56,7 @@ from .list_branches_output import ListBranchesOutput
 from .list_builds_output import ListBuildsOutput
 from .list_experience_tags_output import ListExperienceTagsOutput
 from .list_experiences_output import ListExperiencesOutput
+from .list_job_events_output import ListJobEventsOutput
 from .list_job_logs_output import ListJobLogsOutput
 from .list_job_metrics_data_output import ListJobMetricsDataOutput
 from .list_job_metrics_output import ListJobMetricsOutput
@@ -125,6 +130,7 @@ from .view_session_update import ViewSessionUpdate
 __all__ = (
     "Batch",
     "BatchInput",
+    "BatchInputFilters",
     "BatchJobStatusCounts",
     "BatchLog",
     "BatchMetric",
@@ -149,6 +155,9 @@ __all__ = (
     "CreateProjectInput",
     "CreateSystemInput",
     "CreateTestSuiteInput",
+    "Event",
+    "EventInput",
+    "EventTimestampType",
     "ExecutionStep",
     "Experience",
     "ExperienceLocation",
@@ -173,6 +182,7 @@ __all__ = (
     "ListBuildsOutput",
     "ListExperiencesOutput",
     "ListExperienceTagsOutput",
+    "ListJobEventsOutput",
     "ListJobLogsOutput",
     "ListJobMetricsDataOutput",
     "ListJobMetricsOutput",
