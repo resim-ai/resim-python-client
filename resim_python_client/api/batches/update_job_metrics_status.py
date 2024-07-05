@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.job import Job
 from ...models.metric_status import MetricStatus
+from ...models.job import Job
 
 
 def _get_kwargs(

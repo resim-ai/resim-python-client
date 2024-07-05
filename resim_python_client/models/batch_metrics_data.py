@@ -9,10 +9,10 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from typing import Union
-from ..models.metrics_data_type import MetricsDataType
 from typing import cast
 from dateutil.parser import isoparse
 import datetime
+from ..models.metrics_data_type import MetricsDataType
 
 
 T = TypeVar("T", bound="BatchMetricsData")

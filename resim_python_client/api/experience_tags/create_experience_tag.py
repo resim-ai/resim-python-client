@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.create_experience_tag_input import CreateExperienceTagInput
 from ...models.experience_tag import ExperienceTag
+from ...models.create_experience_tag_input import CreateExperienceTagInput
 
 
 def _get_kwargs(

@@ -11,19 +11,19 @@ from ..types import UNSET, Unset
 from typing import Union
 
 if TYPE_CHECKING:
-    from ..models.metrics_build_object_description import MetricsBuildObjectDescription
-    from ..models.experience_object_description import ExperienceObjectDescription
-    from ..models.test_suite_object_description import TestSuiteObjectDescription
-    from ..models.build_object_description import BuildObjectDescription
     from ..models.batch_object_description import BatchObjectDescription
-    from ..models.project_object_description import ProjectObjectDescription
-    from ..models.branch_object_description import BranchObjectDescription
+    from ..models.build_object_description import BuildObjectDescription
+    from ..models.sweep_object_description import SweepObjectDescription
     from ..models.system_object_description import SystemObjectDescription
+    from ..models.branch_object_description import BranchObjectDescription
     from ..models.test_suite_run_object_description import TestSuiteRunObjectDescription
+    from ..models.test_suite_object_description import TestSuiteObjectDescription
     from ..models.experience_tag_object_description import (
         ExperienceTagObjectDescription,
     )
-    from ..models.sweep_object_description import SweepObjectDescription
+    from ..models.experience_object_description import ExperienceObjectDescription
+    from ..models.metrics_build_object_description import MetricsBuildObjectDescription
+    from ..models.project_object_description import ProjectObjectDescription
 
 
 T = TypeVar("T", bound="SandboxSpecification")
@@ -167,23 +167,23 @@ class SandboxSpecification:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.metrics_build_object_description import (
-            MetricsBuildObjectDescription,
-        )
-        from ..models.experience_object_description import ExperienceObjectDescription
-        from ..models.test_suite_object_description import TestSuiteObjectDescription
-        from ..models.build_object_description import BuildObjectDescription
         from ..models.batch_object_description import BatchObjectDescription
-        from ..models.project_object_description import ProjectObjectDescription
-        from ..models.branch_object_description import BranchObjectDescription
+        from ..models.build_object_description import BuildObjectDescription
+        from ..models.sweep_object_description import SweepObjectDescription
         from ..models.system_object_description import SystemObjectDescription
+        from ..models.branch_object_description import BranchObjectDescription
         from ..models.test_suite_run_object_description import (
             TestSuiteRunObjectDescription,
         )
+        from ..models.test_suite_object_description import TestSuiteObjectDescription
         from ..models.experience_tag_object_description import (
             ExperienceTagObjectDescription,
         )
-        from ..models.sweep_object_description import SweepObjectDescription
+        from ..models.experience_object_description import ExperienceObjectDescription
+        from ..models.metrics_build_object_description import (
+            MetricsBuildObjectDescription,
+        )
+        from ..models.project_object_description import ProjectObjectDescription
 
         d = src_dict.copy()
         batches = []

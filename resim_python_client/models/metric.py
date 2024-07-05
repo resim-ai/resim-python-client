@@ -9,11 +9,11 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from typing import Union
-from typing import cast
-from dateutil.parser import isoparse
 from ..models.metric_status import MetricStatus
+from dateutil.parser import isoparse
 from ..models.metric_type import MetricType
 import datetime
+from typing import cast
 
 
 T = TypeVar("T", bound="Metric")
@@ -25,6 +25,7 @@ class Metric:
     Attributes:
         creation_timestamp (Union[Unset, datetime.datetime]):
         data_i_ds (Union[Unset, List[str]]):
+        event_metric (Union[Unset, bool]): true if this metric is for an event
         file_location (Union[Unset, str]):
         metric_id (Union[Unset, str]):
         metric_url (Union[Unset, str]):
@@ -38,6 +39,7 @@ class Metric:
 
     creation_timestamp: Union[Unset, datetime.datetime] = UNSET
     data_i_ds: Union[Unset, List[str]] = UNSET
+    event_metric: Union[Unset, bool] = UNSET
     file_location: Union[Unset, str] = UNSET
     metric_id: Union[Unset, str] = UNSET
     metric_url: Union[Unset, str] = UNSET
@@ -57,6 +59,8 @@ class Metric:
         data_i_ds: Union[Unset, List[str]] = UNSET
         if not isinstance(self.data_i_ds, Unset):
             data_i_ds = self.data_i_ds
+
+        event_metric = self.event_metric
 
         file_location = self.file_location
 
@@ -91,6 +95,8 @@ class Metric:
             field_dict["creationTimestamp"] = creation_timestamp
         if data_i_ds is not UNSET:
             field_dict["dataIDs"] = data_i_ds
+        if event_metric is not UNSET:
+            field_dict["eventMetric"] = event_metric
         if file_location is not UNSET:
             field_dict["fileLocation"] = file_location
         if metric_id is not UNSET:
@@ -123,6 +129,8 @@ class Metric:
             creation_timestamp = isoparse(_creation_timestamp)
 
         data_i_ds = cast(List[str], d.pop("dataIDs", UNSET))
+
+        event_metric = d.pop("eventMetric", UNSET)
 
         file_location = d.pop("fileLocation", UNSET)
 
@@ -162,6 +170,7 @@ class Metric:
         metric = cls(
             creation_timestamp=creation_timestamp,
             data_i_ds=data_i_ds,
+            event_metric=event_metric,
             file_location=file_location,
             metric_id=metric_id,
             metric_url=metric_url,

@@ -9,11 +9,11 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from typing import Union
-from dateutil.parser import isoparse
-from ..models.metric_status import MetricStatus
 from ..models.report_status import ReportStatus
-from ..models.triggered_via import TriggeredVia
+from ..models.metric_status import MetricStatus
+from dateutil.parser import isoparse
 import datetime
+from ..models.triggered_via import TriggeredVia
 
 if TYPE_CHECKING:
     from ..models.report_status_history_type import ReportStatusHistoryType

@@ -7,56 +7,64 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 
-import datetime
+from ..models.metric_status import MetricStatus
+from ..models.event_timestamp_type import EventTimestampType
 from dateutil.parser import isoparse
+import datetime
+from typing import cast
 
 
-T = TypeVar("T", bound="Project")
+T = TypeVar("T", bound="EventInput")
 
 
 @_attrs_define
-class Project:
+class EventInput:
     """
     Attributes:
-        creation_timestamp (datetime.datetime):
         description (str):
+        metrics_i_ds (List[str]):
         name (str):
-        org_id (str):
-        project_id (str):
-        user_id (str):
+        status (MetricStatus):
+        tags (List[str]):
+        timestamp (datetime.datetime):
+        timestamp_type (EventTimestampType):
     """
 
-    creation_timestamp: datetime.datetime
     description: str
+    metrics_i_ds: List[str]
     name: str
-    org_id: str
-    project_id: str
-    user_id: str
+    status: MetricStatus
+    tags: List[str]
+    timestamp: datetime.datetime
+    timestamp_type: EventTimestampType
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        creation_timestamp = self.creation_timestamp.isoformat()
-
         description = self.description
+
+        metrics_i_ds = self.metrics_i_ds
 
         name = self.name
 
-        org_id = self.org_id
+        status = self.status.value
 
-        project_id = self.project_id
+        tags = self.tags
 
-        user_id = self.user_id
+        timestamp = self.timestamp.isoformat()
+
+        timestamp_type = self.timestamp_type.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "creationTimestamp": creation_timestamp,
                 "description": description,
+                "metricsIDs": metrics_i_ds,
                 "name": name,
-                "orgID": org_id,
-                "projectID": project_id,
-                "userID": user_id,
+                "status": status,
+                "tags": tags,
+                "timestamp": timestamp,
+                "timestampType": timestamp_type,
             }
         )
 
@@ -65,29 +73,32 @@ class Project:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        creation_timestamp = isoparse(d.pop("creationTimestamp"))
-
         description = d.pop("description")
+
+        metrics_i_ds = cast(List[str], d.pop("metricsIDs"))
 
         name = d.pop("name")
 
-        org_id = d.pop("orgID")
+        status = MetricStatus(d.pop("status"))
 
-        project_id = d.pop("projectID")
+        tags = cast(List[str], d.pop("tags"))
 
-        user_id = d.pop("userID")
+        timestamp = isoparse(d.pop("timestamp"))
 
-        project = cls(
-            creation_timestamp=creation_timestamp,
+        timestamp_type = EventTimestampType(d.pop("timestampType"))
+
+        event_input = cls(
             description=description,
+            metrics_i_ds=metrics_i_ds,
             name=name,
-            org_id=org_id,
-            project_id=project_id,
-            user_id=user_id,
+            status=status,
+            tags=tags,
+            timestamp=timestamp,
+            timestamp_type=timestamp_type,
         )
 
-        project.additional_properties = d
-        return project
+        event_input.additional_properties = d
+        return event_input
 
     @property
     def additional_keys(self) -> List[str]:

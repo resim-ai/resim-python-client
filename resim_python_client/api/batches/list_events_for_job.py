@@ -7,13 +7,14 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...models.list_experiences_output import ListExperiencesOutput
+from ...models.list_job_events_output import ListJobEventsOutput
 from ...types import Unset
 
 
 def _get_kwargs(
     project_id: str,
-    experience_tag_id: str,
+    batch_id: str,
+    job_id: str,
     *,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
@@ -28,9 +29,10 @@ def _get_kwargs(
 
     _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{project_id}/experienceTags/{experience_tag_id}/experiences".format(
+        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/events".format(
             project_id=project_id,
-            experience_tag_id=experience_tag_id,
+            batch_id=batch_id,
+            job_id=job_id,
         ),
         "params": params,
     }
@@ -40,17 +42,17 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, ListExperiencesOutput]]:
+) -> Optional[Union[Any, ListJobEventsOutput]]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = ListExperiencesOutput.from_dict(response.json())
+        response_200 = ListJobEventsOutput.from_dict(response.json())
 
         return response_200
-    if response.status_code == HTTPStatus.BAD_REQUEST:
-        response_400 = cast(Any, None)
-        return response_400
     if response.status_code == HTTPStatus.UNAUTHORIZED:
         response_401 = cast(Any, None)
         return response_401
+    if response.status_code == HTTPStatus.NOT_FOUND:
+        response_404 = cast(Any, None)
+        return response_404
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -59,7 +61,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, ListExperiencesOutput]]:
+) -> Response[Union[Any, ListJobEventsOutput]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,17 +72,19 @@ def _build_response(
 
 def sync_detailed(
     project_id: str,
-    experience_tag_id: str,
+    batch_id: str,
+    job_id: str,
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-) -> Response[Union[Any, ListExperiencesOutput]]:
-    """Returns a list of all experiences with the given experience tag.
+) -> Response[Union[Any, ListJobEventsOutput]]:
+    """Lists the events for a given job. Does not return associated data.
 
     Args:
         project_id (str):
-        experience_tag_id (str):
+        batch_id (str):
+        job_id (str):
         page_size (Union[Unset, int]):
         page_token (Union[Unset, str]):
 
@@ -89,12 +93,13 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, ListExperiencesOutput]]
+        Response[Union[Any, ListJobEventsOutput]]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        experience_tag_id=experience_tag_id,
+        batch_id=batch_id,
+        job_id=job_id,
         page_size=page_size,
         page_token=page_token,
     )
@@ -108,17 +113,19 @@ def sync_detailed(
 
 def sync(
     project_id: str,
-    experience_tag_id: str,
+    batch_id: str,
+    job_id: str,
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-) -> Optional[Union[Any, ListExperiencesOutput]]:
-    """Returns a list of all experiences with the given experience tag.
+) -> Optional[Union[Any, ListJobEventsOutput]]:
+    """Lists the events for a given job. Does not return associated data.
 
     Args:
         project_id (str):
-        experience_tag_id (str):
+        batch_id (str):
+        job_id (str):
         page_size (Union[Unset, int]):
         page_token (Union[Unset, str]):
 
@@ -127,12 +134,13 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ListExperiencesOutput]
+        Union[Any, ListJobEventsOutput]
     """
 
     return sync_detailed(
         project_id=project_id,
-        experience_tag_id=experience_tag_id,
+        batch_id=batch_id,
+        job_id=job_id,
         client=client,
         page_size=page_size,
         page_token=page_token,
@@ -141,17 +149,19 @@ def sync(
 
 async def asyncio_detailed(
     project_id: str,
-    experience_tag_id: str,
+    batch_id: str,
+    job_id: str,
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-) -> Response[Union[Any, ListExperiencesOutput]]:
-    """Returns a list of all experiences with the given experience tag.
+) -> Response[Union[Any, ListJobEventsOutput]]:
+    """Lists the events for a given job. Does not return associated data.
 
     Args:
         project_id (str):
-        experience_tag_id (str):
+        batch_id (str):
+        job_id (str):
         page_size (Union[Unset, int]):
         page_token (Union[Unset, str]):
 
@@ -160,12 +170,13 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, ListExperiencesOutput]]
+        Response[Union[Any, ListJobEventsOutput]]
     """
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        experience_tag_id=experience_tag_id,
+        batch_id=batch_id,
+        job_id=job_id,
         page_size=page_size,
         page_token=page_token,
     )
@@ -177,17 +188,19 @@ async def asyncio_detailed(
 
 async def asyncio(
     project_id: str,
-    experience_tag_id: str,
+    batch_id: str,
+    job_id: str,
     *,
     client: AuthenticatedClient,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
-) -> Optional[Union[Any, ListExperiencesOutput]]:
-    """Returns a list of all experiences with the given experience tag.
+) -> Optional[Union[Any, ListJobEventsOutput]]:
+    """Lists the events for a given job. Does not return associated data.
 
     Args:
         project_id (str):
-        experience_tag_id (str):
+        batch_id (str):
+        job_id (str):
         page_size (Union[Unset, int]):
         page_token (Union[Unset, str]):
 
@@ -196,13 +209,14 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, ListExperiencesOutput]
+        Union[Any, ListJobEventsOutput]
     """
 
     return (
         await asyncio_detailed(
             project_id=project_id,
-            experience_tag_id=experience_tag_id,
+            batch_id=batch_id,
+            job_id=job_id,
             client=client,
             page_size=page_size,
             page_token=page_token,

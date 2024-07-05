@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.parameter_sweep import ParameterSweep
 from ...models.parameter_sweep_input import ParameterSweepInput
+from ...models.parameter_sweep import ParameterSweep
 
 
 def _get_kwargs(

@@ -9,8 +9,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from typing import Union
-from dateutil.parser import isoparse
 from ..models.parameter_sweep_status import ParameterSweepStatus
+from dateutil.parser import isoparse
 import datetime
 
 

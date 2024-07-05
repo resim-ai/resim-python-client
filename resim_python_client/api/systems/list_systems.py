@@ -7,21 +7,27 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...types import Unset
 from ...models.list_systems_output import ListSystemsOutput
+from ...types import Unset
 
 
 def _get_kwargs(
     project_id: str,
     *,
+    name: Union[Unset, str] = UNSET,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
     params: Dict[str, Any] = {}
+
+    params["name"] = name
 
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
+
+    params["orderBy"] = order_by
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -70,15 +76,19 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    name: Union[Unset, str] = UNSET,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListSystemsOutput]]:
     """Returns the list of systems.
 
     Args:
         project_id (str):
+        name (Union[Unset, str]):
         page_size (Union[Unset, int]):
         page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -90,8 +100,10 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        name=name,
         page_size=page_size,
         page_token=page_token,
+        order_by=order_by,
     )
 
     response = client.get_httpx_client().request(
@@ -105,15 +117,19 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    name: Union[Unset, str] = UNSET,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListSystemsOutput]]:
     """Returns the list of systems.
 
     Args:
         project_id (str):
+        name (Union[Unset, str]):
         page_size (Union[Unset, int]):
         page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,8 +142,10 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
+        name=name,
         page_size=page_size,
         page_token=page_token,
+        order_by=order_by,
     ).parsed
 
 
@@ -135,15 +153,19 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    name: Union[Unset, str] = UNSET,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListSystemsOutput]]:
     """Returns the list of systems.
 
     Args:
         project_id (str):
+        name (Union[Unset, str]):
         page_size (Union[Unset, int]):
         page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -155,8 +177,10 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        name=name,
         page_size=page_size,
         page_token=page_token,
+        order_by=order_by,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -168,15 +192,19 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
+    name: Union[Unset, str] = UNSET,
     page_size: Union[Unset, int] = UNSET,
     page_token: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListSystemsOutput]]:
     """Returns the list of systems.
 
     Args:
         project_id (str):
+        name (Union[Unset, str]):
         page_size (Union[Unset, int]):
         page_token (Union[Unset, str]):
+        order_by (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,7 +218,9 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
+            name=name,
             page_size=page_size,
             page_token=page_token,
+            order_by=order_by,
         )
     ).parsed

@@ -7,9 +7,9 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...types import Unset
-from ...models.branch_type import BranchType
 from ...models.list_branches_output import ListBranchesOutput
+from ...models.branch_type import BranchType
+from ...types import Unset
 
 
 def _get_kwargs(
