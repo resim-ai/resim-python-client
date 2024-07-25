@@ -44,6 +44,12 @@ def get_client():
     auth_client = DeviceCodeClient(domain=auth_url, client_id=client_id)
     token = auth_client.get_jwt()["access_token"]
     client = AuthenticatedClient(base_url=api_url, token=token)
+
+    # Use list_projects to check if our token is still good. Otherwise refresh:
+    if list_projects.sync(client=client) is None:
+        auth_client.refresh()
+        token = auth_client.get_jwt()["access_token"]
+        client = AuthenticatedClient(base_url=api_url, token=token)
     return client
 
 
