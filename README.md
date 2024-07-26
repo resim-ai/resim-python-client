@@ -28,6 +28,6 @@ curl -s https://raw.githubusercontent.com/resim-ai/resim-python-client/main/scri
 cd api_sandbox/
 source .venv/bin/activate
 
-# Run the entypoint which prints out the projects for your organization
+# Run the entrypoint which prints out the projects for your organization
 python queries.py
 ```

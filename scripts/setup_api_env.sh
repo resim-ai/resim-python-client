@@ -6,7 +6,7 @@ DIRNAME=api_sandbox
 mkdir "${DIRNAME}"
 cd "${DIRNAME}"
 
-python3 -m venv .venv
+python3 -m venv .venv --prompt resim
 
 source .venv/bin/activate
 
