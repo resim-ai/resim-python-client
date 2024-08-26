@@ -3,39 +3,37 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.list_experience_tags_output import ListExperienceTagsOutput
-from ...types import Unset
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     experience_id: str,
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
 
+    pass
+
+    params: Dict[str, Any] = {}
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/experiences/{experience_id}/experienceTags".format(
-            project_id=project_id,
-            experience_id=experience_id,
+        "url": "/projects/{projectID}/experiences/{experienceID}/experienceTags".format(
+            projectID=project_id,
+            experienceID=experience_id,
         ),
         "params": params,
     }
-
-    return _kwargs
 
 
 def _parse_response(
@@ -73,16 +71,16 @@ def sync_detailed(
     experience_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListExperienceTagsOutput]]:
     """Returns a list of experience tags associated with a given experience.
 
     Args:
         project_id (str):
         experience_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,16 +109,16 @@ def sync(
     experience_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListExperienceTagsOutput]]:
     """Returns a list of experience tags associated with a given experience.
 
     Args:
         project_id (str):
         experience_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -144,16 +142,16 @@ async def asyncio_detailed(
     experience_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListExperienceTagsOutput]]:
     """Returns a list of experience tags associated with a given experience.
 
     Args:
         project_id (str):
         experience_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -180,16 +178,16 @@ async def asyncio(
     experience_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListExperienceTagsOutput]]:
     """Returns a list of experience tags associated with a given experience.
 
     Args:
         project_id (str):
         experience_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

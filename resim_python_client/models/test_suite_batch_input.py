@@ -1,15 +1,10 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from typing import Union
 from ..models.triggered_via import TriggeredVia
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.batch_parameters import BatchParameters
@@ -25,23 +20,27 @@ class TestSuiteBatchInput:
         build_id (str):
         associated_account (Union[Unset, str]):
         parameters (Union[Unset, BatchParameters]):
+        pool_labels (Union[Unset, List[str]]):
         triggered_via (Union[Unset, TriggeredVia]):
     """
 
     build_id: str
     associated_account: Union[Unset, str] = UNSET
     parameters: Union[Unset, "BatchParameters"] = UNSET
+    pool_labels: Union[Unset, List[str]] = UNSET
     triggered_via: Union[Unset, TriggeredVia] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         build_id = self.build_id
-
         associated_account = self.associated_account
-
         parameters: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.parameters, Unset):
             parameters = self.parameters.to_dict()
+
+        pool_labels: Union[Unset, List[str]] = UNSET
+        if not isinstance(self.pool_labels, Unset):
+            pool_labels = self.pool_labels
 
         triggered_via: Union[Unset, str] = UNSET
         if not isinstance(self.triggered_via, Unset):
@@ -58,6 +57,8 @@ class TestSuiteBatchInput:
             field_dict["associatedAccount"] = associated_account
         if parameters is not UNSET:
             field_dict["parameters"] = parameters
+        if pool_labels is not UNSET:
+            field_dict["poolLabels"] = pool_labels
         if triggered_via is not UNSET:
             field_dict["triggeredVia"] = triggered_via
 
@@ -79,6 +80,8 @@ class TestSuiteBatchInput:
         else:
             parameters = BatchParameters.from_dict(_parameters)
 
+        pool_labels = cast(List[str], d.pop("poolLabels", UNSET))
+
         _triggered_via = d.pop("triggeredVia", UNSET)
         triggered_via: Union[Unset, TriggeredVia]
         if isinstance(_triggered_via, Unset):
@@ -90,6 +93,7 @@ class TestSuiteBatchInput:
             build_id=build_id,
             associated_account=associated_account,
             parameters=parameters,
+            pool_labels=pool_labels,
             triggered_via=triggered_via,
         )
 

@@ -1,14 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
 
 if TYPE_CHECKING:
     from ..models.metrics_build import MetricsBuild
@@ -35,6 +30,7 @@ class ListMetricsBuildOutput:
             metrics_builds = []
             for metrics_builds_item_data in self.metrics_builds:
                 metrics_builds_item = metrics_builds_item_data.to_dict()
+
                 metrics_builds.append(metrics_builds_item)
 
         next_page_token = self.next_page_token

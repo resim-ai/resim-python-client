@@ -1,33 +1,54 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
+from ...models.conflated_job_status import ConflatedJobStatus
 from ...models.job_status import JobStatus
-from ...types import Unset
 from ...models.list_jobs_output import ListJobsOutput
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     batch_id: str,
     *,
-    status: Union[Unset, JobStatus] = UNSET,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    status: Union[Unset, None, JobStatus] = UNSET,
+    conflated_status: Union[Unset, None, List[ConflatedJobStatus]] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
 
-    json_status: Union[Unset, str] = UNSET
+    pass
+
+    params: Dict[str, Any] = {}
+    json_status: Union[Unset, None, str] = UNSET
     if not isinstance(status, Unset):
-        json_status = status.value
+        json_status = status.value if status else None
 
     params["status"] = json_status
+
+    json_conflated_status: Union[Unset, None, List[str]] = UNSET
+    if not isinstance(conflated_status, Unset):
+        if conflated_status is None:
+            json_conflated_status = None
+        else:
+            json_conflated_status = []
+            for conflated_status_item_data in conflated_status:
+                conflated_status_item = conflated_status_item_data.value
+
+                json_conflated_status.append(conflated_status_item)
+
+    params["conflatedStatus"] = json_conflated_status
+
+    params["name"] = name
+
+    params["text"] = text
 
     params["pageSize"] = page_size
 
@@ -37,16 +58,14 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/batches/{batch_id}/jobs".format(
-            project_id=project_id,
-            batch_id=batch_id,
+        "url": "/projects/{projectID}/batches/{batchID}/jobs".format(
+            projectID=project_id,
+            batchID=batch_id,
         ),
         "params": params,
     }
-
-    return _kwargs
 
 
 def _parse_response(
@@ -87,20 +106,26 @@ def sync_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, JobStatus] = UNSET,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    status: Union[Unset, None, JobStatus] = UNSET,
+    conflated_status: Union[Unset, None, List[ConflatedJobStatus]] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListJobsOutput]]:
     """List the jobs in the given batch.
 
     Args:
         project_id (str):
         batch_id (str):
-        status (Union[Unset, JobStatus]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        status (Union[Unset, None, JobStatus]):
+        conflated_status (Union[Unset, None, List[ConflatedJobStatus]]):
+        name (Union[Unset, None, str]):
+        text (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -114,6 +139,9 @@ def sync_detailed(
         project_id=project_id,
         batch_id=batch_id,
         status=status,
+        conflated_status=conflated_status,
+        name=name,
+        text=text,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -131,20 +159,26 @@ def sync(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, JobStatus] = UNSET,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    status: Union[Unset, None, JobStatus] = UNSET,
+    conflated_status: Union[Unset, None, List[ConflatedJobStatus]] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListJobsOutput]]:
     """List the jobs in the given batch.
 
     Args:
         project_id (str):
         batch_id (str):
-        status (Union[Unset, JobStatus]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        status (Union[Unset, None, JobStatus]):
+        conflated_status (Union[Unset, None, List[ConflatedJobStatus]]):
+        name (Union[Unset, None, str]):
+        text (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,6 +193,9 @@ def sync(
         batch_id=batch_id,
         client=client,
         status=status,
+        conflated_status=conflated_status,
+        name=name,
+        text=text,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -170,20 +207,26 @@ async def asyncio_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, JobStatus] = UNSET,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    status: Union[Unset, None, JobStatus] = UNSET,
+    conflated_status: Union[Unset, None, List[ConflatedJobStatus]] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListJobsOutput]]:
     """List the jobs in the given batch.
 
     Args:
         project_id (str):
         batch_id (str):
-        status (Union[Unset, JobStatus]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        status (Union[Unset, None, JobStatus]):
+        conflated_status (Union[Unset, None, List[ConflatedJobStatus]]):
+        name (Union[Unset, None, str]):
+        text (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -197,6 +240,9 @@ async def asyncio_detailed(
         project_id=project_id,
         batch_id=batch_id,
         status=status,
+        conflated_status=conflated_status,
+        name=name,
+        text=text,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -212,20 +258,26 @@ async def asyncio(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, JobStatus] = UNSET,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    status: Union[Unset, None, JobStatus] = UNSET,
+    conflated_status: Union[Unset, None, List[ConflatedJobStatus]] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListJobsOutput]]:
     """List the jobs in the given batch.
 
     Args:
         project_id (str):
         batch_id (str):
-        status (Union[Unset, JobStatus]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        status (Union[Unset, None, JobStatus]):
+        conflated_status (Union[Unset, None, List[ConflatedJobStatus]]):
+        name (Union[Unset, None, str]):
+        text (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -241,6 +293,9 @@ async def asyncio(
             batch_id=batch_id,
             client=client,
             status=status,
+            conflated_status=conflated_status,
+            name=name,
+            text=text,
             page_size=page_size,
             page_token=page_token,
             order_by=order_by,

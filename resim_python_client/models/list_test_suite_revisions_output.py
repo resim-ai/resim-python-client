@@ -1,14 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
 
 if TYPE_CHECKING:
     from ..models.test_suite import TestSuite
@@ -21,23 +16,29 @@ T = TypeVar("T", bound="ListTestSuiteRevisionsOutput")
 class ListTestSuiteRevisionsOutput:
     """
     Attributes:
+        next_page_token (Union[Unset, str]):
         test_suites (Union[Unset, List['TestSuite']]):
     """
 
+    next_page_token: Union[Unset, str] = UNSET
     test_suites: Union[Unset, List["TestSuite"]] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        next_page_token = self.next_page_token
         test_suites: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.test_suites, Unset):
             test_suites = []
             for test_suites_item_data in self.test_suites:
                 test_suites_item = test_suites_item_data.to_dict()
+
                 test_suites.append(test_suites_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if next_page_token is not UNSET:
+            field_dict["nextPageToken"] = next_page_token
         if test_suites is not UNSET:
             field_dict["testSuites"] = test_suites
 
@@ -48,6 +49,8 @@ class ListTestSuiteRevisionsOutput:
         from ..models.test_suite import TestSuite
 
         d = src_dict.copy()
+        next_page_token = d.pop("nextPageToken", UNSET)
+
         test_suites = []
         _test_suites = d.pop("testSuites", UNSET)
         for test_suites_item_data in _test_suites or []:
@@ -56,6 +59,7 @@ class ListTestSuiteRevisionsOutput:
             test_suites.append(test_suites_item)
 
         list_test_suite_revisions_output = cls(
+            next_page_token=next_page_token,
             test_suites=test_suites,
         )
 

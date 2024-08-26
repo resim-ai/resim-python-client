@@ -1,16 +1,11 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-
-import datetime
 from dateutil.parser import isoparse
-from ..models.log_type import LogType
 
+from ..models.log_type import LogType
 
 T = TypeVar("T", bound="ReportLog")
 
@@ -45,23 +40,16 @@ class ReportLog:
 
     def to_dict(self) -> Dict[str, Any]:
         checksum = self.checksum
-
         creation_timestamp = self.creation_timestamp.isoformat()
 
         file_name = self.file_name
-
         file_size = self.file_size
-
         location = self.location
-
         log_id = self.log_id
-
         log_output_location = self.log_output_location
-
         log_type = self.log_type.value
 
         org_id = self.org_id
-
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}

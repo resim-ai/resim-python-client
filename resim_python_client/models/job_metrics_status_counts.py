@@ -1,11 +1,7 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
 
 T = TypeVar("T", bound="JobMetricsStatusCounts")
 
@@ -32,15 +28,10 @@ class JobMetricsStatusCounts:
 
     def to_dict(self) -> Dict[str, Any]:
         fail_block = self.fail_block
-
         fail_warn = self.fail_warn
-
         no_status_reported = self.no_status_reported
-
         not_applicable = self.not_applicable
-
         passed = self.passed
-
         raw = self.raw
 
         field_dict: Dict[str, Any] = {}

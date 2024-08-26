@@ -3,24 +3,24 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.list_batches_output import ListBatchesOutput
-from ...types import Unset
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     test_suite_id: str,
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
 
+    pass
+
+    params: Dict[str, Any] = {}
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
@@ -29,16 +29,14 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/suites/{test_suite_id}/batches".format(
-            project_id=project_id,
-            test_suite_id=test_suite_id,
+        "url": "/projects/{projectID}/suites/{testSuiteID}/batches".format(
+            projectID=project_id,
+            testSuiteID=test_suite_id,
         ),
         "params": params,
     }
-
-    return _kwargs
 
 
 def _parse_response(
@@ -73,18 +71,18 @@ def sync_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBatchesOutput]]:
     """List the batches for a test suite (all revisions).
 
     Args:
         project_id (str):
         test_suite_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -114,18 +112,18 @@ def sync(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBatchesOutput]]:
     """List the batches for a test suite (all revisions).
 
     Args:
         project_id (str):
         test_suite_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -150,18 +148,18 @@ async def asyncio_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBatchesOutput]]:
     """List the batches for a test suite (all revisions).
 
     Args:
         project_id (str):
         test_suite_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,18 +187,18 @@ async def asyncio(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBatchesOutput]]:
     """List the batches for a test suite (all revisions).
 
     Args:
         project_id (str):
         test_suite_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

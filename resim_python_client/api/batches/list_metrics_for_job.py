@@ -3,12 +3,10 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.list_job_metrics_output import ListJobMetricsOutput
-from ...types import Unset
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -16,12 +14,14 @@ def _get_kwargs(
     batch_id: str,
     job_id: str,
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
 
+    pass
+
+    params: Dict[str, Any] = {}
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
@@ -30,17 +30,15 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/metrics".format(
-            project_id=project_id,
-            batch_id=batch_id,
-            job_id=job_id,
+        "url": "/projects/{projectID}/batches/{batchID}/jobs/{jobID}/metrics".format(
+            projectID=project_id,
+            batchID=batch_id,
+            jobID=job_id,
         ),
         "params": params,
     }
-
-    return _kwargs
 
 
 def _parse_response(
@@ -79,9 +77,9 @@ def sync_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListJobMetricsOutput]]:
     """Lists the metrics for a given job. Does not return associated data.
 
@@ -89,9 +87,9 @@ def sync_detailed(
         project_id (str):
         batch_id (str):
         job_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -123,9 +121,9 @@ def sync(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListJobMetricsOutput]]:
     """Lists the metrics for a given job. Does not return associated data.
 
@@ -133,9 +131,9 @@ def sync(
         project_id (str):
         batch_id (str):
         job_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -162,9 +160,9 @@ async def asyncio_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListJobMetricsOutput]]:
     """Lists the metrics for a given job. Does not return associated data.
 
@@ -172,9 +170,9 @@ async def asyncio_detailed(
         project_id (str):
         batch_id (str):
         job_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -204,9 +202,9 @@ async def asyncio(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListJobMetricsOutput]]:
     """Lists the metrics for a given job. Does not return associated data.
 
@@ -214,9 +212,9 @@ async def asyncio(
         project_id (str):
         batch_id (str):
         job_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

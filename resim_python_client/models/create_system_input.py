@@ -1,11 +1,7 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
 
 T = TypeVar("T", bound="CreateSystemInput")
 
@@ -40,23 +36,14 @@ class CreateSystemInput:
 
     def to_dict(self) -> Dict[str, Any]:
         build_gpus = self.build_gpus
-
         build_memory_mib = self.build_memory_mib
-
         build_shared_memory_mb = self.build_shared_memory_mb
-
         build_vcpus = self.build_vcpus
-
         description = self.description
-
         metrics_build_gpus = self.metrics_build_gpus
-
         metrics_build_memory_mib = self.metrics_build_memory_mib
-
         metrics_build_shared_memory_mb = self.metrics_build_shared_memory_mb
-
         metrics_build_vcpus = self.metrics_build_vcpus
-
         name = self.name
 
         field_dict: Dict[str, Any] = {}

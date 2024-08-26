@@ -3,22 +3,25 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...types import Unset
+from ...client import AuthenticatedClient, Client
 from ...models.list_metrics_build_output import ListMetricsBuildOutput
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
+
+    pass
+
     params: Dict[str, Any] = {}
+    params["systemID"] = system_id
 
     params["pageSize"] = page_size
 
@@ -28,15 +31,13 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/metricsBuilds".format(
-            project_id=project_id,
+        "url": "/projects/{projectID}/metricsBuilds".format(
+            projectID=project_id,
         ),
         "params": params,
     }
-
-    return _kwargs
 
 
 def _parse_response(
@@ -73,17 +74,19 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListMetricsBuildOutput]]:
     """Returns the list of metrics builds.
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        system_id (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -95,6 +98,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        system_id=system_id,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -111,17 +115,19 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListMetricsBuildOutput]]:
     """Returns the list of metrics builds.
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        system_id (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -134,6 +140,7 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
+        system_id=system_id,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -144,17 +151,19 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListMetricsBuildOutput]]:
     """Returns the list of metrics builds.
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        system_id (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -166,6 +175,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        system_id=system_id,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -180,17 +190,19 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListMetricsBuildOutput]]:
     """Returns the list of metrics builds.
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        system_id (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -204,6 +216,7 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
+            system_id=system_id,
             page_size=page_size,
             page_token=page_token,
             order_by=order_by,

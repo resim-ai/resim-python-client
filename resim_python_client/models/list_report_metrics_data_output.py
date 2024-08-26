@@ -1,14 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
 
 if TYPE_CHECKING:
     from ..models.metrics_data import MetricsData
@@ -31,12 +26,12 @@ class ListReportMetricsDataOutput:
 
     def to_dict(self) -> Dict[str, Any]:
         next_page_token = self.next_page_token
-
         report_metrics_data: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.report_metrics_data, Unset):
             report_metrics_data = []
             for report_metrics_data_item_data in self.report_metrics_data:
                 report_metrics_data_item = report_metrics_data_item_data.to_dict()
+
                 report_metrics_data.append(report_metrics_data_item)
 
         field_dict: Dict[str, Any] = {}
@@ -59,9 +54,7 @@ class ListReportMetricsDataOutput:
         report_metrics_data = []
         _report_metrics_data = d.pop("reportMetricsData", UNSET)
         for report_metrics_data_item_data in _report_metrics_data or []:
-            report_metrics_data_item = MetricsData.from_dict(
-                report_metrics_data_item_data
-            )
+            report_metrics_data_item = MetricsData.from_dict(report_metrics_data_item_data)
 
             report_metrics_data.append(report_metrics_data_item)
 

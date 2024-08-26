@@ -1,24 +1,16 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
+from ..models.parameter_sweep_status import ParameterSweepStatus
 from ..types import UNSET, Unset
 
-from typing import Union
-from ..models.parameter_sweep_status import ParameterSweepStatus
-from dateutil.parser import isoparse
-import datetime
-from typing import cast
-
 if TYPE_CHECKING:
+    from ..models.parameter_sweep_status_history_type import ParameterSweepStatusHistoryType
     from ..models.sweep_parameter import SweepParameter
-    from ..models.parameter_sweep_status_history_type import (
-        ParameterSweepStatusHistoryType,
-    )
 
 
 T = TypeVar("T", bound="ParameterSweep")
@@ -58,7 +50,6 @@ class ParameterSweep:
 
     def to_dict(self) -> Dict[str, Any]:
         associated_account = self.associated_account
-
         batches: Union[Unset, List[str]] = UNSET
         if not isinstance(self.batches, Unset):
             batches = self.batches
@@ -72,20 +63,17 @@ class ParameterSweep:
             last_updated_timestamp = self.last_updated_timestamp.isoformat()
 
         name = self.name
-
         org_id = self.org_id
-
         parameter_sweep_id = self.parameter_sweep_id
-
         parameters: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.parameters, Unset):
             parameters = []
             for parameters_item_data in self.parameters:
                 parameters_item = parameters_item_data.to_dict()
+
                 parameters.append(parameters_item)
 
         project_id = self.project_id
-
         status: Union[Unset, str] = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
@@ -93,15 +81,12 @@ class ParameterSweep:
         status_history: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.status_history, Unset):
             status_history = []
-            for (
-                componentsschemasparameter_sweep_status_history_item_data
-            ) in self.status_history:
+            for componentsschemasparameter_sweep_status_history_item_data in self.status_history:
                 componentsschemasparameter_sweep_status_history_item = (
                     componentsschemasparameter_sweep_status_history_item_data.to_dict()
                 )
-                status_history.append(
-                    componentsschemasparameter_sweep_status_history_item
-                )
+
+                status_history.append(componentsschemasparameter_sweep_status_history_item)
 
         user_id = self.user_id
 
@@ -139,10 +124,8 @@ class ParameterSweep:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.parameter_sweep_status_history_type import ParameterSweepStatusHistoryType
         from ..models.sweep_parameter import SweepParameter
-        from ..models.parameter_sweep_status_history_type import (
-            ParameterSweepStatusHistoryType,
-        )
 
         d = src_dict.copy()
         associated_account = d.pop("associatedAccount")
@@ -187,13 +170,9 @@ class ParameterSweep:
 
         status_history = []
         _status_history = d.pop("statusHistory", UNSET)
-        for componentsschemasparameter_sweep_status_history_item_data in (
-            _status_history or []
-        ):
-            componentsschemasparameter_sweep_status_history_item = (
-                ParameterSweepStatusHistoryType.from_dict(
-                    componentsschemasparameter_sweep_status_history_item_data
-                )
+        for componentsschemasparameter_sweep_status_history_item_data in _status_history or []:
+            componentsschemasparameter_sweep_status_history_item = ParameterSweepStatusHistoryType.from_dict(
+                componentsschemasparameter_sweep_status_history_item_data
             )
 
             status_history.append(componentsschemasparameter_sweep_status_history_item)

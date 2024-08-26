@@ -1,20 +1,13 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from typing import Union
-from ..models.metric_status import MetricStatus
 from dateutil.parser import isoparse
-from ..models.metric_type import MetricType
-import datetime
-from typing import cast
 
+from ..models.metric_status import MetricStatus
+from ..models.metric_type import MetricType
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="JobMetric")
 
@@ -31,10 +24,12 @@ class JobMetric:
         metric_url (Union[Unset, str]):
         name (Union[Unset, str]):
         org_id (Union[Unset, str]):
+        project_id (Union[Unset, str]):
         status (Union[Unset, MetricStatus]):
         type (Union[Unset, MetricType]):
         user_id (Union[Unset, str]):
-        value (Union[None, Unset, float]):
+        value (Union[Unset, None, float]):
+        batch_id (Union[Unset, str]):
         job_id (Union[Unset, str]):
     """
 
@@ -46,10 +41,12 @@ class JobMetric:
     metric_url: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
     org_id: Union[Unset, str] = UNSET
+    project_id: Union[Unset, str] = UNSET
     status: Union[Unset, MetricStatus] = UNSET
     type: Union[Unset, MetricType] = UNSET
     user_id: Union[Unset, str] = UNSET
-    value: Union[None, Unset, float] = UNSET
+    value: Union[Unset, None, float] = UNSET
+    batch_id: Union[Unset, str] = UNSET
     job_id: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -63,17 +60,12 @@ class JobMetric:
             data_i_ds = self.data_i_ds
 
         event_metric = self.event_metric
-
         file_location = self.file_location
-
         metric_id = self.metric_id
-
         metric_url = self.metric_url
-
         name = self.name
-
         org_id = self.org_id
-
+        project_id = self.project_id
         status: Union[Unset, str] = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
@@ -83,13 +75,8 @@ class JobMetric:
             type = self.type.value
 
         user_id = self.user_id
-
-        value: Union[None, Unset, float]
-        if isinstance(self.value, Unset):
-            value = UNSET
-        else:
-            value = self.value
-
+        value = self.value
+        batch_id = self.batch_id
         job_id = self.job_id
 
         field_dict: Dict[str, Any] = {}
@@ -111,6 +98,8 @@ class JobMetric:
             field_dict["name"] = name
         if org_id is not UNSET:
             field_dict["orgID"] = org_id
+        if project_id is not UNSET:
+            field_dict["projectID"] = project_id
         if status is not UNSET:
             field_dict["status"] = status
         if type is not UNSET:
@@ -119,6 +108,8 @@ class JobMetric:
             field_dict["userID"] = user_id
         if value is not UNSET:
             field_dict["value"] = value
+        if batch_id is not UNSET:
+            field_dict["batchID"] = batch_id
         if job_id is not UNSET:
             field_dict["jobID"] = job_id
 
@@ -148,6 +139,8 @@ class JobMetric:
 
         org_id = d.pop("orgID", UNSET)
 
+        project_id = d.pop("projectID", UNSET)
+
         _status = d.pop("status", UNSET)
         status: Union[Unset, MetricStatus]
         if isinstance(_status, Unset):
@@ -164,14 +157,9 @@ class JobMetric:
 
         user_id = d.pop("userID", UNSET)
 
-        def _parse_value(data: object) -> Union[None, Unset, float]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(Union[None, Unset, float], data)
+        value = d.pop("value", UNSET)
 
-        value = _parse_value(d.pop("value", UNSET))
+        batch_id = d.pop("batchID", UNSET)
 
         job_id = d.pop("jobID", UNSET)
 
@@ -184,10 +172,12 @@ class JobMetric:
             metric_url=metric_url,
             name=name,
             org_id=org_id,
+            project_id=project_id,
             status=status,
             type=type,
             user_id=user_id,
             value=value,
+            batch_id=batch_id,
             job_id=job_id,
         )
 

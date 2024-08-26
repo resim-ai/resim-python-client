@@ -1,24 +1,43 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...types import Unset
+from ...client import AuthenticatedClient, Client
 from ...models.list_test_suite_output import ListTestSuiteOutput
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    experience_i_ds: Union[Unset, None, List[str]] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
+
+    pass
+
     params: Dict[str, Any] = {}
+    json_experience_i_ds: Union[Unset, None, List[str]] = UNSET
+    if not isinstance(experience_i_ds, Unset):
+        if experience_i_ds is None:
+            json_experience_i_ds = None
+        else:
+            json_experience_i_ds = experience_i_ds
+
+    params["experienceIDs"] = json_experience_i_ds
+
+    params["systemID"] = system_id
+
+    params["name"] = name
+
+    params["text"] = text
 
     params["pageSize"] = page_size
 
@@ -28,15 +47,13 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/suites".format(
-            project_id=project_id,
+        "url": "/projects/{projectID}/suites".format(
+            projectID=project_id,
         ),
         "params": params,
     }
-
-    return _kwargs
 
 
 def _parse_response(
@@ -73,17 +90,25 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    experience_i_ds: Union[Unset, None, List[str]] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListTestSuiteOutput]]:
     """Returns the list of test suites at their latest revision
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        experience_i_ds (Union[Unset, None, List[str]]):
+        system_id (Union[Unset, None, str]):
+        name (Union[Unset, None, str]):
+        text (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -95,6 +120,10 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        experience_i_ds=experience_i_ds,
+        system_id=system_id,
+        name=name,
+        text=text,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -111,17 +140,25 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    experience_i_ds: Union[Unset, None, List[str]] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListTestSuiteOutput]]:
     """Returns the list of test suites at their latest revision
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        experience_i_ds (Union[Unset, None, List[str]]):
+        system_id (Union[Unset, None, str]):
+        name (Union[Unset, None, str]):
+        text (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -134,6 +171,10 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
+        experience_i_ds=experience_i_ds,
+        system_id=system_id,
+        name=name,
+        text=text,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -144,17 +185,25 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    experience_i_ds: Union[Unset, None, List[str]] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListTestSuiteOutput]]:
     """Returns the list of test suites at their latest revision
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        experience_i_ds (Union[Unset, None, List[str]]):
+        system_id (Union[Unset, None, str]):
+        name (Union[Unset, None, str]):
+        text (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -166,6 +215,10 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
+        experience_i_ds=experience_i_ds,
+        system_id=system_id,
+        name=name,
+        text=text,
         page_size=page_size,
         page_token=page_token,
         order_by=order_by,
@@ -180,17 +233,25 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
-    order_by: Union[Unset, str] = UNSET,
+    experience_i_ds: Union[Unset, None, List[str]] = UNSET,
+    system_id: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, None, str] = UNSET,
+    text: Union[Unset, None, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
+    order_by: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListTestSuiteOutput]]:
     """Returns the list of test suites at their latest revision
 
     Args:
         project_id (str):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
-        order_by (Union[Unset, str]):
+        experience_i_ds (Union[Unset, None, List[str]]):
+        system_id (Union[Unset, None, str]):
+        name (Union[Unset, None, str]):
+        text (Union[Unset, None, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
+        order_by (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -204,6 +265,10 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
+            experience_i_ds=experience_i_ds,
+            system_id=system_id,
+            name=name,
+            text=text,
             page_size=page_size,
             page_token=page_token,
             order_by=order_by,

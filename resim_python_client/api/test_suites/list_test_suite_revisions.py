@@ -3,26 +3,37 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.list_test_suite_revisions_output import ListTestSuiteRevisionsOutput
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     project_id: str,
     test_suite_id: str,
+    *,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
-        "method": "get",
-        "url": "/projects/{project_id}/suites/{test_suite_id}/revisions".format(
-            project_id=project_id,
-            test_suite_id=test_suite_id,
-        ),
-    }
 
-    return _kwargs
+    pass
+
+    params: Dict[str, Any] = {}
+    params["pageSize"] = page_size
+
+    params["pageToken"] = page_token
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
+    return {
+        "method": "get",
+        "url": "/projects/{projectID}/suites/{testSuiteID}/revisions".format(
+            projectID=project_id,
+            testSuiteID=test_suite_id,
+        ),
+        "params": params,
+    }
 
 
 def _parse_response(
@@ -60,12 +71,16 @@ def sync_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListTestSuiteRevisionsOutput]]:
     """Returns all the revisions of a specific test suite.
 
     Args:
         project_id (str):
         test_suite_id (str):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -78,6 +93,8 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         test_suite_id=test_suite_id,
+        page_size=page_size,
+        page_token=page_token,
     )
 
     response = client.get_httpx_client().request(
@@ -92,12 +109,16 @@ def sync(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListTestSuiteRevisionsOutput]]:
     """Returns all the revisions of a specific test suite.
 
     Args:
         project_id (str):
         test_suite_id (str):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,6 +132,8 @@ def sync(
         project_id=project_id,
         test_suite_id=test_suite_id,
         client=client,
+        page_size=page_size,
+        page_token=page_token,
     ).parsed
 
 
@@ -119,12 +142,16 @@ async def asyncio_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListTestSuiteRevisionsOutput]]:
     """Returns all the revisions of a specific test suite.
 
     Args:
         project_id (str):
         test_suite_id (str):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,6 +164,8 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         test_suite_id=test_suite_id,
+        page_size=page_size,
+        page_token=page_token,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -149,12 +178,16 @@ async def asyncio(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListTestSuiteRevisionsOutput]]:
     """Returns all the revisions of a specific test suite.
 
     Args:
         project_id (str):
         test_suite_id (str):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -169,5 +202,7 @@ async def asyncio(
             project_id=project_id,
             test_suite_id=test_suite_id,
             client=client,
+            page_size=page_size,
+            page_token=page_token,
         )
     ).parsed

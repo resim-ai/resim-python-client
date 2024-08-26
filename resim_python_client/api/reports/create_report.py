@@ -3,35 +3,30 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.report import Report
 from ...models.report_input import ReportInput
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    body: ReportInput,
+    json_body: ReportInput,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    pass
+
+    json_json_body = json_body.to_dict()
+
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/reports".format(
-            project_id=project_id,
+        "url": "/projects/{projectID}/reports".format(
+            projectID=project_id,
         ),
+        "json": json_json_body,
     }
-
-    _body = body.to_dict()
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
 
 
 def _parse_response(
@@ -44,6 +39,9 @@ def _parse_response(
     if response.status_code == HTTPStatus.UNAUTHORIZED:
         response_401 = cast(Any, None)
         return response_401
+    if response.status_code == HTTPStatus.PAYMENT_REQUIRED:
+        response_402 = cast(Any, None)
+        return response_402
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -65,7 +63,7 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: ReportInput,
+    json_body: ReportInput,
 ) -> Response[Union[Any, Report]]:
     """Adds a report. If the user supplies a name parameter, that name will be used, otherwise a name will
     be generated. The end timestamp is optional and will default to now(). The respectRevisionBoundary
@@ -73,7 +71,7 @@ def sync_detailed(
 
     Args:
         project_id (str):
-        body (ReportInput):
+        json_body (ReportInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -85,7 +83,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -99,7 +97,7 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: ReportInput,
+    json_body: ReportInput,
 ) -> Optional[Union[Any, Report]]:
     """Adds a report. If the user supplies a name parameter, that name will be used, otherwise a name will
     be generated. The end timestamp is optional and will default to now(). The respectRevisionBoundary
@@ -107,7 +105,7 @@ def sync(
 
     Args:
         project_id (str):
-        body (ReportInput):
+        json_body (ReportInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -120,7 +118,7 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
-        body=body,
+        json_body=json_body,
     ).parsed
 
 
@@ -128,7 +126,7 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: ReportInput,
+    json_body: ReportInput,
 ) -> Response[Union[Any, Report]]:
     """Adds a report. If the user supplies a name parameter, that name will be used, otherwise a name will
     be generated. The end timestamp is optional and will default to now(). The respectRevisionBoundary
@@ -136,7 +134,7 @@ async def asyncio_detailed(
 
     Args:
         project_id (str):
-        body (ReportInput):
+        json_body (ReportInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -148,7 +146,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -160,7 +158,7 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    body: ReportInput,
+    json_body: ReportInput,
 ) -> Optional[Union[Any, Report]]:
     """Adds a report. If the user supplies a name parameter, that name will be used, otherwise a name will
     be generated. The end timestamp is optional and will default to now(). The respectRevisionBoundary
@@ -168,7 +166,7 @@ async def asyncio(
 
     Args:
         project_id (str):
-        body (ReportInput):
+        json_body (ReportInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -182,6 +180,6 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
-            body=body,
+            json_body=json_body,
         )
     ).parsed
