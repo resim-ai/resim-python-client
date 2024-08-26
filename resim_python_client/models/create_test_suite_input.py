@@ -1,15 +1,12 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Union
-from typing import cast
+if TYPE_CHECKING:
+    from ..models.experience_filter_input import ExperienceFilterInput
 
 
 T = TypeVar("T", bound="CreateTestSuiteInput")
@@ -23,6 +20,9 @@ class CreateTestSuiteInput:
         experiences (List[str]):
         name (str):
         system_id (str):
+        all_experiences (Union[Unset, bool]):
+        excluded_experience_i_ds (Union[Unset, List[str]]):
+        filters (Union[Unset, ExperienceFilterInput]):
         metrics_build_id (Union[Unset, str]):
     """
 
@@ -30,17 +30,26 @@ class CreateTestSuiteInput:
     experiences: List[str]
     name: str
     system_id: str
+    all_experiences: Union[Unset, bool] = UNSET
+    excluded_experience_i_ds: Union[Unset, List[str]] = UNSET
+    filters: Union[Unset, "ExperienceFilterInput"] = UNSET
     metrics_build_id: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         description = self.description
-
         experiences = self.experiences
 
         name = self.name
-
         system_id = self.system_id
+        all_experiences = self.all_experiences
+        excluded_experience_i_ds: Union[Unset, List[str]] = UNSET
+        if not isinstance(self.excluded_experience_i_ds, Unset):
+            excluded_experience_i_ds = self.excluded_experience_i_ds
+
+        filters: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.filters, Unset):
+            filters = self.filters.to_dict()
 
         metrics_build_id = self.metrics_build_id
 
@@ -54,6 +63,12 @@ class CreateTestSuiteInput:
                 "systemID": system_id,
             }
         )
+        if all_experiences is not UNSET:
+            field_dict["allExperiences"] = all_experiences
+        if excluded_experience_i_ds is not UNSET:
+            field_dict["excludedExperienceIDs"] = excluded_experience_i_ds
+        if filters is not UNSET:
+            field_dict["filters"] = filters
         if metrics_build_id is not UNSET:
             field_dict["metricsBuildID"] = metrics_build_id
 
@@ -61,6 +76,8 @@ class CreateTestSuiteInput:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.experience_filter_input import ExperienceFilterInput
+
         d = src_dict.copy()
         description = d.pop("description")
 
@@ -70,6 +87,17 @@ class CreateTestSuiteInput:
 
         system_id = d.pop("systemID")
 
+        all_experiences = d.pop("allExperiences", UNSET)
+
+        excluded_experience_i_ds = cast(List[str], d.pop("excludedExperienceIDs", UNSET))
+
+        _filters = d.pop("filters", UNSET)
+        filters: Union[Unset, ExperienceFilterInput]
+        if isinstance(_filters, Unset):
+            filters = UNSET
+        else:
+            filters = ExperienceFilterInput.from_dict(_filters)
+
         metrics_build_id = d.pop("metricsBuildID", UNSET)
 
         create_test_suite_input = cls(
@@ -77,6 +105,9 @@ class CreateTestSuiteInput:
             experiences=experiences,
             name=name,
             system_id=system_id,
+            all_experiences=all_experiences,
+            excluded_experience_i_ds=excluded_experience_i_ds,
+            filters=filters,
             metrics_build_id=metrics_build_id,
         )
 

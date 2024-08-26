@@ -1,14 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
 
 if TYPE_CHECKING:
     from ..models.test_suite import TestSuite
@@ -31,12 +26,12 @@ class ListTestSuiteOutput:
 
     def to_dict(self) -> Dict[str, Any]:
         next_page_token = self.next_page_token
-
         test_suites: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.test_suites, Unset):
             test_suites = []
             for test_suites_item_data in self.test_suites:
                 test_suites_item = test_suites_item_data.to_dict()
+
                 test_suites.append(test_suites_item)
 
         field_dict: Dict[str, Any] = {}

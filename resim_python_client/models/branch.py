@@ -1,16 +1,11 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-
-import datetime
 from dateutil.parser import isoparse
-from ..models.branch_type import BranchType
 
+from ..models.branch_type import BranchType
 
 T = TypeVar("T", bound="Branch")
 
@@ -39,17 +34,13 @@ class Branch:
 
     def to_dict(self) -> Dict[str, Any]:
         branch_id = self.branch_id
-
         branch_type = self.branch_type.value
 
         creation_timestamp = self.creation_timestamp.isoformat()
 
         name = self.name
-
         org_id = self.org_id
-
         project_id = self.project_id
-
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}

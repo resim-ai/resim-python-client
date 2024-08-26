@@ -1,19 +1,14 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from typing import Union
-from ..models.report_status import ReportStatus
-from ..models.metric_status import MetricStatus
 from dateutil.parser import isoparse
-import datetime
+
+from ..models.metric_status import MetricStatus
+from ..models.report_status import ReportStatus
 from ..models.triggered_via import TriggeredVia
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.report_status_history_type import ReportStatusHistoryType
@@ -72,9 +67,7 @@ class Report:
 
     def to_dict(self) -> Dict[str, Any]:
         associated_account = self.associated_account
-
         branch_id = self.branch_id
-
         creation_timestamp = self.creation_timestamp.isoformat()
 
         end_timestamp = self.end_timestamp.isoformat()
@@ -82,38 +75,27 @@ class Report:
         last_updated_timestamp = self.last_updated_timestamp.isoformat()
 
         metrics_build_id = self.metrics_build_id
-
         metrics_status = self.metrics_status.value
 
         name = self.name
-
         org_id = self.org_id
-
         output_location = self.output_location
-
         project_id = self.project_id
-
         report_id = self.report_id
-
         respect_revision_boundary = self.respect_revision_boundary
-
         start_timestamp = self.start_timestamp.isoformat()
 
         status = self.status.value
 
         status_history = []
         for componentsschemasreport_status_history_item_data in self.status_history:
-            componentsschemasreport_status_history_item = (
-                componentsschemasreport_status_history_item_data.to_dict()
-            )
+            componentsschemasreport_status_history_item = componentsschemasreport_status_history_item_data.to_dict()
+
             status_history.append(componentsschemasreport_status_history_item)
 
         test_suite_id = self.test_suite_id
-
         test_suite_revision = self.test_suite_revision
-
         user_id = self.user_id
-
         triggered_via: Union[Unset, str] = UNSET
         if not isinstance(self.triggered_via, Unset):
             triggered_via = self.triggered_via.value
@@ -186,10 +168,8 @@ class Report:
         status_history = []
         _status_history = d.pop("statusHistory")
         for componentsschemasreport_status_history_item_data in _status_history:
-            componentsschemasreport_status_history_item = (
-                ReportStatusHistoryType.from_dict(
-                    componentsschemasreport_status_history_item_data
-                )
+            componentsschemasreport_status_history_item = ReportStatusHistoryType.from_dict(
+                componentsschemasreport_status_history_item_data
             )
 
             status_history.append(componentsschemasreport_status_history_item)

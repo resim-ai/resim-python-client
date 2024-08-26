@@ -1,25 +1,19 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
-from ..types import UNSET, Unset
-
-from typing import Union
 from ..models.batch_status import BatchStatus
 from ..models.metric_status import MetricStatus
-from dateutil.parser import isoparse
-import datetime
-from typing import cast
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.batch_parameters import BatchParameters
     from ..models.batch_job_status_counts import BatchJobStatusCounts
-    from ..models.job_metrics_status_counts import JobMetricsStatusCounts
+    from ..models.batch_parameters import BatchParameters
     from ..models.batch_status_history_type import BatchStatusHistoryType
+    from ..models.job_metrics_status_counts import JobMetricsStatusCounts
 
 
 T = TypeVar("T", bound="Batch")
@@ -36,9 +30,8 @@ class Batch:
         branch_id (Union[Unset, str]):
         build_id (Union[Unset, str]):
         creation_timestamp (Union[Unset, datetime.datetime]):
+        description (Union[Unset, str]):
         friendly_name (Union[Unset, str]):
-        instantiated_experience_i_ds (Union[Unset, List[str]]):
-        instantiated_experience_tag_i_ds (Union[Unset, List[str]]):
         job_metrics_status_counts (Union[Unset, JobMetricsStatusCounts]):
         job_status_counts (Union[Unset, BatchJobStatusCounts]):
         jobs_metrics_status (Union[Unset, MetricStatus]):
@@ -47,6 +40,7 @@ class Batch:
         org_id (Union[Unset, str]):
         overall_metrics_status (Union[Unset, MetricStatus]):
         parameters (Union[Unset, BatchParameters]):
+        pool_labels (Union[Unset, List[str]]):
         project_id (Union[Unset, str]):
         status (Union[Unset, BatchStatus]):
         status_history (Union[Unset, List['BatchStatusHistoryType']]):
@@ -64,9 +58,8 @@ class Batch:
     branch_id: Union[Unset, str] = UNSET
     build_id: Union[Unset, str] = UNSET
     creation_timestamp: Union[Unset, datetime.datetime] = UNSET
+    description: Union[Unset, str] = UNSET
     friendly_name: Union[Unset, str] = UNSET
-    instantiated_experience_i_ds: Union[Unset, List[str]] = UNSET
-    instantiated_experience_tag_i_ds: Union[Unset, List[str]] = UNSET
     job_metrics_status_counts: Union[Unset, "JobMetricsStatusCounts"] = UNSET
     job_status_counts: Union[Unset, "BatchJobStatusCounts"] = UNSET
     jobs_metrics_status: Union[Unset, MetricStatus] = UNSET
@@ -75,6 +68,7 @@ class Batch:
     org_id: Union[Unset, str] = UNSET
     overall_metrics_status: Union[Unset, MetricStatus] = UNSET
     parameters: Union[Unset, "BatchParameters"] = UNSET
+    pool_labels: Union[Unset, List[str]] = UNSET
     project_id: Union[Unset, str] = UNSET
     status: Union[Unset, BatchStatus] = UNSET
     status_history: Union[Unset, List["BatchStatusHistoryType"]] = UNSET
@@ -87,33 +81,20 @@ class Batch:
 
     def to_dict(self) -> Dict[str, Any]:
         associated_account = self.associated_account
-
         adhoc_test_suite = self.adhoc_test_suite
-
         batch_id = self.batch_id
-
         batch_metrics_status: Union[Unset, str] = UNSET
         if not isinstance(self.batch_metrics_status, Unset):
             batch_metrics_status = self.batch_metrics_status.value
 
         branch_id = self.branch_id
-
         build_id = self.build_id
-
         creation_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.creation_timestamp, Unset):
             creation_timestamp = self.creation_timestamp.isoformat()
 
+        description = self.description
         friendly_name = self.friendly_name
-
-        instantiated_experience_i_ds: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.instantiated_experience_i_ds, Unset):
-            instantiated_experience_i_ds = self.instantiated_experience_i_ds
-
-        instantiated_experience_tag_i_ds: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.instantiated_experience_tag_i_ds, Unset):
-            instantiated_experience_tag_i_ds = self.instantiated_experience_tag_i_ds
-
         job_metrics_status_counts: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.job_metrics_status_counts, Unset):
             job_metrics_status_counts = self.job_metrics_status_counts.to_dict()
@@ -131,9 +112,7 @@ class Batch:
             last_updated_timestamp = self.last_updated_timestamp.isoformat()
 
         metrics_build_id = self.metrics_build_id
-
         org_id = self.org_id
-
         overall_metrics_status: Union[Unset, str] = UNSET
         if not isinstance(self.overall_metrics_status, Unset):
             overall_metrics_status = self.overall_metrics_status.value
@@ -142,8 +121,11 @@ class Batch:
         if not isinstance(self.parameters, Unset):
             parameters = self.parameters.to_dict()
 
-        project_id = self.project_id
+        pool_labels: Union[Unset, List[str]] = UNSET
+        if not isinstance(self.pool_labels, Unset):
+            pool_labels = self.pool_labels
 
+        project_id = self.project_id
         status: Union[Unset, str] = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
@@ -152,19 +134,14 @@ class Batch:
         if not isinstance(self.status_history, Unset):
             status_history = []
             for componentsschemasbatch_status_history_item_data in self.status_history:
-                componentsschemasbatch_status_history_item = (
-                    componentsschemasbatch_status_history_item_data.to_dict()
-                )
+                componentsschemasbatch_status_history_item = componentsschemasbatch_status_history_item_data.to_dict()
+
                 status_history.append(componentsschemasbatch_status_history_item)
 
         system_id = self.system_id
-
         test_suite_id = self.test_suite_id
-
         test_suite_revision = self.test_suite_revision
-
         total_jobs = self.total_jobs
-
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
@@ -186,14 +163,10 @@ class Batch:
             field_dict["buildID"] = build_id
         if creation_timestamp is not UNSET:
             field_dict["creationTimestamp"] = creation_timestamp
+        if description is not UNSET:
+            field_dict["description"] = description
         if friendly_name is not UNSET:
             field_dict["friendlyName"] = friendly_name
-        if instantiated_experience_i_ds is not UNSET:
-            field_dict["instantiatedExperienceIDs"] = instantiated_experience_i_ds
-        if instantiated_experience_tag_i_ds is not UNSET:
-            field_dict["instantiatedExperienceTagIDs"] = (
-                instantiated_experience_tag_i_ds
-            )
         if job_metrics_status_counts is not UNSET:
             field_dict["jobMetricsStatusCounts"] = job_metrics_status_counts
         if job_status_counts is not UNSET:
@@ -210,6 +183,8 @@ class Batch:
             field_dict["overallMetricsStatus"] = overall_metrics_status
         if parameters is not UNSET:
             field_dict["parameters"] = parameters
+        if pool_labels is not UNSET:
+            field_dict["poolLabels"] = pool_labels
         if project_id is not UNSET:
             field_dict["projectID"] = project_id
         if status is not UNSET:
@@ -231,10 +206,10 @@ class Batch:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.batch_parameters import BatchParameters
         from ..models.batch_job_status_counts import BatchJobStatusCounts
-        from ..models.job_metrics_status_counts import JobMetricsStatusCounts
+        from ..models.batch_parameters import BatchParameters
         from ..models.batch_status_history_type import BatchStatusHistoryType
+        from ..models.job_metrics_status_counts import JobMetricsStatusCounts
 
         d = src_dict.copy()
         associated_account = d.pop("associatedAccount")
@@ -261,24 +236,16 @@ class Batch:
         else:
             creation_timestamp = isoparse(_creation_timestamp)
 
+        description = d.pop("description", UNSET)
+
         friendly_name = d.pop("friendlyName", UNSET)
-
-        instantiated_experience_i_ds = cast(
-            List[str], d.pop("instantiatedExperienceIDs", UNSET)
-        )
-
-        instantiated_experience_tag_i_ds = cast(
-            List[str], d.pop("instantiatedExperienceTagIDs", UNSET)
-        )
 
         _job_metrics_status_counts = d.pop("jobMetricsStatusCounts", UNSET)
         job_metrics_status_counts: Union[Unset, JobMetricsStatusCounts]
         if isinstance(_job_metrics_status_counts, Unset):
             job_metrics_status_counts = UNSET
         else:
-            job_metrics_status_counts = JobMetricsStatusCounts.from_dict(
-                _job_metrics_status_counts
-            )
+            job_metrics_status_counts = JobMetricsStatusCounts.from_dict(_job_metrics_status_counts)
 
         _job_status_counts = d.pop("jobStatusCounts", UNSET)
         job_status_counts: Union[Unset, BatchJobStatusCounts]
@@ -319,6 +286,8 @@ class Batch:
         else:
             parameters = BatchParameters.from_dict(_parameters)
 
+        pool_labels = cast(List[str], d.pop("poolLabels", UNSET))
+
         project_id = d.pop("projectID", UNSET)
 
         _status = d.pop("status", UNSET)
@@ -331,10 +300,8 @@ class Batch:
         status_history = []
         _status_history = d.pop("statusHistory", UNSET)
         for componentsschemasbatch_status_history_item_data in _status_history or []:
-            componentsschemasbatch_status_history_item = (
-                BatchStatusHistoryType.from_dict(
-                    componentsschemasbatch_status_history_item_data
-                )
+            componentsschemasbatch_status_history_item = BatchStatusHistoryType.from_dict(
+                componentsschemasbatch_status_history_item_data
             )
 
             status_history.append(componentsschemasbatch_status_history_item)
@@ -357,9 +324,8 @@ class Batch:
             branch_id=branch_id,
             build_id=build_id,
             creation_timestamp=creation_timestamp,
+            description=description,
             friendly_name=friendly_name,
-            instantiated_experience_i_ds=instantiated_experience_i_ds,
-            instantiated_experience_tag_i_ds=instantiated_experience_tag_i_ds,
             job_metrics_status_counts=job_metrics_status_counts,
             job_status_counts=job_status_counts,
             jobs_metrics_status=jobs_metrics_status,
@@ -368,6 +334,7 @@ class Batch:
             org_id=org_id,
             overall_metrics_status=overall_metrics_status,
             parameters=parameters,
+            pool_labels=pool_labels,
             project_id=project_id,
             status=status,
             status_history=status_history,

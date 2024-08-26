@@ -3,37 +3,26 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.view_session_update import ViewSessionUpdate
-from ...types import File
+from ...types import Response
 
 
 def _get_kwargs(
     view_session_id: str,
     view_update_id: int,
-    *,
-    body: File,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    pass
+
+    return {
         "method": "post",
-        "url": "/view/sessions/{view_session_id}/updates/{view_update_id}".format(
-            view_session_id=view_session_id,
-            view_update_id=view_update_id,
+        "url": "/view/sessions/{viewSessionID}/updates/{viewUpdateID}".format(
+            viewSessionID=view_session_id,
+            viewUpdateID=view_update_id,
         ),
     }
-
-    _body = body.payload
-
-    _kwargs["content"] = _body
-    headers["Content-Type"] = "application/octet-stream"
-
-    _kwargs["headers"] = headers
-    return _kwargs
 
 
 def _parse_response(
@@ -74,14 +63,12 @@ def sync_detailed(
     view_update_id: int,
     *,
     client: AuthenticatedClient,
-    body: File,
 ) -> Response[Union[Any, ViewSessionUpdate]]:
     """Adds an update to the View session.  Updates will be serialized sequentially by ID.
 
     Args:
         view_session_id (str):
         view_update_id (int):
-        body (File):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -94,7 +81,6 @@ def sync_detailed(
     kwargs = _get_kwargs(
         view_session_id=view_session_id,
         view_update_id=view_update_id,
-        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -109,14 +95,12 @@ def sync(
     view_update_id: int,
     *,
     client: AuthenticatedClient,
-    body: File,
 ) -> Optional[Union[Any, ViewSessionUpdate]]:
     """Adds an update to the View session.  Updates will be serialized sequentially by ID.
 
     Args:
         view_session_id (str):
         view_update_id (int):
-        body (File):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -130,7 +114,6 @@ def sync(
         view_session_id=view_session_id,
         view_update_id=view_update_id,
         client=client,
-        body=body,
     ).parsed
 
 
@@ -139,14 +122,12 @@ async def asyncio_detailed(
     view_update_id: int,
     *,
     client: AuthenticatedClient,
-    body: File,
 ) -> Response[Union[Any, ViewSessionUpdate]]:
     """Adds an update to the View session.  Updates will be serialized sequentially by ID.
 
     Args:
         view_session_id (str):
         view_update_id (int):
-        body (File):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,7 +140,6 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         view_session_id=view_session_id,
         view_update_id=view_update_id,
-        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -172,14 +152,12 @@ async def asyncio(
     view_update_id: int,
     *,
     client: AuthenticatedClient,
-    body: File,
 ) -> Optional[Union[Any, ViewSessionUpdate]]:
     """Adds an update to the View session.  Updates will be serialized sequentially by ID.
 
     Args:
         view_session_id (str):
         view_update_id (int):
-        body (File):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -194,6 +172,5 @@ async def asyncio(
             view_session_id=view_session_id,
             view_update_id=view_update_id,
             client=client,
-            body=body,
         )
     ).parsed

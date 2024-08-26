@@ -3,29 +3,28 @@ from typing import Any, Dict, Optional, Union
 
 import httpx
 
+from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...types import Response
-from ... import errors
 
 
 def _get_kwargs(
     project_id: str,
     experience_tag_id: str,
 ) -> Dict[str, Any]:
-    _kwargs: Dict[str, Any] = {
+
+    pass
+
+    return {
         "method": "delete",
-        "url": "/projects/{project_id}/experienceTags/{experience_tag_id}".format(
-            project_id=project_id,
-            experience_tag_id=experience_tag_id,
+        "url": "/projects/{projectID}/experienceTags/{experienceTagID}".format(
+            projectID=project_id,
+            experienceTagID=experience_tag_id,
         ),
     }
 
-    return _kwargs
 
-
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Any]:
+def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
     if response.status_code == HTTPStatus.NO_CONTENT:
         return None
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -38,9 +37,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Any]:
+def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Any]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,

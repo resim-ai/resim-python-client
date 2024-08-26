@@ -3,37 +3,32 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
-from ...models.test_suite_batch_input import TestSuiteBatchInput
+from ...client import AuthenticatedClient, Client
 from ...models.batch import Batch
+from ...models.test_suite_batch_input import TestSuiteBatchInput
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     test_suite_id: str,
     *,
-    body: TestSuiteBatchInput,
+    json_body: TestSuiteBatchInput,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    pass
+
+    json_json_body = json_body.to_dict()
+
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/suites/{test_suite_id}/batches".format(
-            project_id=project_id,
-            test_suite_id=test_suite_id,
+        "url": "/projects/{projectID}/suites/{testSuiteID}/batches".format(
+            projectID=project_id,
+            testSuiteID=test_suite_id,
         ),
+        "json": json_json_body,
     }
-
-    _body = body.to_dict()
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
 
 
 def _parse_response(
@@ -46,6 +41,9 @@ def _parse_response(
     if response.status_code == HTTPStatus.UNAUTHORIZED:
         response_401 = cast(Any, None)
         return response_401
+    if response.status_code == HTTPStatus.PAYMENT_REQUIRED:
+        response_402 = cast(Any, None)
+        return response_402
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -68,14 +66,14 @@ def sync_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    body: TestSuiteBatchInput,
+    json_body: TestSuiteBatchInput,
 ) -> Response[Union[Any, Batch]]:
     """Creates a batch for that test suite
 
     Args:
         project_id (str):
         test_suite_id (str):
-        body (TestSuiteBatchInput):
+        json_body (TestSuiteBatchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -88,7 +86,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         test_suite_id=test_suite_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -103,14 +101,14 @@ def sync(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    body: TestSuiteBatchInput,
+    json_body: TestSuiteBatchInput,
 ) -> Optional[Union[Any, Batch]]:
     """Creates a batch for that test suite
 
     Args:
         project_id (str):
         test_suite_id (str):
-        body (TestSuiteBatchInput):
+        json_body (TestSuiteBatchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -124,7 +122,7 @@ def sync(
         project_id=project_id,
         test_suite_id=test_suite_id,
         client=client,
-        body=body,
+        json_body=json_body,
     ).parsed
 
 
@@ -133,14 +131,14 @@ async def asyncio_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    body: TestSuiteBatchInput,
+    json_body: TestSuiteBatchInput,
 ) -> Response[Union[Any, Batch]]:
     """Creates a batch for that test suite
 
     Args:
         project_id (str):
         test_suite_id (str):
-        body (TestSuiteBatchInput):
+        json_body (TestSuiteBatchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,7 +151,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         test_suite_id=test_suite_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -166,14 +164,14 @@ async def asyncio(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    body: TestSuiteBatchInput,
+    json_body: TestSuiteBatchInput,
 ) -> Optional[Union[Any, Batch]]:
     """Creates a batch for that test suite
 
     Args:
         project_id (str):
         test_suite_id (str):
-        body (TestSuiteBatchInput):
+        json_body (TestSuiteBatchInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -188,6 +186,6 @@ async def asyncio(
             project_id=project_id,
             test_suite_id=test_suite_id,
             client=client,
-            body=body,
+            json_body=json_body,
         )
     ).parsed

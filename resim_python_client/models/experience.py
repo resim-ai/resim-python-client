@@ -1,15 +1,9 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-
-import datetime
 from dateutil.parser import isoparse
-
 
 T = TypeVar("T", bound="Experience")
 
@@ -42,17 +36,11 @@ class Experience:
         creation_timestamp = self.creation_timestamp.isoformat()
 
         description = self.description
-
         experience_id = self.experience_id
-
         location = self.location
-
         name = self.name
-
         org_id = self.org_id
-
         project_id = self.project_id
-
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}

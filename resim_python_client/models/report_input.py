@@ -1,18 +1,12 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from typing import Union
 from dateutil.parser import isoparse
-import datetime
-from ..models.triggered_via import TriggeredVia
 
+from ..models.triggered_via import TriggeredVia
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ReportInput")
 
@@ -47,25 +41,18 @@ class ReportInput:
 
     def to_dict(self) -> Dict[str, Any]:
         branch_id = self.branch_id
-
         metrics_build_id = self.metrics_build_id
-
         start_timestamp = self.start_timestamp.isoformat()
 
         test_suite_id = self.test_suite_id
-
         associated_account = self.associated_account
-
         end_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.end_timestamp, Unset):
             end_timestamp = self.end_timestamp.isoformat()
 
         name = self.name
-
         respect_revision_boundary = self.respect_revision_boundary
-
         test_suite_revision = self.test_suite_revision
-
         triggered_via: Union[Unset, str] = UNSET
         if not isinstance(self.triggered_via, Unset):
             triggered_via = self.triggered_via.value

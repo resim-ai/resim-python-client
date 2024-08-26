@@ -3,37 +3,32 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.batch import Batch
 from ...models.metric_status import MetricStatus
+from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     batch_id: str,
     *,
-    body: MetricStatus,
+    json_body: MetricStatus,
 ) -> Dict[str, Any]:
-    headers: Dict[str, Any] = {}
 
-    _kwargs: Dict[str, Any] = {
+    pass
+
+    json_json_body = json_body.value
+
+    return {
         "method": "post",
-        "url": "/projects/{project_id}/batches/{batch_id}/metricsStatus".format(
-            project_id=project_id,
-            batch_id=batch_id,
+        "url": "/projects/{projectID}/batches/{batchID}/metricsStatus".format(
+            projectID=project_id,
+            batchID=batch_id,
         ),
+        "json": json_json_body,
     }
-
-    _body = body.value
-
-    _kwargs["json"] = _body
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
-    return _kwargs
 
 
 def _parse_response(
@@ -71,14 +66,14 @@ def sync_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    body: MetricStatus,
+    json_body: MetricStatus,
 ) -> Response[Union[Any, Batch]]:
     """Updates a batch's metrics status.
 
     Args:
         project_id (str):
         batch_id (str):
-        body (MetricStatus):
+        json_body (MetricStatus):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -91,7 +86,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         batch_id=batch_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = client.get_httpx_client().request(
@@ -106,14 +101,14 @@ def sync(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    body: MetricStatus,
+    json_body: MetricStatus,
 ) -> Optional[Union[Any, Batch]]:
     """Updates a batch's metrics status.
 
     Args:
         project_id (str):
         batch_id (str):
-        body (MetricStatus):
+        json_body (MetricStatus):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -127,7 +122,7 @@ def sync(
         project_id=project_id,
         batch_id=batch_id,
         client=client,
-        body=body,
+        json_body=json_body,
     ).parsed
 
 
@@ -136,14 +131,14 @@ async def asyncio_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    body: MetricStatus,
+    json_body: MetricStatus,
 ) -> Response[Union[Any, Batch]]:
     """Updates a batch's metrics status.
 
     Args:
         project_id (str):
         batch_id (str):
-        body (MetricStatus):
+        json_body (MetricStatus):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -156,7 +151,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         batch_id=batch_id,
-        body=body,
+        json_body=json_body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -169,14 +164,14 @@ async def asyncio(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    body: MetricStatus,
+    json_body: MetricStatus,
 ) -> Optional[Union[Any, Batch]]:
     """Updates a batch's metrics status.
 
     Args:
         project_id (str):
         batch_id (str):
-        body (MetricStatus):
+        json_body (MetricStatus):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -191,6 +186,6 @@ async def asyncio(
             project_id=project_id,
             batch_id=batch_id,
             client=client,
-            body=body,
+            json_body=json_body,
         )
     ).parsed

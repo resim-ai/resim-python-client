@@ -3,14 +3,10 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...types import Unset
-from ...models.list_batch_metrics_data_for_batch_metric_i_ds_output import (
-    ListBatchMetricsDataForBatchMetricIDsOutput,
-)
+from ...client import AuthenticatedClient, Client
+from ...models.list_batch_metrics_data_for_batch_metric_i_ds_output import ListBatchMetricsDataForBatchMetricIDsOutput
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -18,37 +14,35 @@ def _get_kwargs(
     batch_id: str,
     metric_id: List[str],
     *,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    params: Dict[str, Any] = {}
 
+    pass
+
+    params: Dict[str, Any] = {}
     params["pageSize"] = page_size
 
     params["pageToken"] = page_token
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    _kwargs: Dict[str, Any] = {
+    return {
         "method": "get",
-        "url": "/projects/{project_id}/batches/{batch_id}/metrics/{metric_id}/metricsData".format(
-            project_id=project_id,
-            batch_id=batch_id,
-            metric_id=metric_id,
+        "url": "/projects/{projectID}/batches/{batchID}/metrics/{metricID}/metricsData".format(
+            projectID=project_id,
+            batchID=batch_id,
+            metricID=metric_id,
         ),
         "params": params,
     }
-
-    return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[Any, ListBatchMetricsDataForBatchMetricIDsOutput]]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = ListBatchMetricsDataForBatchMetricIDsOutput.from_dict(
-            response.json()
-        )
+        response_200 = ListBatchMetricsDataForBatchMetricIDsOutput.from_dict(response.json())
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -80,8 +74,8 @@ def sync_detailed(
     metric_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBatchMetricsDataForBatchMetricIDsOutput]]:
     """Returns the batch metrics data associated with given batch metric ID(s)
 
@@ -89,8 +83,8 @@ def sync_detailed(
         project_id (str):
         batch_id (str):
         metric_id (List[str]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -121,8 +115,8 @@ def sync(
     metric_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBatchMetricsDataForBatchMetricIDsOutput]]:
     """Returns the batch metrics data associated with given batch metric ID(s)
 
@@ -130,8 +124,8 @@ def sync(
         project_id (str):
         batch_id (str):
         metric_id (List[str]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -157,8 +151,8 @@ async def asyncio_detailed(
     metric_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Response[Union[Any, ListBatchMetricsDataForBatchMetricIDsOutput]]:
     """Returns the batch metrics data associated with given batch metric ID(s)
 
@@ -166,8 +160,8 @@ async def asyncio_detailed(
         project_id (str):
         batch_id (str):
         metric_id (List[str]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -196,8 +190,8 @@ async def asyncio(
     metric_id: List[str],
     *,
     client: AuthenticatedClient,
-    page_size: Union[Unset, int] = UNSET,
-    page_token: Union[Unset, str] = UNSET,
+    page_size: Union[Unset, None, int] = UNSET,
+    page_token: Union[Unset, None, str] = UNSET,
 ) -> Optional[Union[Any, ListBatchMetricsDataForBatchMetricIDsOutput]]:
     """Returns the batch metrics data associated with given batch metric ID(s)
 
@@ -205,8 +199,8 @@ async def asyncio(
         project_id (str):
         batch_id (str):
         metric_id (List[str]):
-        page_size (Union[Unset, int]):
-        page_token (Union[Unset, str]):
+        page_size (Union[Unset, None, int]):
+        page_token (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -1,17 +1,11 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
-
-from typing import Union
-from dateutil.parser import isoparse
-import datetime
-
 
 T = TypeVar("T", bound="ViewObject")
 
@@ -42,17 +36,11 @@ class ViewObject:
 
     def to_dict(self) -> Dict[str, Any]:
         friendly_name = self.friendly_name
-
         mcap_url = self.mcap_url
-
         object_count = self.object_count
-
         org_id = self.org_id
-
         user_id = self.user_id
-
         view_session_id = self.view_session_id
-
         view_timestamp: Union[Unset, str] = UNSET
         if not isinstance(self.view_timestamp, Unset):
             view_timestamp = self.view_timestamp.isoformat()

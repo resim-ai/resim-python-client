@@ -1,60 +1,62 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import Union
-
-
-T = TypeVar("T", bound="ProjectObjectDescription")
+T = TypeVar("T", bound="ExperienceFilterInput")
 
 
 @_attrs_define
-class ProjectObjectDescription:
+class ExperienceFilterInput:
     """
     Attributes:
-        description (Union[Unset, str]):
-        name (Union[Unset, str]):
+        name (Union[Unset, str]): Filter experiences by name
+        search (Union[Unset, str]): A search query. Supports searching by tag_id Example: tag_id IN
+            ("71b96a67-9990-426b-993e-0f3d9c6bbe48").
+        text (Union[Unset, str]): Filter experiences by a text string on name and description
     """
 
-    description: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
+    search: Union[Unset, str] = UNSET
+    text: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        description = self.description
-
         name = self.name
+        search = self.search
+        text = self.text
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if description is not UNSET:
-            field_dict["description"] = description
         if name is not UNSET:
             field_dict["name"] = name
+        if search is not UNSET:
+            field_dict["search"] = search
+        if text is not UNSET:
+            field_dict["text"] = text
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        description = d.pop("description", UNSET)
-
         name = d.pop("name", UNSET)
 
-        project_object_description = cls(
-            description=description,
+        search = d.pop("search", UNSET)
+
+        text = d.pop("text", UNSET)
+
+        experience_filter_input = cls(
             name=name,
+            search=search,
+            text=text,
         )
 
-        project_object_description.additional_properties = d
-        return project_object_description
+        experience_filter_input.additional_properties = d
+        return experience_filter_input
 
     @property
     def additional_keys(self) -> List[str]:
