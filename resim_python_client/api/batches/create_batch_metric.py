@@ -3,31 +3,36 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.batch_metric import BatchMetric
 from ...types import Response
+from ... import errors
+
+from ...models.batch_metric import BatchMetric
 
 
 def _get_kwargs(
     project_id: str,
     batch_id: str,
     *,
-    json_body: BatchMetric,
+    body: BatchMetric,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{projectID}/batches/{batchID}/metrics".format(
-            projectID=project_id,
-            batchID=batch_id,
+        "url": "/projects/{project_id}/batches/{batch_id}/metrics".format(
+            project_id=project_id,
+            batch_id=batch_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = body.to_dict()
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -62,14 +67,14 @@ def sync_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: BatchMetric,
+    body: BatchMetric,
 ) -> Response[Union[Any, BatchMetric]]:
     """Adds a batch metric. ID and location should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
         batch_id (str):
-        json_body (BatchMetric):
+        body (BatchMetric):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -82,7 +87,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         batch_id=batch_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -97,14 +102,14 @@ def sync(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: BatchMetric,
+    body: BatchMetric,
 ) -> Optional[Union[Any, BatchMetric]]:
     """Adds a batch metric. ID and location should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
         batch_id (str):
-        json_body (BatchMetric):
+        body (BatchMetric):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -118,7 +123,7 @@ def sync(
         project_id=project_id,
         batch_id=batch_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -127,14 +132,14 @@ async def asyncio_detailed(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: BatchMetric,
+    body: BatchMetric,
 ) -> Response[Union[Any, BatchMetric]]:
     """Adds a batch metric. ID and location should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
         batch_id (str):
-        json_body (BatchMetric):
+        body (BatchMetric):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -147,7 +152,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         batch_id=batch_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -160,14 +165,14 @@ async def asyncio(
     batch_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: BatchMetric,
+    body: BatchMetric,
 ) -> Optional[Union[Any, BatchMetric]]:
     """Adds a batch metric. ID and location should be omitted and will be returned in the response.
 
     Args:
         project_id (str):
         batch_id (str):
-        json_body (BatchMetric):
+        body (BatchMetric):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -182,6 +187,6 @@ async def asyncio(
             project_id=project_id,
             batch_id=batch_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

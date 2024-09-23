@@ -1,9 +1,11 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.build import Build
@@ -16,32 +18,35 @@ T = TypeVar("T", bound="ListBuildsOutput")
 class ListBuildsOutput:
     """
     Attributes:
-        builds (Union[Unset, List['Build']]):
-        next_page_token (Union[Unset, str]):
+        builds (List['Build']):
+        next_page_token (str):
+        total (int):
     """
 
-    builds: Union[Unset, List["Build"]] = UNSET
-    next_page_token: Union[Unset, str] = UNSET
+    builds: List["Build"]
+    next_page_token: str
+    total: int
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        builds: Union[Unset, List[Dict[str, Any]]] = UNSET
-        if not isinstance(self.builds, Unset):
-            builds = []
-            for builds_item_data in self.builds:
-                builds_item = builds_item_data.to_dict()
-
-                builds.append(builds_item)
+        builds = []
+        for builds_item_data in self.builds:
+            builds_item = builds_item_data.to_dict()
+            builds.append(builds_item)
 
         next_page_token = self.next_page_token
 
+        total = self.total
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if builds is not UNSET:
-            field_dict["builds"] = builds
-        if next_page_token is not UNSET:
-            field_dict["nextPageToken"] = next_page_token
+        field_dict.update(
+            {
+                "builds": builds,
+                "nextPageToken": next_page_token,
+                "total": total,
+            }
+        )
 
         return field_dict
 
@@ -51,17 +56,20 @@ class ListBuildsOutput:
 
         d = src_dict.copy()
         builds = []
-        _builds = d.pop("builds", UNSET)
-        for builds_item_data in _builds or []:
+        _builds = d.pop("builds")
+        for builds_item_data in _builds:
             builds_item = Build.from_dict(builds_item_data)
 
             builds.append(builds_item)
 
-        next_page_token = d.pop("nextPageToken", UNSET)
+        next_page_token = d.pop("nextPageToken")
+
+        total = d.pop("total")
 
         list_builds_output = cls(
             builds=builds,
             next_page_token=next_page_token,
+            total=total,
         )
 
         list_builds_output.additional_properties = d

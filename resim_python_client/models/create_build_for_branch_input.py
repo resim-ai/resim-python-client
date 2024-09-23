@@ -1,9 +1,15 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import Union
+
 
 T = TypeVar("T", bound="CreateBuildForBranchInput")
 
@@ -15,19 +21,26 @@ class CreateBuildForBranchInput:
         image_uri (str):
         system_id (str):
         version (str):
+        associated_account (Union[Unset, str]):
         description (Union[Unset, str]):
     """
 
     image_uri: str
     system_id: str
     version: str
+    associated_account: Union[Unset, str] = UNSET
     description: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         image_uri = self.image_uri
+
         system_id = self.system_id
+
         version = self.version
+
+        associated_account = self.associated_account
+
         description = self.description
 
         field_dict: Dict[str, Any] = {}
@@ -39,6 +52,8 @@ class CreateBuildForBranchInput:
                 "version": version,
             }
         )
+        if associated_account is not UNSET:
+            field_dict["associatedAccount"] = associated_account
         if description is not UNSET:
             field_dict["description"] = description
 
@@ -53,12 +68,15 @@ class CreateBuildForBranchInput:
 
         version = d.pop("version")
 
+        associated_account = d.pop("associatedAccount", UNSET)
+
         description = d.pop("description", UNSET)
 
         create_build_for_branch_input = cls(
             image_uri=image_uri,
             system_id=system_id,
             version=version,
+            associated_account=associated_account,
             description=description,
         )
 

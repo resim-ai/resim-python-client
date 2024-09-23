@@ -3,11 +3,12 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response
+from ... import errors
+
 from ...models.event import Event
 from ...models.update_event_input import UpdateEventInput
-from ...types import Response
 
 
 def _get_kwargs(
@@ -16,23 +17,27 @@ def _get_kwargs(
     job_id: str,
     event_id: str,
     *,
-    json_body: UpdateEventInput,
+    body: UpdateEventInput,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/projects/{projectID}/batches/{batchID}/jobs/{jobID}/events/{eventID}".format(
-            projectID=project_id,
-            batchID=batch_id,
-            jobID=job_id,
-            eventID=event_id,
+        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/events/{event_id}".format(
+            project_id=project_id,
+            batch_id=batch_id,
+            job_id=job_id,
+            event_id=event_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = body.to_dict()
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -75,7 +80,7 @@ def sync_detailed(
     event_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateEventInput,
+    body: UpdateEventInput,
 ) -> Response[Union[Any, Event]]:
     """Updates the event.
 
@@ -84,7 +89,7 @@ def sync_detailed(
         batch_id (str):
         job_id (str):
         event_id (str):
-        json_body (UpdateEventInput):
+        body (UpdateEventInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -99,7 +104,7 @@ def sync_detailed(
         batch_id=batch_id,
         job_id=job_id,
         event_id=event_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -116,7 +121,7 @@ def sync(
     event_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateEventInput,
+    body: UpdateEventInput,
 ) -> Optional[Union[Any, Event]]:
     """Updates the event.
 
@@ -125,7 +130,7 @@ def sync(
         batch_id (str):
         job_id (str):
         event_id (str):
-        json_body (UpdateEventInput):
+        body (UpdateEventInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -141,7 +146,7 @@ def sync(
         job_id=job_id,
         event_id=event_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -152,7 +157,7 @@ async def asyncio_detailed(
     event_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateEventInput,
+    body: UpdateEventInput,
 ) -> Response[Union[Any, Event]]:
     """Updates the event.
 
@@ -161,7 +166,7 @@ async def asyncio_detailed(
         batch_id (str):
         job_id (str):
         event_id (str):
-        json_body (UpdateEventInput):
+        body (UpdateEventInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -176,7 +181,7 @@ async def asyncio_detailed(
         batch_id=batch_id,
         job_id=job_id,
         event_id=event_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -191,7 +196,7 @@ async def asyncio(
     event_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateEventInput,
+    body: UpdateEventInput,
 ) -> Optional[Union[Any, Event]]:
     """Updates the event.
 
@@ -200,7 +205,7 @@ async def asyncio(
         batch_id (str):
         job_id (str):
         event_id (str):
-        json_body (UpdateEventInput):
+        body (UpdateEventInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -217,6 +222,6 @@ async def asyncio(
             job_id=job_id,
             event_id=event_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

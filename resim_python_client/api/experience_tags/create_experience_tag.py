@@ -3,30 +3,35 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response
+from ... import errors
+
 from ...models.create_experience_tag_input import CreateExperienceTagInput
 from ...models.experience_tag import ExperienceTag
-from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    json_body: CreateExperienceTagInput,
+    body: CreateExperienceTagInput,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{projectID}/experienceTags".format(
-            projectID=project_id,
+        "url": "/projects/{project_id}/experienceTags".format(
+            project_id=project_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = body.to_dict()
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -66,13 +71,13 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: CreateExperienceTagInput,
+    body: CreateExperienceTagInput,
 ) -> Response[Union[Any, ExperienceTag]]:
     """Adds an experience tag.
 
     Args:
         project_id (str):
-        json_body (CreateExperienceTagInput):
+        body (CreateExperienceTagInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -84,7 +89,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -98,13 +103,13 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: CreateExperienceTagInput,
+    body: CreateExperienceTagInput,
 ) -> Optional[Union[Any, ExperienceTag]]:
     """Adds an experience tag.
 
     Args:
         project_id (str):
-        json_body (CreateExperienceTagInput):
+        body (CreateExperienceTagInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -117,7 +122,7 @@ def sync(
     return sync_detailed(
         project_id=project_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -125,13 +130,13 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: CreateExperienceTagInput,
+    body: CreateExperienceTagInput,
 ) -> Response[Union[Any, ExperienceTag]]:
     """Adds an experience tag.
 
     Args:
         project_id (str):
-        json_body (CreateExperienceTagInput):
+        body (CreateExperienceTagInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -143,7 +148,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -155,13 +160,13 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: CreateExperienceTagInput,
+    body: CreateExperienceTagInput,
 ) -> Optional[Union[Any, ExperienceTag]]:
     """Adds an experience tag.
 
     Args:
         project_id (str):
-        json_body (CreateExperienceTagInput):
+        body (CreateExperienceTagInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -175,6 +180,6 @@ async def asyncio(
         await asyncio_detailed(
             project_id=project_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

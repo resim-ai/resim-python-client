@@ -3,31 +3,36 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.metrics_data import MetricsData
 from ...types import Response
+from ... import errors
+
+from ...models.metrics_data import MetricsData
 
 
 def _get_kwargs(
     project_id: str,
     report_id: str,
     *,
-    json_body: MetricsData,
+    body: MetricsData,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{projectID}/reports/{reportID}/metricsData".format(
-            projectID=project_id,
-            reportID=report_id,
+        "url": "/projects/{project_id}/reports/{report_id}/metricsData".format(
+            project_id=project_id,
+            report_id=report_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = body.to_dict()
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -62,7 +67,7 @@ def sync_detailed(
     report_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: MetricsData,
+    body: MetricsData,
 ) -> Response[Union[Any, MetricsData]]:
     """Creates a new metrics data associated with a report. If this metrics data is an external file, then
     the filename field must be populated.
@@ -70,7 +75,7 @@ def sync_detailed(
     Args:
         project_id (str):
         report_id (str):
-        json_body (MetricsData):
+        body (MetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -83,7 +88,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         report_id=report_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -98,7 +103,7 @@ def sync(
     report_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: MetricsData,
+    body: MetricsData,
 ) -> Optional[Union[Any, MetricsData]]:
     """Creates a new metrics data associated with a report. If this metrics data is an external file, then
     the filename field must be populated.
@@ -106,7 +111,7 @@ def sync(
     Args:
         project_id (str):
         report_id (str):
-        json_body (MetricsData):
+        body (MetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -120,7 +125,7 @@ def sync(
         project_id=project_id,
         report_id=report_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -129,7 +134,7 @@ async def asyncio_detailed(
     report_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: MetricsData,
+    body: MetricsData,
 ) -> Response[Union[Any, MetricsData]]:
     """Creates a new metrics data associated with a report. If this metrics data is an external file, then
     the filename field must be populated.
@@ -137,7 +142,7 @@ async def asyncio_detailed(
     Args:
         project_id (str):
         report_id (str):
-        json_body (MetricsData):
+        body (MetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -150,7 +155,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         report_id=report_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -163,7 +168,7 @@ async def asyncio(
     report_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: MetricsData,
+    body: MetricsData,
 ) -> Optional[Union[Any, MetricsData]]:
     """Creates a new metrics data associated with a report. If this metrics data is an external file, then
     the filename field must be populated.
@@ -171,7 +176,7 @@ async def asyncio(
     Args:
         project_id (str):
         report_id (str):
-        json_body (MetricsData):
+        body (MetricsData):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -186,6 +191,6 @@ async def asyncio(
             project_id=project_id,
             report_id=report_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

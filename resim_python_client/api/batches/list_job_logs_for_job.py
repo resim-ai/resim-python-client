@@ -3,11 +3,13 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.list_job_logs_output import ListJobLogsOutput
+from ...types import Response, UNSET
+from ... import errors
+
+from ...types import Unset
 from ...models.log_type import LogType
-from ...types import UNSET, Response, Unset
+from ...models.list_job_logs_output import ListJobLogsOutput
 
 
 def _get_kwargs(
@@ -15,24 +17,18 @@ def _get_kwargs(
     batch_id: str,
     job_id: str,
     *,
-    type: Union[Unset, None, List[LogType]] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, List[LogType]] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
-
-    pass
-
     params: Dict[str, Any] = {}
-    json_type: Union[Unset, None, List[str]] = UNSET
-    if not isinstance(type, Unset):
-        if type is None:
-            json_type = None
-        else:
-            json_type = []
-            for type_item_data in type:
-                type_item = type_item_data.value
 
-                json_type.append(type_item)
+    json_type: Union[Unset, List[str]] = UNSET
+    if not isinstance(type, Unset):
+        json_type = []
+        for type_item_data in type:
+            type_item = type_item_data.value
+            json_type.append(type_item)
 
     params["type"] = json_type
 
@@ -42,15 +38,17 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/batches/{batchID}/jobs/{jobID}/logs".format(
-            projectID=project_id,
-            batchID=batch_id,
-            jobID=job_id,
+        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/logs".format(
+            project_id=project_id,
+            batch_id=batch_id,
+            job_id=job_id,
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(
@@ -89,9 +87,9 @@ def sync_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    type: Union[Unset, None, List[LogType]] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, List[LogType]] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListJobLogsOutput]]:
     """List the logs associated with a given job
 
@@ -99,9 +97,9 @@ def sync_detailed(
         project_id (str):
         batch_id (str):
         job_id (str):
-        type (Union[Unset, None, List[LogType]]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        type (Union[Unset, List[LogType]]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -133,9 +131,9 @@ def sync(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    type: Union[Unset, None, List[LogType]] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, List[LogType]] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListJobLogsOutput]]:
     """List the logs associated with a given job
 
@@ -143,9 +141,9 @@ def sync(
         project_id (str):
         batch_id (str):
         job_id (str):
-        type (Union[Unset, None, List[LogType]]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        type (Union[Unset, List[LogType]]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -172,9 +170,9 @@ async def asyncio_detailed(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    type: Union[Unset, None, List[LogType]] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, List[LogType]] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListJobLogsOutput]]:
     """List the logs associated with a given job
 
@@ -182,9 +180,9 @@ async def asyncio_detailed(
         project_id (str):
         batch_id (str):
         job_id (str):
-        type (Union[Unset, None, List[LogType]]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        type (Union[Unset, List[LogType]]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -214,9 +212,9 @@ async def asyncio(
     job_id: str,
     *,
     client: AuthenticatedClient,
-    type: Union[Unset, None, List[LogType]] = UNSET,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    type: Union[Unset, List[LogType]] = UNSET,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListJobLogsOutput]]:
     """List the logs associated with a given job
 
@@ -224,9 +222,9 @@ async def asyncio(
         project_id (str):
         batch_id (str):
         job_id (str):
-        type (Union[Unset, None, List[LogType]]):
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        type (Union[Unset, List[LogType]]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -1,9 +1,15 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import cast
+from typing import Union
 
 if TYPE_CHECKING:
     from ..models.experience_filter_input import ExperienceFilterInput
@@ -42,9 +48,13 @@ class ReviseTestSuiteInput:
 
     def to_dict(self) -> Dict[str, Any]:
         update_metrics_build = self.update_metrics_build
+
         adhoc = self.adhoc
+
         all_experiences = self.all_experiences
+
         description = self.description
+
         excluded_experience_i_ds: Union[Unset, List[str]] = UNSET
         if not isinstance(self.excluded_experience_i_ds, Unset):
             excluded_experience_i_ds = self.excluded_experience_i_ds
@@ -58,7 +68,9 @@ class ReviseTestSuiteInput:
             filters = self.filters.to_dict()
 
         metrics_build_id = self.metrics_build_id
+
         name = self.name
+
         system_id = self.system_id
 
         field_dict: Dict[str, Any] = {}
@@ -102,7 +114,9 @@ class ReviseTestSuiteInput:
 
         description = d.pop("description", UNSET)
 
-        excluded_experience_i_ds = cast(List[str], d.pop("excludedExperienceIDs", UNSET))
+        excluded_experience_i_ds = cast(
+            List[str], d.pop("excludedExperienceIDs", UNSET)
+        )
 
         experiences = cast(List[str], d.pop("experiences", UNSET))
 

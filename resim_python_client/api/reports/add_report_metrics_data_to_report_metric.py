@@ -3,10 +3,13 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.report_metrics_data_to_report_metric import ReportMetricsDataToReportMetric
 from ...types import Response
+from ... import errors
+
+from ...models.report_metrics_data_to_report_metric import (
+    ReportMetricsDataToReportMetric,
+)
 
 
 def _get_kwargs(
@@ -14,22 +17,26 @@ def _get_kwargs(
     report_id: str,
     metric_id: str,
     *,
-    json_body: List[str],
+    body: List[str],
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{projectID}/reports/{reportID}/metrics/{metricID}/metricsData".format(
-            projectID=project_id,
-            reportID=report_id,
-            metricID=metric_id,
+        "url": "/projects/{project_id}/reports/{report_id}/metrics/{metric_id}/metricsData".format(
+            project_id=project_id,
+            report_id=report_id,
+            metric_id=metric_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = body
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -65,7 +72,7 @@ def sync_detailed(
     metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[str],
+    body: List[str],
 ) -> Response[Union[Any, ReportMetricsDataToReportMetric]]:
     """Adds report metrics data (IDs) to a given report metric
 
@@ -73,7 +80,7 @@ def sync_detailed(
         project_id (str):
         report_id (str):
         metric_id (str):
-        json_body (List[str]):
+        body (List[str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -87,7 +94,7 @@ def sync_detailed(
         project_id=project_id,
         report_id=report_id,
         metric_id=metric_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -103,7 +110,7 @@ def sync(
     metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[str],
+    body: List[str],
 ) -> Optional[Union[Any, ReportMetricsDataToReportMetric]]:
     """Adds report metrics data (IDs) to a given report metric
 
@@ -111,7 +118,7 @@ def sync(
         project_id (str):
         report_id (str):
         metric_id (str):
-        json_body (List[str]):
+        body (List[str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,7 +133,7 @@ def sync(
         report_id=report_id,
         metric_id=metric_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -136,7 +143,7 @@ async def asyncio_detailed(
     metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[str],
+    body: List[str],
 ) -> Response[Union[Any, ReportMetricsDataToReportMetric]]:
     """Adds report metrics data (IDs) to a given report metric
 
@@ -144,7 +151,7 @@ async def asyncio_detailed(
         project_id (str):
         report_id (str):
         metric_id (str):
-        json_body (List[str]):
+        body (List[str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -158,7 +165,7 @@ async def asyncio_detailed(
         project_id=project_id,
         report_id=report_id,
         metric_id=metric_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -172,7 +179,7 @@ async def asyncio(
     metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[str],
+    body: List[str],
 ) -> Optional[Union[Any, ReportMetricsDataToReportMetric]]:
     """Adds report metrics data (IDs) to a given report metric
 
@@ -180,7 +187,7 @@ async def asyncio(
         project_id (str):
         report_id (str):
         metric_id (str):
-        json_body (List[str]):
+        body (List[str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -196,6 +203,6 @@ async def asyncio(
             report_id=report_id,
             metric_id=metric_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

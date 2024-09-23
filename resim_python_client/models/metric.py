@@ -1,13 +1,20 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
-from ..models.metric_status import MetricStatus
-from ..models.metric_type import MetricType
 from ..types import UNSET, Unset
+
+import datetime
+from typing import Union
+from typing import cast
+from ..models.metric_status import MetricStatus
+from dateutil.parser import isoparse
+from ..models.metric_type import MetricType
+
 
 T = TypeVar("T", bound="Metric")
 
@@ -27,8 +34,9 @@ class Metric:
         project_id (Union[Unset, str]):
         status (Union[Unset, MetricStatus]):
         type (Union[Unset, MetricType]):
+        unit (Union[None, Unset, str]):
         user_id (Union[Unset, str]):
-        value (Union[Unset, None, float]):
+        value (Union[None, Unset, float]):
     """
 
     creation_timestamp: Union[Unset, datetime.datetime] = UNSET
@@ -42,8 +50,9 @@ class Metric:
     project_id: Union[Unset, str] = UNSET
     status: Union[Unset, MetricStatus] = UNSET
     type: Union[Unset, MetricType] = UNSET
+    unit: Union[None, Unset, str] = UNSET
     user_id: Union[Unset, str] = UNSET
-    value: Union[Unset, None, float] = UNSET
+    value: Union[None, Unset, float] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -56,12 +65,19 @@ class Metric:
             data_i_ds = self.data_i_ds
 
         event_metric = self.event_metric
+
         file_location = self.file_location
+
         metric_id = self.metric_id
+
         metric_url = self.metric_url
+
         name = self.name
+
         org_id = self.org_id
+
         project_id = self.project_id
+
         status: Union[Unset, str] = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
@@ -70,8 +86,19 @@ class Metric:
         if not isinstance(self.type, Unset):
             type = self.type.value
 
+        unit: Union[None, Unset, str]
+        if isinstance(self.unit, Unset):
+            unit = UNSET
+        else:
+            unit = self.unit
+
         user_id = self.user_id
-        value = self.value
+
+        value: Union[None, Unset, float]
+        if isinstance(self.value, Unset):
+            value = UNSET
+        else:
+            value = self.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -98,6 +125,8 @@ class Metric:
             field_dict["status"] = status
         if type is not UNSET:
             field_dict["type"] = type
+        if unit is not UNSET:
+            field_dict["unit"] = unit
         if user_id is not UNSET:
             field_dict["userID"] = user_id
         if value is not UNSET:
@@ -145,9 +174,25 @@ class Metric:
         else:
             type = MetricType(_type)
 
+        def _parse_unit(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        unit = _parse_unit(d.pop("unit", UNSET))
+
         user_id = d.pop("userID", UNSET)
 
-        value = d.pop("value", UNSET)
+        def _parse_value(data: object) -> Union[None, Unset, float]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, float], data)
+
+        value = _parse_value(d.pop("value", UNSET))
 
         metric = cls(
             creation_timestamp=creation_timestamp,
@@ -161,6 +206,7 @@ class Metric:
             project_id=project_id,
             status=status,
             type=type,
+            unit=unit,
             user_id=user_id,
             value=value,
         )

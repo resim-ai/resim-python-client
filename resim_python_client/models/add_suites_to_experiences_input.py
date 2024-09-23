@@ -1,33 +1,44 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from typing import cast
+from typing import Union
+
 if TYPE_CHECKING:
     from ..models.experience_filter_input import ExperienceFilterInput
 
 
-T = TypeVar("T", bound="EditTestSuiteExperiencesInput")
+T = TypeVar("T", bound="AddSuitesToExperiencesInput")
 
 
 @_attrs_define
-class EditTestSuiteExperiencesInput:
+class AddSuitesToExperiencesInput:
     """
     Attributes:
+        test_suite_i_ds (List[str]):
         all_experiences (Union[Unset, bool]):
         experiences (Union[Unset, List[str]]):
         filters (Union[Unset, ExperienceFilterInput]):
     """
 
+    test_suite_i_ds: List[str]
     all_experiences: Union[Unset, bool] = UNSET
     experiences: Union[Unset, List[str]] = UNSET
     filters: Union[Unset, "ExperienceFilterInput"] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        test_suite_i_ds = self.test_suite_i_ds
+
         all_experiences = self.all_experiences
+
         experiences: Union[Unset, List[str]] = UNSET
         if not isinstance(self.experiences, Unset):
             experiences = self.experiences
@@ -38,7 +49,11 @@ class EditTestSuiteExperiencesInput:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update(
+            {
+                "testSuiteIDs": test_suite_i_ds,
+            }
+        )
         if all_experiences is not UNSET:
             field_dict["allExperiences"] = all_experiences
         if experiences is not UNSET:
@@ -53,6 +68,8 @@ class EditTestSuiteExperiencesInput:
         from ..models.experience_filter_input import ExperienceFilterInput
 
         d = src_dict.copy()
+        test_suite_i_ds = cast(List[str], d.pop("testSuiteIDs"))
+
         all_experiences = d.pop("allExperiences", UNSET)
 
         experiences = cast(List[str], d.pop("experiences", UNSET))
@@ -64,14 +81,15 @@ class EditTestSuiteExperiencesInput:
         else:
             filters = ExperienceFilterInput.from_dict(_filters)
 
-        edit_test_suite_experiences_input = cls(
+        add_suites_to_experiences_input = cls(
+            test_suite_i_ds=test_suite_i_ds,
             all_experiences=all_experiences,
             experiences=experiences,
             filters=filters,
         )
 
-        edit_test_suite_experiences_input.additional_properties = d
-        return edit_test_suite_experiences_input
+        add_suites_to_experiences_input.additional_properties = d
+        return add_suites_to_experiences_input
 
     @property
     def additional_keys(self) -> List[str]:

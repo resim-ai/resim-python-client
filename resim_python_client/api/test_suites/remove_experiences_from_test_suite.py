@@ -3,32 +3,37 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.edit_test_suite_experiences_input import EditTestSuiteExperiencesInput
-from ...models.test_suite import TestSuite
 from ...types import Response
+from ... import errors
+
+from ...models.select_experiences_input import SelectExperiencesInput
+from ...models.test_suite import TestSuite
 
 
 def _get_kwargs(
     project_id: str,
     test_suite_id: str,
     *,
-    json_body: EditTestSuiteExperiencesInput,
+    body: SelectExperiencesInput,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/projects/{projectID}/suites/{testSuiteID}/removeExperiences".format(
-            projectID=project_id,
-            testSuiteID=test_suite_id,
+        "url": "/projects/{project_id}/suites/{test_suite_id}/removeExperiences".format(
+            project_id=project_id,
+            test_suite_id=test_suite_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = body.to_dict()
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -66,14 +71,14 @@ def sync_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: EditTestSuiteExperiencesInput,
+    body: SelectExperiencesInput,
 ) -> Response[Union[Any, TestSuite]]:
     """Remove experiences from a test suite. This will generate a new test suite revision.
 
     Args:
         project_id (str):
         test_suite_id (str):
-        json_body (EditTestSuiteExperiencesInput):
+        body (SelectExperiencesInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,7 +91,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         test_suite_id=test_suite_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -101,14 +106,14 @@ def sync(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: EditTestSuiteExperiencesInput,
+    body: SelectExperiencesInput,
 ) -> Optional[Union[Any, TestSuite]]:
     """Remove experiences from a test suite. This will generate a new test suite revision.
 
     Args:
         project_id (str):
         test_suite_id (str):
-        json_body (EditTestSuiteExperiencesInput):
+        body (SelectExperiencesInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -122,7 +127,7 @@ def sync(
         project_id=project_id,
         test_suite_id=test_suite_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -131,14 +136,14 @@ async def asyncio_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: EditTestSuiteExperiencesInput,
+    body: SelectExperiencesInput,
 ) -> Response[Union[Any, TestSuite]]:
     """Remove experiences from a test suite. This will generate a new test suite revision.
 
     Args:
         project_id (str):
         test_suite_id (str):
-        json_body (EditTestSuiteExperiencesInput):
+        body (SelectExperiencesInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,7 +156,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         test_suite_id=test_suite_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -164,14 +169,14 @@ async def asyncio(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: EditTestSuiteExperiencesInput,
+    body: SelectExperiencesInput,
 ) -> Optional[Union[Any, TestSuite]]:
     """Remove experiences from a test suite. This will generate a new test suite revision.
 
     Args:
         project_id (str):
         test_suite_id (str):
-        json_body (EditTestSuiteExperiencesInput):
+        body (SelectExperiencesInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -186,6 +191,6 @@ async def asyncio(
             project_id=project_id,
             test_suite_id=test_suite_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

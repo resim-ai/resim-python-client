@@ -1,9 +1,14 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import Union
 
 if TYPE_CHECKING:
     from ..models.project import Project
@@ -26,12 +31,12 @@ class ListProjectsOutput:
 
     def to_dict(self) -> Dict[str, Any]:
         next_page_token = self.next_page_token
+
         projects: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.projects, Unset):
             projects = []
             for projects_item_data in self.projects:
                 projects_item = projects_item_data.to_dict()
-
                 projects.append(projects_item)
 
         field_dict: Dict[str, Any] = {}

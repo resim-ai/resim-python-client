@@ -1,12 +1,14 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-if TYPE_CHECKING:
-    from ..models.update_system_fields import UpdateSystemFields
+from typing import Union
 
 
 T = TypeVar("T", bound="UpdateSystemInput")
@@ -16,50 +18,113 @@ T = TypeVar("T", bound="UpdateSystemInput")
 class UpdateSystemInput:
     """
     Attributes:
-        system (Union[Unset, UpdateSystemFields]):
-        update_mask (Union[Unset, List[str]]):
+        build_gpus (Union[Unset, int]):
+        build_memory_mib (Union[Unset, int]):
+        build_shared_memory_mb (Union[Unset, int]):
+        build_vcpus (Union[Unset, int]):
+        description (Union[Unset, str]):
+        metrics_build_gpus (Union[Unset, int]):
+        metrics_build_memory_mib (Union[Unset, int]):
+        metrics_build_shared_memory_mb (Union[Unset, int]):
+        metrics_build_vcpus (Union[Unset, int]):
+        name (Union[Unset, str]):
     """
 
-    system: Union[Unset, "UpdateSystemFields"] = UNSET
-    update_mask: Union[Unset, List[str]] = UNSET
+    build_gpus: Union[Unset, int] = UNSET
+    build_memory_mib: Union[Unset, int] = UNSET
+    build_shared_memory_mb: Union[Unset, int] = UNSET
+    build_vcpus: Union[Unset, int] = UNSET
+    description: Union[Unset, str] = UNSET
+    metrics_build_gpus: Union[Unset, int] = UNSET
+    metrics_build_memory_mib: Union[Unset, int] = UNSET
+    metrics_build_shared_memory_mb: Union[Unset, int] = UNSET
+    metrics_build_vcpus: Union[Unset, int] = UNSET
+    name: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        system: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.system, Unset):
-            system = self.system.to_dict()
+        build_gpus = self.build_gpus
 
-        update_mask: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.update_mask, Unset):
-            update_mask = self.update_mask
+        build_memory_mib = self.build_memory_mib
+
+        build_shared_memory_mb = self.build_shared_memory_mb
+
+        build_vcpus = self.build_vcpus
+
+        description = self.description
+
+        metrics_build_gpus = self.metrics_build_gpus
+
+        metrics_build_memory_mib = self.metrics_build_memory_mib
+
+        metrics_build_shared_memory_mb = self.metrics_build_shared_memory_mb
+
+        metrics_build_vcpus = self.metrics_build_vcpus
+
+        name = self.name
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if system is not UNSET:
-            field_dict["system"] = system
-        if update_mask is not UNSET:
-            field_dict["updateMask"] = update_mask
+        if build_gpus is not UNSET:
+            field_dict["build_gpus"] = build_gpus
+        if build_memory_mib is not UNSET:
+            field_dict["build_memory_mib"] = build_memory_mib
+        if build_shared_memory_mb is not UNSET:
+            field_dict["build_shared_memory_mb"] = build_shared_memory_mb
+        if build_vcpus is not UNSET:
+            field_dict["build_vcpus"] = build_vcpus
+        if description is not UNSET:
+            field_dict["description"] = description
+        if metrics_build_gpus is not UNSET:
+            field_dict["metrics_build_gpus"] = metrics_build_gpus
+        if metrics_build_memory_mib is not UNSET:
+            field_dict["metrics_build_memory_mib"] = metrics_build_memory_mib
+        if metrics_build_shared_memory_mb is not UNSET:
+            field_dict["metrics_build_shared_memory_mb"] = (
+                metrics_build_shared_memory_mb
+            )
+        if metrics_build_vcpus is not UNSET:
+            field_dict["metrics_build_vcpus"] = metrics_build_vcpus
+        if name is not UNSET:
+            field_dict["name"] = name
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.update_system_fields import UpdateSystemFields
-
         d = src_dict.copy()
-        _system = d.pop("system", UNSET)
-        system: Union[Unset, UpdateSystemFields]
-        if isinstance(_system, Unset):
-            system = UNSET
-        else:
-            system = UpdateSystemFields.from_dict(_system)
+        build_gpus = d.pop("build_gpus", UNSET)
 
-        update_mask = cast(List[str], d.pop("updateMask", UNSET))
+        build_memory_mib = d.pop("build_memory_mib", UNSET)
+
+        build_shared_memory_mb = d.pop("build_shared_memory_mb", UNSET)
+
+        build_vcpus = d.pop("build_vcpus", UNSET)
+
+        description = d.pop("description", UNSET)
+
+        metrics_build_gpus = d.pop("metrics_build_gpus", UNSET)
+
+        metrics_build_memory_mib = d.pop("metrics_build_memory_mib", UNSET)
+
+        metrics_build_shared_memory_mb = d.pop("metrics_build_shared_memory_mb", UNSET)
+
+        metrics_build_vcpus = d.pop("metrics_build_vcpus", UNSET)
+
+        name = d.pop("name", UNSET)
 
         update_system_input = cls(
-            system=system,
-            update_mask=update_mask,
+            build_gpus=build_gpus,
+            build_memory_mib=build_memory_mib,
+            build_shared_memory_mb=build_shared_memory_mb,
+            build_vcpus=build_vcpus,
+            description=description,
+            metrics_build_gpus=metrics_build_gpus,
+            metrics_build_memory_mib=metrics_build_memory_mib,
+            metrics_build_shared_memory_mb=metrics_build_shared_memory_mb,
+            metrics_build_vcpus=metrics_build_vcpus,
+            name=name,
         )
 
         update_system_input.additional_properties = d

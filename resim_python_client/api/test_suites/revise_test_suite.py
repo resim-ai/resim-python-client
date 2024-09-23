@@ -3,32 +3,37 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response
+from ... import errors
+
 from ...models.revise_test_suite_input import ReviseTestSuiteInput
 from ...models.test_suite import TestSuite
-from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     test_suite_id: str,
     *,
-    json_body: ReviseTestSuiteInput,
+    body: ReviseTestSuiteInput,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/projects/{projectID}/suites/{testSuiteID}".format(
-            projectID=project_id,
-            testSuiteID=test_suite_id,
+        "url": "/projects/{project_id}/suites/{test_suite_id}".format(
+            project_id=project_id,
+            test_suite_id=test_suite_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = body.to_dict()
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -66,7 +71,7 @@ def sync_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: ReviseTestSuiteInput,
+    body: ReviseTestSuiteInput,
 ) -> Response[Union[Any, TestSuite]]:
     """Revise a test suite, generating a new revision. Supply a false value for ad-hoc to convert an
     existing ad hoc test suite to a full test suite.
@@ -74,7 +79,7 @@ def sync_detailed(
     Args:
         project_id (str):
         test_suite_id (str):
-        json_body (ReviseTestSuiteInput):
+        body (ReviseTestSuiteInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -87,7 +92,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         test_suite_id=test_suite_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -102,7 +107,7 @@ def sync(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: ReviseTestSuiteInput,
+    body: ReviseTestSuiteInput,
 ) -> Optional[Union[Any, TestSuite]]:
     """Revise a test suite, generating a new revision. Supply a false value for ad-hoc to convert an
     existing ad hoc test suite to a full test suite.
@@ -110,7 +115,7 @@ def sync(
     Args:
         project_id (str):
         test_suite_id (str):
-        json_body (ReviseTestSuiteInput):
+        body (ReviseTestSuiteInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -124,7 +129,7 @@ def sync(
         project_id=project_id,
         test_suite_id=test_suite_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -133,7 +138,7 @@ async def asyncio_detailed(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: ReviseTestSuiteInput,
+    body: ReviseTestSuiteInput,
 ) -> Response[Union[Any, TestSuite]]:
     """Revise a test suite, generating a new revision. Supply a false value for ad-hoc to convert an
     existing ad hoc test suite to a full test suite.
@@ -141,7 +146,7 @@ async def asyncio_detailed(
     Args:
         project_id (str):
         test_suite_id (str):
-        json_body (ReviseTestSuiteInput):
+        body (ReviseTestSuiteInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -154,7 +159,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         test_suite_id=test_suite_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -167,7 +172,7 @@ async def asyncio(
     test_suite_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: ReviseTestSuiteInput,
+    body: ReviseTestSuiteInput,
 ) -> Optional[Union[Any, TestSuite]]:
     """Revise a test suite, generating a new revision. Supply a false value for ad-hoc to convert an
     existing ad hoc test suite to a full test suite.
@@ -175,7 +180,7 @@ async def asyncio(
     Args:
         project_id (str):
         test_suite_id (str):
-        json_body (ReviseTestSuiteInput):
+        body (ReviseTestSuiteInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,6 +195,6 @@ async def asyncio(
             project_id=project_id,
             test_suite_id=test_suite_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

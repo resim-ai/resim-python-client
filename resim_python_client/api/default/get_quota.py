@@ -3,20 +3,20 @@ from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.get_quota_output import GetQuotaOutput
 from ...types import Response
+from ... import errors
+
+from ...models.get_quota_output import GetQuotaOutput
 
 
 def _get_kwargs() -> Dict[str, Any]:
-
-    pass
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
         "url": "/quota",
     }
+
+    return _kwargs
 
 
 def _parse_response(

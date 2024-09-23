@@ -3,10 +3,11 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.metric_tag import MetricTag
 from ...types import Response
+from ... import errors
+
+from ...models.metric_tag import MetricTag
 
 
 def _get_kwargs(
@@ -15,27 +16,30 @@ def _get_kwargs(
     job_id: str,
     metric_id: str,
     *,
-    json_body: List["MetricTag"],
+    body: List["MetricTag"],
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = []
-    for json_body_item_data in json_body:
-        json_body_item = json_body_item_data.to_dict()
-
-        json_json_body.append(json_body_item)
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{projectID}/batches/{batchID}/jobs/{jobID}/metrics/{metricID}/tags".format(
-            projectID=project_id,
-            batchID=batch_id,
-            jobID=job_id,
-            metricID=metric_id,
+        "url": "/projects/{project_id}/batches/{batch_id}/jobs/{job_id}/metrics/{metric_id}/tags".format(
+            project_id=project_id,
+            batch_id=batch_id,
+            job_id=job_id,
+            metric_id=metric_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = []
+    for body_item_data in body:
+        body_item = body_item_data.to_dict()
+        _body.append(body_item)
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -77,7 +81,7 @@ def sync_detailed(
     metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["MetricTag"],
+    body: List["MetricTag"],
 ) -> Response[Union[Any, List["MetricTag"]]]:
     """Adds tags to the given job metric
 
@@ -86,7 +90,7 @@ def sync_detailed(
         batch_id (str):
         job_id (str):
         metric_id (str):
-        json_body (List['MetricTag']):
+        body (List['MetricTag']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -101,7 +105,7 @@ def sync_detailed(
         batch_id=batch_id,
         job_id=job_id,
         metric_id=metric_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -118,7 +122,7 @@ def sync(
     metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["MetricTag"],
+    body: List["MetricTag"],
 ) -> Optional[Union[Any, List["MetricTag"]]]:
     """Adds tags to the given job metric
 
@@ -127,7 +131,7 @@ def sync(
         batch_id (str):
         job_id (str):
         metric_id (str):
-        json_body (List['MetricTag']):
+        body (List['MetricTag']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -143,7 +147,7 @@ def sync(
         job_id=job_id,
         metric_id=metric_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -154,7 +158,7 @@ async def asyncio_detailed(
     metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["MetricTag"],
+    body: List["MetricTag"],
 ) -> Response[Union[Any, List["MetricTag"]]]:
     """Adds tags to the given job metric
 
@@ -163,7 +167,7 @@ async def asyncio_detailed(
         batch_id (str):
         job_id (str):
         metric_id (str):
-        json_body (List['MetricTag']):
+        body (List['MetricTag']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -178,7 +182,7 @@ async def asyncio_detailed(
         batch_id=batch_id,
         job_id=job_id,
         metric_id=metric_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -193,7 +197,7 @@ async def asyncio(
     metric_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["MetricTag"],
+    body: List["MetricTag"],
 ) -> Optional[Union[Any, List["MetricTag"]]]:
     """Adds tags to the given job metric
 
@@ -202,7 +206,7 @@ async def asyncio(
         batch_id (str):
         job_id (str):
         metric_id (str):
-        json_body (List['MetricTag']):
+        body (List['MetricTag']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -219,6 +223,6 @@ async def asyncio(
             job_id=job_id,
             metric_id=metric_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed
