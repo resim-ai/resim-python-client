@@ -1,9 +1,15 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import Union
+
 
 T = TypeVar("T", bound="GetQuotaOutput")
 
@@ -26,8 +32,11 @@ class GetQuotaOutput:
 
     def to_dict(self) -> Dict[str, Any]:
         available_tokens = self.available_tokens
+
         max_tokens = self.max_tokens
+
         org_id = self.org_id
+
         seconds_until_refresh = self.seconds_until_refresh
 
         field_dict: Dict[str, Any] = {}

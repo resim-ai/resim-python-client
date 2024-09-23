@@ -1,12 +1,18 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
+
+import datetime
+from typing import cast
+from dateutil.parser import isoparse
 from ..models.event_timestamp_type import EventTimestampType
 from ..models.metric_status import MetricStatus
+
 
 T = TypeVar("T", bound="Event")
 
@@ -41,10 +47,13 @@ class Event:
         creation_timestamp = self.creation_timestamp.isoformat()
 
         description = self.description
+
         event_id = self.event_id
+
         metrics_i_ds = self.metrics_i_ds
 
         name = self.name
+
         status = self.status.value
 
         tags = self.tags

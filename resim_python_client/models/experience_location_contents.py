@@ -1,9 +1,16 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import cast
+from typing import Union
+
 
 T = TypeVar("T", bound="ExperienceLocationContents")
 
@@ -24,7 +31,9 @@ class ExperienceLocationContents:
 
     def to_dict(self) -> Dict[str, Any]:
         is_cloud = self.is_cloud
+
         object_count = self.object_count
+
         objects: Union[Unset, List[str]] = UNSET
         if not isinstance(self.objects, Unset):
             objects = self.objects

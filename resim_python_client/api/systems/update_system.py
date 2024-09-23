@@ -3,32 +3,37 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...types import Response
+from ... import errors
+
 from ...models.system import System
 from ...models.update_system_input import UpdateSystemInput
-from ...types import Response
 
 
 def _get_kwargs(
     project_id: str,
     system_id: str,
     *,
-    json_body: UpdateSystemInput,
+    body: UpdateSystemInput,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "patch",
-        "url": "/projects/{projectID}/systems/{systemID}".format(
-            projectID=project_id,
-            systemID=system_id,
+        "url": "/projects/{project_id}/systems/{system_id}".format(
+            project_id=project_id,
+            system_id=system_id,
         ),
-        "json": json_json_body,
     }
+
+    _body = body.to_dict()
+
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
@@ -69,14 +74,14 @@ def sync_detailed(
     system_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateSystemInput,
+    body: UpdateSystemInput,
 ) -> Response[Union[Any, System]]:
     """Updates the system.
 
     Args:
         project_id (str):
         system_id (str):
-        json_body (UpdateSystemInput):
+        body (UpdateSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -89,7 +94,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         system_id=system_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -104,14 +109,14 @@ def sync(
     system_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateSystemInput,
+    body: UpdateSystemInput,
 ) -> Optional[Union[Any, System]]:
     """Updates the system.
 
     Args:
         project_id (str):
         system_id (str):
-        json_body (UpdateSystemInput):
+        body (UpdateSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -125,7 +130,7 @@ def sync(
         project_id=project_id,
         system_id=system_id,
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
@@ -134,14 +139,14 @@ async def asyncio_detailed(
     system_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateSystemInput,
+    body: UpdateSystemInput,
 ) -> Response[Union[Any, System]]:
     """Updates the system.
 
     Args:
         project_id (str):
         system_id (str):
-        json_body (UpdateSystemInput):
+        body (UpdateSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -154,7 +159,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         project_id=project_id,
         system_id=system_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -167,14 +172,14 @@ async def asyncio(
     system_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: UpdateSystemInput,
+    body: UpdateSystemInput,
 ) -> Optional[Union[Any, System]]:
     """Updates the system.
 
     Args:
         project_id (str):
         system_id (str):
-        json_body (UpdateSystemInput):
+        body (UpdateSystemInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,6 +194,6 @@ async def asyncio(
             project_id=project_id,
             system_id=system_id,
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

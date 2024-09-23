@@ -1,9 +1,15 @@
-import datetime
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+
+import datetime
 from dateutil.parser import isoparse
+
 
 T = TypeVar("T", bound="System")
 
@@ -23,6 +29,11 @@ class System:
         metrics_build_shared_memory_mb (int):
         metrics_build_vcpus (int):
         name (str):
+        num_batches (int):
+        num_builds (int):
+        num_experiences (int):
+        num_metrics_builds (int):
+        num_test_suites (int):
         org_id (str):
         project_id (str):
         system_id (str):
@@ -40,6 +51,11 @@ class System:
     metrics_build_shared_memory_mb: int
     metrics_build_vcpus: int
     name: str
+    num_batches: int
+    num_builds: int
+    num_experiences: int
+    num_metrics_builds: int
+    num_test_suites: int
     org_id: str
     project_id: str
     system_id: str
@@ -48,20 +64,43 @@ class System:
 
     def to_dict(self) -> Dict[str, Any]:
         build_gpus = self.build_gpus
+
         build_memory_mib = self.build_memory_mib
+
         build_shared_memory_mb = self.build_shared_memory_mb
+
         build_vcpus = self.build_vcpus
+
         creation_timestamp = self.creation_timestamp.isoformat()
 
         description = self.description
+
         metrics_build_gpus = self.metrics_build_gpus
+
         metrics_build_memory_mib = self.metrics_build_memory_mib
+
         metrics_build_shared_memory_mb = self.metrics_build_shared_memory_mb
+
         metrics_build_vcpus = self.metrics_build_vcpus
+
         name = self.name
+
+        num_batches = self.num_batches
+
+        num_builds = self.num_builds
+
+        num_experiences = self.num_experiences
+
+        num_metrics_builds = self.num_metrics_builds
+
+        num_test_suites = self.num_test_suites
+
         org_id = self.org_id
+
         project_id = self.project_id
+
         system_id = self.system_id
+
         user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
@@ -79,6 +118,11 @@ class System:
                 "metrics_build_shared_memory_mb": metrics_build_shared_memory_mb,
                 "metrics_build_vcpus": metrics_build_vcpus,
                 "name": name,
+                "numBatches": num_batches,
+                "numBuilds": num_builds,
+                "numExperiences": num_experiences,
+                "numMetricsBuilds": num_metrics_builds,
+                "numTestSuites": num_test_suites,
                 "orgID": org_id,
                 "projectID": project_id,
                 "systemID": system_id,
@@ -113,6 +157,16 @@ class System:
 
         name = d.pop("name")
 
+        num_batches = d.pop("numBatches")
+
+        num_builds = d.pop("numBuilds")
+
+        num_experiences = d.pop("numExperiences")
+
+        num_metrics_builds = d.pop("numMetricsBuilds")
+
+        num_test_suites = d.pop("numTestSuites")
+
         org_id = d.pop("orgID")
 
         project_id = d.pop("projectID")
@@ -133,6 +187,11 @@ class System:
             metrics_build_shared_memory_mb=metrics_build_shared_memory_mb,
             metrics_build_vcpus=metrics_build_vcpus,
             name=name,
+            num_batches=num_batches,
+            num_builds=num_builds,
+            num_experiences=num_experiences,
+            num_metrics_builds=num_metrics_builds,
+            num_test_suites=num_test_suites,
             org_id=org_id,
             project_id=project_id,
             system_id=system_id,

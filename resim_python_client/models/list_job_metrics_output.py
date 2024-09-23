@@ -1,9 +1,14 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
+
+from typing import Union
 
 if TYPE_CHECKING:
     from ..models.job_metric import JobMetric
@@ -30,7 +35,6 @@ class ListJobMetricsOutput:
             metrics = []
             for metrics_item_data in self.metrics:
                 metrics_item = metrics_item_data.to_dict()
-
                 metrics.append(metrics_item)
 
         next_page_token = self.next_page_token

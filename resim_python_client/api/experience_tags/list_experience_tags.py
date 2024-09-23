@@ -3,30 +3,30 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.list_experience_tags_order_by import ListExperienceTagsOrderBy
+from ...types import Response, UNSET
+from ... import errors
+
+from ...types import Unset
 from ...models.list_experience_tags_output import ListExperienceTagsOutput
-from ...types import UNSET, Response, Unset
+from ...models.list_experience_tags_order_by import ListExperienceTagsOrderBy
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    name: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Dict[str, Any]:
-
-    pass
-
     params: Dict[str, Any] = {}
+
     params["name"] = name
 
-    json_order_by: Union[Unset, None, str] = UNSET
+    json_order_by: Union[Unset, str] = UNSET
     if not isinstance(order_by, Unset):
-        json_order_by = order_by.value if order_by else None
+        json_order_by = order_by.value
 
     params["orderBy"] = json_order_by
 
@@ -36,13 +36,15 @@ def _get_kwargs(
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/experienceTags".format(
-            projectID=project_id,
+        "url": "/projects/{project_id}/experienceTags".format(
+            project_id=project_id,
         ),
         "params": params,
     }
+
+    return _kwargs
 
 
 def _parse_response(
@@ -79,20 +81,20 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    name: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListExperienceTagsOutput]]:
     """Returns a list of all experience tags.
 
     Args:
         project_id (str):
-        name (Union[Unset, None, str]):
-        order_by (Union[Unset, None, ListExperienceTagsOrderBy]):  Default:
+        name (Union[Unset, str]):
+        order_by (Union[Unset, ListExperienceTagsOrderBy]):  Default:
             ListExperienceTagsOrderBy.ID.
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -121,20 +123,20 @@ def sync(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    name: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListExperienceTagsOutput]]:
     """Returns a list of all experience tags.
 
     Args:
         project_id (str):
-        name (Union[Unset, None, str]):
-        order_by (Union[Unset, None, ListExperienceTagsOrderBy]):  Default:
+        name (Union[Unset, str]):
+        order_by (Union[Unset, ListExperienceTagsOrderBy]):  Default:
             ListExperienceTagsOrderBy.ID.
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -158,20 +160,20 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    name: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Response[Union[Any, ListExperienceTagsOutput]]:
     """Returns a list of all experience tags.
 
     Args:
         project_id (str):
-        name (Union[Unset, None, str]):
-        order_by (Union[Unset, None, ListExperienceTagsOrderBy]):  Default:
+        name (Union[Unset, str]):
+        order_by (Union[Unset, ListExperienceTagsOrderBy]):  Default:
             ListExperienceTagsOrderBy.ID.
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -198,20 +200,20 @@ async def asyncio(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    name: Union[Unset, None, str] = UNSET,
-    order_by: Union[Unset, None, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
-    page_size: Union[Unset, None, int] = UNSET,
-    page_token: Union[Unset, None, str] = UNSET,
+    name: Union[Unset, str] = UNSET,
+    order_by: Union[Unset, ListExperienceTagsOrderBy] = ListExperienceTagsOrderBy.ID,
+    page_size: Union[Unset, int] = UNSET,
+    page_token: Union[Unset, str] = UNSET,
 ) -> Optional[Union[Any, ListExperienceTagsOutput]]:
     """Returns a list of all experience tags.
 
     Args:
         project_id (str):
-        name (Union[Unset, None, str]):
-        order_by (Union[Unset, None, ListExperienceTagsOrderBy]):  Default:
+        name (Union[Unset, str]):
+        order_by (Union[Unset, ListExperienceTagsOrderBy]):  Default:
             ListExperienceTagsOrderBy.ID.
-        page_size (Union[Unset, None, int]):
-        page_token (Union[Unset, None, str]):
+        page_size (Union[Unset, int]):
+        page_token (Union[Unset, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

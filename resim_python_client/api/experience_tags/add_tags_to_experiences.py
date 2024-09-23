@@ -3,32 +3,39 @@ from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.add_tags_to_experiences_input import AddTagsToExperiencesInput
 from ...types import Response
+from ... import errors
+
+from ...models.add_tags_to_experiences_input import AddTagsToExperiencesInput
 
 
 def _get_kwargs(
     project_id: str,
     *,
-    json_body: AddTagsToExperiencesInput,
+    body: AddTagsToExperiencesInput,
 ) -> Dict[str, Any]:
+    headers: Dict[str, Any] = {}
 
-    pass
-
-    json_json_body = json_body.to_dict()
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "post",
-        "url": "/projects/{projectID}/experienceTags/addExperiences".format(
-            projectID=project_id,
+        "url": "/projects/{project_id}/experienceTags/addExperiences".format(
+            project_id=project_id,
         ),
-        "json": json_json_body,
     }
 
+    _body = body.to_dict()
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Any]:
+    _kwargs["json"] = _body
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
+
+
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Any]:
     if response.status_code == HTTPStatus.CREATED:
         return None
     if response.status_code == HTTPStatus.UNAUTHORIZED:
@@ -43,7 +50,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Any]:
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Any]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -56,13 +65,13 @@ def sync_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: AddTagsToExperiencesInput,
+    body: AddTagsToExperiencesInput,
 ) -> Response[Any]:
     """Registers the given experiences as applicable for the experience tags
 
     Args:
         project_id (str):
-        json_body (AddTagsToExperiencesInput):
+        body (AddTagsToExperiencesInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -74,7 +83,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -88,13 +97,13 @@ async def asyncio_detailed(
     project_id: str,
     *,
     client: AuthenticatedClient,
-    json_body: AddTagsToExperiencesInput,
+    body: AddTagsToExperiencesInput,
 ) -> Response[Any]:
     """Registers the given experiences as applicable for the experience tags
 
     Args:
         project_id (str):
-        json_body (AddTagsToExperiencesInput):
+        body (AddTagsToExperiencesInput):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -106,7 +115,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         project_id=project_id,
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)

@@ -1,9 +1,14 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, Type, TypeVar
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+
 from ..models.log_type import LogType
+
 
 T = TypeVar("T", bound="ReportLogInput")
 
@@ -26,8 +31,11 @@ class ReportLogInput:
 
     def to_dict(self) -> Dict[str, Any]:
         checksum = self.checksum
+
         file_name = self.file_name
+
         file_size = self.file_size
+
         log_type = self.log_type.value
 
         field_dict: Dict[str, Any] = {}

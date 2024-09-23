@@ -1,19 +1,25 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
+
+from typing import List
+
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from typing import cast
+from typing import Union
+
 if TYPE_CHECKING:
     from ..models.experience_filter_input import ExperienceFilterInput
 
 
-T = TypeVar("T", bound="AddSystemsToExperiencesInput")
+T = TypeVar("T", bound="MutateSystemsToExperienceInput")
 
 
 @_attrs_define
-class AddSystemsToExperiencesInput:
+class MutateSystemsToExperienceInput:
     """
     Attributes:
         system_i_ds (List[str]):
@@ -32,6 +38,7 @@ class AddSystemsToExperiencesInput:
         system_i_ds = self.system_i_ds
 
         all_experiences = self.all_experiences
+
         experiences: Union[Unset, List[str]] = UNSET
         if not isinstance(self.experiences, Unset):
             experiences = self.experiences
@@ -74,15 +81,15 @@ class AddSystemsToExperiencesInput:
         else:
             filters = ExperienceFilterInput.from_dict(_filters)
 
-        add_systems_to_experiences_input = cls(
+        mutate_systems_to_experience_input = cls(
             system_i_ds=system_i_ds,
             all_experiences=all_experiences,
             experiences=experiences,
             filters=filters,
         )
 
-        add_systems_to_experiences_input.additional_properties = d
-        return add_systems_to_experiences_input
+        mutate_systems_to_experience_input.additional_properties = d
+        return mutate_systems_to_experience_input
 
     @property
     def additional_keys(self) -> List[str]:

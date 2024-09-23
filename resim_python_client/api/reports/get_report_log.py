@@ -3,10 +3,11 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.report_log import ReportLog
 from ...types import Response
+from ... import errors
+
+from ...models.report_log import ReportLog
 
 
 def _get_kwargs(
@@ -14,17 +15,16 @@ def _get_kwargs(
     report_id: str,
     log_id: str,
 ) -> Dict[str, Any]:
-
-    pass
-
-    return {
+    _kwargs: Dict[str, Any] = {
         "method": "get",
-        "url": "/projects/{projectID}/reports/{reportID}/logs/{logID}".format(
-            projectID=project_id,
-            reportID=report_id,
-            logID=log_id,
+        "url": "/projects/{project_id}/reports/{report_id}/logs/{log_id}".format(
+            project_id=project_id,
+            report_id=report_id,
+            log_id=log_id,
         ),
     }
+
+    return _kwargs
 
 
 def _parse_response(
