@@ -8,13 +8,13 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import cast
 from typing import Union
+from typing import cast
 from ..models.triggered_via import TriggeredVia
 
 if TYPE_CHECKING:
-    from ..models.batch_parameters import BatchParameters
     from ..models.experience_filter_input import ExperienceFilterInput
+    from ..models.batch_parameters import BatchParameters
 
 
 T = TypeVar("T", bound="BatchInput")
@@ -152,8 +152,8 @@ class BatchInput:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.batch_parameters import BatchParameters
         from ..models.experience_filter_input import ExperienceFilterInput
+        from ..models.batch_parameters import BatchParameters
 
         d = src_dict.copy()
         associated_account = d.pop("associatedAccount", UNSET)

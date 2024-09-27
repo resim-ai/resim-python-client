@@ -7,10 +7,10 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
+from ...types import Unset
 from ...models.list_report_metrics_data_for_report_metric_i_ds_output import (
     ListReportMetricsDataForReportMetricIDsOutput,
 )
-from ...types import Unset
 
 
 def _get_kwargs(

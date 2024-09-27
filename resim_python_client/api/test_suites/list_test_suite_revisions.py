@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...models.list_test_suite_revisions_output import ListTestSuiteRevisionsOutput
 from ...types import Unset
+from ...models.list_test_suite_revisions_output import ListTestSuiteRevisionsOutput
 
 
 def _get_kwargs(

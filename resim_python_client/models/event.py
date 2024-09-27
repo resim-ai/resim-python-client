@@ -7,11 +7,11 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 
-import datetime
-from typing import cast
-from dateutil.parser import isoparse
 from ..models.event_timestamp_type import EventTimestampType
+from typing import cast
+import datetime
 from ..models.metric_status import MetricStatus
+from dateutil.parser import isoparse
 
 
 T = TypeVar("T", bound="Event")

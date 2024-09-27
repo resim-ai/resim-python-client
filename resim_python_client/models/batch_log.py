@@ -8,11 +8,11 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-import datetime
 from typing import Union
+import datetime
+from dateutil.parser import isoparse
 from ..models.execution_step import ExecutionStep
 from ..models.log_type import LogType
-from dateutil.parser import isoparse
 
 
 T = TypeVar("T", bound="BatchLog")

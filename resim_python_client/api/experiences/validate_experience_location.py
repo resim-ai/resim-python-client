@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.experience_location import ExperienceLocation
 from ...models.experience_location_contents import ExperienceLocationContents
+from ...models.experience_location import ExperienceLocation
 
 
 def _get_kwargs(

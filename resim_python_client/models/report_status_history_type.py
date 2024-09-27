@@ -8,8 +8,8 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-import datetime
 from typing import Union
+import datetime
 from ..models.report_status import ReportStatus
 from dateutil.parser import isoparse
 

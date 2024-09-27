@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.build import Build
 from ...models.create_build_for_system_input import CreateBuildForSystemInput
+from ...models.build import Build
 
 
 def _get_kwargs(

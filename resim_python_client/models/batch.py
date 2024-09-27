@@ -8,12 +8,12 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-import datetime
-from typing import Union
-from typing import cast
 from ..models.batch_status import BatchStatus
 from dateutil.parser import isoparse
+from typing import Union
+from typing import cast
 from ..models.metric_status import MetricStatus
+import datetime
 
 if TYPE_CHECKING:
     from ..models.batch_job_status_counts import BatchJobStatusCounts

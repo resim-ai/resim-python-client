@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.report_log_input import ReportLogInput
 from ...models.report_log import ReportLog
+from ...models.report_log_input import ReportLogInput
 
 
 def _get_kwargs(

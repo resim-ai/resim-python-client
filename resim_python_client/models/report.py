@@ -8,12 +8,12 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-import datetime
 from typing import Union
-from ..models.report_status import ReportStatus
-from dateutil.parser import isoparse
 from ..models.triggered_via import TriggeredVia
+from ..models.report_status import ReportStatus
+import datetime
 from ..models.metric_status import MetricStatus
+from dateutil.parser import isoparse
 
 if TYPE_CHECKING:
     from ..models.report_status_history_type import ReportStatusHistoryType

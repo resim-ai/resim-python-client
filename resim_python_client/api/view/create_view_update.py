@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.view_session_update import ViewSessionUpdate
 from ...types import File
+from ...models.view_session_update import ViewSessionUpdate
 
 
 def _get_kwargs(

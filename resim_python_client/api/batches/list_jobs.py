@@ -7,10 +7,10 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...types import Unset
-from ...models.list_jobs_output import ListJobsOutput
-from ...models.conflated_job_status import ConflatedJobStatus
 from ...models.job_status import JobStatus
+from ...types import Unset
+from ...models.conflated_job_status import ConflatedJobStatus
+from ...models.list_jobs_output import ListJobsOutput
 
 
 def _get_kwargs(

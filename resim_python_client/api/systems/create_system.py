@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.create_system_input import CreateSystemInput
 from ...models.system import System
+from ...models.create_system_input import CreateSystemInput
 
 
 def _get_kwargs(

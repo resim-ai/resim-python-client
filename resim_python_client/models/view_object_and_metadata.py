@@ -11,8 +11,8 @@ from ..types import UNSET, Unset
 from typing import Union
 
 if TYPE_CHECKING:
-    from ..models.view_object import ViewObject
     from ..models.view_metadata import ViewMetadata
+    from ..models.view_object import ViewObject
 
 
 T = TypeVar("T", bound="ViewObjectAndMetadata")
@@ -54,8 +54,8 @@ class ViewObjectAndMetadata:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.view_object import ViewObject
         from ..models.view_metadata import ViewMetadata
+        from ..models.view_object import ViewObject
 
         d = src_dict.copy()
         view_metadata = []

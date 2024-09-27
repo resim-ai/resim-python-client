@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.job import Job
 from ...models.update_job_input import UpdateJobInput
+from ...models.job import Job
 
 
 def _get_kwargs(

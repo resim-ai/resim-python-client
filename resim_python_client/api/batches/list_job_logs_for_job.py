@@ -7,9 +7,9 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
+from ...models.list_job_logs_output import ListJobLogsOutput
 from ...types import Unset
 from ...models.log_type import LogType
-from ...models.list_job_logs_output import ListJobLogsOutput
 
 
 def _get_kwargs(

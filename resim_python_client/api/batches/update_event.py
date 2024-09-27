@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.event import Event
 from ...models.update_event_input import UpdateEventInput
+from ...models.event import Event
 
 
 def _get_kwargs(

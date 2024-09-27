@@ -8,12 +8,12 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-import datetime
+from ..models.metric_type import MetricType
 from typing import Union
 from typing import cast
+import datetime
 from ..models.metric_status import MetricStatus
 from dateutil.parser import isoparse
-from ..models.metric_type import MetricType
 
 
 T = TypeVar("T", bound="Metric")

@@ -8,8 +8,8 @@ from ...types import Response, UNSET
 from ... import errors
 
 from ...types import Unset
-from ...models.branch_type import BranchType
 from ...models.list_branches_output import ListBranchesOutput
+from ...models.branch_type import BranchType
 
 
 def _get_kwargs(

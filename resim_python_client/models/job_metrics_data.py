@@ -8,10 +8,10 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-import datetime
+from ..models.metrics_data_type import MetricsDataType
 from typing import Union
 from typing import cast
-from ..models.metrics_data_type import MetricsDataType
+import datetime
 from dateutil.parser import isoparse
 
 

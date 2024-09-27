@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.metrics_build import MetricsBuild
 from ...models.create_metrics_build_input import CreateMetricsBuildInput
+from ...models.metrics_build import MetricsBuild
 
 
 def _get_kwargs(

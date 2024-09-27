@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.create_branch_input import CreateBranchInput
 from ...models.branch import Branch
+from ...models.create_branch_input import CreateBranchInput
 
 
 def _get_kwargs(

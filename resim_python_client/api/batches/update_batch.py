@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.update_batch_input import UpdateBatchInput
 from ...models.batch import Batch
+from ...models.update_batch_input import UpdateBatchInput
 
 
 def _get_kwargs(

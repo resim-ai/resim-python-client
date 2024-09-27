@@ -8,10 +8,10 @@ from attrs import field as _attrs_field
 
 
 if TYPE_CHECKING:
-    from ..models.test_suite_summary_summary import TestSuiteSummarySummary
     from ..models.test_suite_batch_summary_job_results import (
         TestSuiteBatchSummaryJobResults,
     )
+    from ..models.test_suite_summary_summary import TestSuiteSummarySummary
 
 
 T = TypeVar("T", bound="TestSuiteSummary")
@@ -85,10 +85,10 @@ class TestSuiteSummary:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.test_suite_summary_summary import TestSuiteSummarySummary
         from ..models.test_suite_batch_summary_job_results import (
             TestSuiteBatchSummaryJobResults,
         )
+        from ..models.test_suite_summary_summary import TestSuiteSummarySummary
 
         d = src_dict.copy()
         batches = []

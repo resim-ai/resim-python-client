@@ -8,10 +8,10 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-import datetime
+from dateutil.parser import isoparse
 from typing import Union
 from typing import cast
-from dateutil.parser import isoparse
+import datetime
 
 
 T = TypeVar("T", bound="TestSuite")
@@ -27,6 +27,7 @@ class TestSuite:
         name (str):
         org_id (str):
         project_id (str):
+        show_on_summary (bool):
         system_id (str):
         test_suite_id (str):
         test_suite_revision (int):
@@ -40,6 +41,7 @@ class TestSuite:
     name: str
     org_id: str
     project_id: str
+    show_on_summary: bool
     system_id: str
     test_suite_id: str
     test_suite_revision: int
@@ -59,6 +61,8 @@ class TestSuite:
         org_id = self.org_id
 
         project_id = self.project_id
+
+        show_on_summary = self.show_on_summary
 
         system_id = self.system_id
 
@@ -80,6 +84,7 @@ class TestSuite:
                 "name": name,
                 "orgID": org_id,
                 "projectID": project_id,
+                "showOnSummary": show_on_summary,
                 "systemID": system_id,
                 "testSuiteID": test_suite_id,
                 "testSuiteRevision": test_suite_revision,
@@ -106,6 +111,8 @@ class TestSuite:
 
         project_id = d.pop("projectID")
 
+        show_on_summary = d.pop("showOnSummary")
+
         system_id = d.pop("systemID")
 
         test_suite_id = d.pop("testSuiteID")
@@ -123,6 +130,7 @@ class TestSuite:
             name=name,
             org_id=org_id,
             project_id=project_id,
+            show_on_summary=show_on_summary,
             system_id=system_id,
             test_suite_id=test_suite_id,
             test_suite_revision=test_suite_revision,

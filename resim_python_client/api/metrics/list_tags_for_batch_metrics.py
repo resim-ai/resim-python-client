@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response, UNSET
 from ... import errors
 
-from ...models.list_tags_for_batch_metrics_output import ListTagsForBatchMetricsOutput
 from ...types import Unset
+from ...models.list_tags_for_batch_metrics_output import ListTagsForBatchMetricsOutput
 
 
 def _get_kwargs(

@@ -8,8 +8,8 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from typing import cast
 from typing import Union
+from typing import cast
 
 if TYPE_CHECKING:
     from ..models.experience_filter_input import ExperienceFilterInput
@@ -30,6 +30,7 @@ class CreateTestSuiteInput:
         excluded_experience_i_ds (Union[Unset, List[str]]):
         filters (Union[Unset, ExperienceFilterInput]):
         metrics_build_id (Union[Unset, str]):
+        show_on_summary (Union[Unset, bool]):
     """
 
     description: str
@@ -40,6 +41,7 @@ class CreateTestSuiteInput:
     excluded_experience_i_ds: Union[Unset, List[str]] = UNSET
     filters: Union[Unset, "ExperienceFilterInput"] = UNSET
     metrics_build_id: Union[Unset, str] = UNSET
+    show_on_summary: Union[Unset, bool] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -63,6 +65,8 @@ class CreateTestSuiteInput:
 
         metrics_build_id = self.metrics_build_id
 
+        show_on_summary = self.show_on_summary
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -81,6 +85,8 @@ class CreateTestSuiteInput:
             field_dict["filters"] = filters
         if metrics_build_id is not UNSET:
             field_dict["metricsBuildID"] = metrics_build_id
+        if show_on_summary is not UNSET:
+            field_dict["showOnSummary"] = show_on_summary
 
         return field_dict
 
@@ -112,6 +118,8 @@ class CreateTestSuiteInput:
 
         metrics_build_id = d.pop("metricsBuildID", UNSET)
 
+        show_on_summary = d.pop("showOnSummary", UNSET)
+
         create_test_suite_input = cls(
             description=description,
             experiences=experiences,
@@ -121,6 +129,7 @@ class CreateTestSuiteInput:
             excluded_experience_i_ds=excluded_experience_i_ds,
             filters=filters,
             metrics_build_id=metrics_build_id,
+            show_on_summary=show_on_summary,
         )
 
         create_test_suite_input.additional_properties = d

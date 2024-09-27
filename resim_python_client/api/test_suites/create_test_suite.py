@@ -7,8 +7,8 @@ from ...client import AuthenticatedClient, Client
 from ...types import Response
 from ... import errors
 
-from ...models.test_suite import TestSuite
 from ...models.create_test_suite_input import CreateTestSuiteInput
+from ...models.test_suite import TestSuite
 
 
 def _get_kwargs(
