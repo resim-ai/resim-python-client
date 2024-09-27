@@ -1,16 +1,10 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
-from typing import Union
-from typing import cast
 from ..models.triggered_via import TriggeredVia
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.sweep_parameter import SweepParameter
@@ -189,9 +183,7 @@ class ParameterSweepInput:
                 pass
             return cast(Union[List[str], None, Unset], data)
 
-        experience_tag_i_ds = _parse_experience_tag_i_ds(
-            d.pop("experienceTagIDs", UNSET)
-        )
+        experience_tag_i_ds = _parse_experience_tag_i_ds(d.pop("experienceTagIDs", UNSET))
 
         def _parse_experience_tag_names(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -208,9 +200,7 @@ class ParameterSweepInput:
                 pass
             return cast(Union[List[str], None, Unset], data)
 
-        experience_tag_names = _parse_experience_tag_names(
-            d.pop("experienceTagNames", UNSET)
-        )
+        experience_tag_names = _parse_experience_tag_names(d.pop("experienceTagNames", UNSET))
 
         metrics_build_id = d.pop("metricsBuildID", UNSET)
 

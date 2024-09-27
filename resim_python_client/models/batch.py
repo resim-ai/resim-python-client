@@ -1,19 +1,13 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
+from dateutil.parser import isoparse
 
 from ..models.batch_status import BatchStatus
-from dateutil.parser import isoparse
-from typing import Union
-from typing import cast
 from ..models.metric_status import MetricStatus
-import datetime
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.batch_job_status_counts import BatchJobStatusCounts
@@ -150,9 +144,7 @@ class Batch:
         if not isinstance(self.status_history, Unset):
             status_history = []
             for componentsschemasbatch_status_history_item_data in self.status_history:
-                componentsschemasbatch_status_history_item = (
-                    componentsschemasbatch_status_history_item_data.to_dict()
-                )
+                componentsschemasbatch_status_history_item = componentsschemasbatch_status_history_item_data.to_dict()
                 status_history.append(componentsschemasbatch_status_history_item)
 
         system_id = self.system_id
@@ -266,9 +258,7 @@ class Batch:
         if isinstance(_job_metrics_status_counts, Unset):
             job_metrics_status_counts = UNSET
         else:
-            job_metrics_status_counts = JobMetricsStatusCounts.from_dict(
-                _job_metrics_status_counts
-            )
+            job_metrics_status_counts = JobMetricsStatusCounts.from_dict(_job_metrics_status_counts)
 
         _job_status_counts = d.pop("jobStatusCounts", UNSET)
         job_status_counts: Union[Unset, BatchJobStatusCounts]
@@ -323,10 +313,8 @@ class Batch:
         status_history = []
         _status_history = d.pop("statusHistory", UNSET)
         for componentsschemasbatch_status_history_item_data in _status_history or []:
-            componentsschemasbatch_status_history_item = (
-                BatchStatusHistoryType.from_dict(
-                    componentsschemasbatch_status_history_item_data
-                )
+            componentsschemasbatch_status_history_item = BatchStatusHistoryType.from_dict(
+                componentsschemasbatch_status_history_item_data
             )
 
             status_history.append(componentsschemasbatch_status_history_item)

@@ -1,20 +1,14 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.triggered_via import TriggeredVia
 from ..types import UNSET, Unset
 
-from typing import Union
-from typing import cast
-from ..models.triggered_via import TriggeredVia
-
 if TYPE_CHECKING:
-    from ..models.experience_filter_input import ExperienceFilterInput
     from ..models.batch_parameters import BatchParameters
+    from ..models.experience_filter_input import ExperienceFilterInput
 
 
 T = TypeVar("T", bound="BatchInput")
@@ -152,8 +146,8 @@ class BatchInput:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.experience_filter_input import ExperienceFilterInput
         from ..models.batch_parameters import BatchParameters
+        from ..models.experience_filter_input import ExperienceFilterInput
 
         d = src_dict.copy()
         associated_account = d.pop("associatedAccount", UNSET)
@@ -177,9 +171,7 @@ class BatchInput:
                 pass
             return cast(Union[List[str], None, Unset], data)
 
-        excluded_experience_i_ds = _parse_excluded_experience_i_ds(
-            d.pop("excludedExperienceIDs", UNSET)
-        )
+        excluded_experience_i_ds = _parse_excluded_experience_i_ds(d.pop("excludedExperienceIDs", UNSET))
 
         def _parse_experience_i_ds(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -230,9 +222,7 @@ class BatchInput:
                 pass
             return cast(Union[List[str], None, Unset], data)
 
-        experience_tag_i_ds = _parse_experience_tag_i_ds(
-            d.pop("experienceTagIDs", UNSET)
-        )
+        experience_tag_i_ds = _parse_experience_tag_i_ds(d.pop("experienceTagIDs", UNSET))
 
         def _parse_experience_tag_names(data: object) -> Union[List[str], None, Unset]:
             if data is None:
@@ -249,9 +239,7 @@ class BatchInput:
                 pass
             return cast(Union[List[str], None, Unset], data)
 
-        experience_tag_names = _parse_experience_tag_names(
-            d.pop("experienceTagNames", UNSET)
-        )
+        experience_tag_names = _parse_experience_tag_names(d.pop("experienceTagNames", UNSET))
 
         _filters = d.pop("filters", UNSET)
         filters: Union[Unset, ExperienceFilterInput]

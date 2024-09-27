@@ -1,19 +1,14 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-from typing import Union
-from ..models.triggered_via import TriggeredVia
-from ..models.report_status import ReportStatus
-import datetime
-from ..models.metric_status import MetricStatus
 from dateutil.parser import isoparse
+
+from ..models.metric_status import MetricStatus
+from ..models.report_status import ReportStatus
+from ..models.triggered_via import TriggeredVia
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.report_status_history_type import ReportStatusHistoryType
@@ -103,9 +98,7 @@ class Report:
 
         status_history = []
         for componentsschemasreport_status_history_item_data in self.status_history:
-            componentsschemasreport_status_history_item = (
-                componentsschemasreport_status_history_item_data.to_dict()
-            )
+            componentsschemasreport_status_history_item = componentsschemasreport_status_history_item_data.to_dict()
             status_history.append(componentsschemasreport_status_history_item)
 
         test_suite_id = self.test_suite_id
@@ -186,10 +179,8 @@ class Report:
         status_history = []
         _status_history = d.pop("statusHistory")
         for componentsschemasreport_status_history_item_data in _status_history:
-            componentsschemasreport_status_history_item = (
-                ReportStatusHistoryType.from_dict(
-                    componentsschemasreport_status_history_item_data
-                )
+            componentsschemasreport_status_history_item = ReportStatusHistoryType.from_dict(
+                componentsschemasreport_status_history_item_data
             )
 
             status_history.append(componentsschemasreport_status_history_item)

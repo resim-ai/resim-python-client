@@ -1,15 +1,9 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
-
 
 T = TypeVar("T", bound="UpdateSystemInput")
 
@@ -81,9 +75,7 @@ class UpdateSystemInput:
         if metrics_build_memory_mib is not UNSET:
             field_dict["metrics_build_memory_mib"] = metrics_build_memory_mib
         if metrics_build_shared_memory_mb is not UNSET:
-            field_dict["metrics_build_shared_memory_mb"] = (
-                metrics_build_shared_memory_mb
-            )
+            field_dict["metrics_build_shared_memory_mb"] = metrics_build_shared_memory_mb
         if metrics_build_vcpus is not UNSET:
             field_dict["metrics_build_vcpus"] = metrics_build_vcpus
         if name is not UNSET:

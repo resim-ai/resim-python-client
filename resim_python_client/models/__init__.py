@@ -46,9 +46,7 @@ from .job_status import JobStatus
 from .job_status_history_type import JobStatusHistoryType
 from .list_all_jobs_output import ListAllJobsOutput
 from .list_batch_logs_output import ListBatchLogsOutput
-from .list_batch_metrics_data_for_batch_metric_i_ds_output import (
-    ListBatchMetricsDataForBatchMetricIDsOutput,
-)
+from .list_batch_metrics_data_for_batch_metric_i_ds_output import ListBatchMetricsDataForBatchMetricIDsOutput
 from .list_batch_metrics_data_output import ListBatchMetricsDataOutput
 from .list_batch_metrics_output import ListBatchMetricsOutput
 from .list_batches_output import ListBatchesOutput
@@ -67,9 +65,7 @@ from .list_metrics_data_and_metric_id_output import ListMetricsDataAndMetricIDOu
 from .list_parameter_sweeps_output import ListParameterSweepsOutput
 from .list_projects_output import ListProjectsOutput
 from .list_report_logs_output import ListReportLogsOutput
-from .list_report_metrics_data_for_report_metric_i_ds_output import (
-    ListReportMetricsDataForReportMetricIDsOutput,
-)
+from .list_report_metrics_data_for_report_metric_i_ds_output import ListReportMetricsDataForReportMetricIDsOutput
 from .list_report_metrics_data_output import ListReportMetricsDataOutput
 from .list_report_metrics_output import ListReportMetricsOutput
 from .list_reports_output import ListReportsOutput

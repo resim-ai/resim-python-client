@@ -1,16 +1,10 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-
 if TYPE_CHECKING:
-    from ..models.test_suite_batch_summary_job_results import (
-        TestSuiteBatchSummaryJobResults,
-    )
+    from ..models.test_suite_batch_summary_job_results import TestSuiteBatchSummaryJobResults
     from ..models.test_suite_summary_summary import TestSuiteSummarySummary
 
 
@@ -85,9 +79,7 @@ class TestSuiteSummary:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.test_suite_batch_summary_job_results import (
-            TestSuiteBatchSummaryJobResults,
-        )
+        from ..models.test_suite_batch_summary_job_results import TestSuiteBatchSummaryJobResults
         from ..models.test_suite_summary_summary import TestSuiteSummarySummary
 
         d = src_dict.copy()

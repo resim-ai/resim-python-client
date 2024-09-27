@@ -1,16 +1,11 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-
 from dateutil.parser import isoparse
-import datetime
-from ..models.branch_type import BranchType
 
+from ..models.branch_type import BranchType
 
 T = TypeVar("T", bound="Branch")
 

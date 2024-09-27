@@ -3,14 +3,10 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...types import Unset
-from ...models.list_batch_metrics_data_for_batch_metric_i_ds_output import (
-    ListBatchMetricsDataForBatchMetricIDsOutput,
-)
+from ...client import AuthenticatedClient, Client
+from ...models.list_batch_metrics_data_for_batch_metric_i_ds_output import ListBatchMetricsDataForBatchMetricIDsOutput
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -46,9 +42,7 @@ def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[Any, ListBatchMetricsDataForBatchMetricIDsOutput]]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = ListBatchMetricsDataForBatchMetricIDsOutput.from_dict(
-            response.json()
-        )
+        response_200 = ListBatchMetricsDataForBatchMetricIDsOutput.from_dict(response.json())
 
         return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:

@@ -1,14 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
 
 if TYPE_CHECKING:
     from ..models.batch_metrics_data import BatchMetricsData
@@ -57,9 +52,7 @@ class ListBatchMetricsDataOutput:
         batch_metrics_data = []
         _batch_metrics_data = d.pop("batchMetricsData", UNSET)
         for batch_metrics_data_item_data in _batch_metrics_data or []:
-            batch_metrics_data_item = BatchMetricsData.from_dict(
-                batch_metrics_data_item_data
-            )
+            batch_metrics_data_item = BatchMetricsData.from_dict(batch_metrics_data_item_data)
 
             batch_metrics_data.append(batch_metrics_data_item)
 

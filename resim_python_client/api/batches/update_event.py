@@ -3,12 +3,11 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
-from ...models.update_event_input import UpdateEventInput
+from ...client import AuthenticatedClient, Client
 from ...models.event import Event
+from ...models.update_event_input import UpdateEventInput
+from ...types import Response
 
 
 def _get_kwargs(

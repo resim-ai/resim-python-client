@@ -1,15 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
-from typing import cast
 
 if TYPE_CHECKING:
     from ..models.experience_filter_input import ExperienceFilterInput
@@ -120,9 +114,7 @@ class ReviseTestSuiteInput:
 
         description = d.pop("description", UNSET)
 
-        excluded_experience_i_ds = cast(
-            List[str], d.pop("excludedExperienceIDs", UNSET)
-        )
+        excluded_experience_i_ds = cast(List[str], d.pop("excludedExperienceIDs", UNSET))
 
         experiences = cast(List[str], d.pop("experiences", UNSET))
 

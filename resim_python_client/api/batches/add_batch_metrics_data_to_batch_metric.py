@@ -3,11 +3,10 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.batch_metrics_data_to_batch_metric import BatchMetricsDataToBatchMetric
+from ...types import Response
 
 
 def _get_kwargs(

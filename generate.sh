@@ -13,4 +13,6 @@ openapi-python-client update \
 		      --config "${CONFIG}" \
 		      --url "${URL}"
 
+isort .
+black .
 popd
