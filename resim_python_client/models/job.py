@@ -1,19 +1,14 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from dateutil.parser import isoparse
 
-from ..types import UNSET, Unset
-
-import datetime
-from typing import Union
 from ..models.conflated_job_status import ConflatedJobStatus
 from ..models.job_status import JobStatus
-from dateutil.parser import isoparse
 from ..models.metric_status import MetricStatus
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.batch_parameters import BatchParameters
@@ -118,9 +113,7 @@ class Job:
         if not isinstance(self.status_history, Unset):
             status_history = []
             for componentsschemasjob_status_history_item_data in self.status_history:
-                componentsschemasjob_status_history_item = (
-                    componentsschemasjob_status_history_item_data.to_dict()
-                )
+                componentsschemasjob_status_history_item = componentsschemasjob_status_history_item_data.to_dict()
                 status_history.append(componentsschemasjob_status_history_item)
 
         system_id = self.system_id

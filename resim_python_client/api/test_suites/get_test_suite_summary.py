@@ -3,12 +3,10 @@ from typing import Any, Dict, Optional, Union
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...types import Unset
+from ...client import AuthenticatedClient, Client
 from ...models.test_suite_summary_output import TestSuiteSummaryOutput
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(

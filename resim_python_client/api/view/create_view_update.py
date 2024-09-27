@@ -3,12 +3,10 @@ from typing import Any, Dict, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response
 from ... import errors
-
+from ...client import AuthenticatedClient, Client
 from ...models.view_session_update import ViewSessionUpdate
-from ...types import File
+from ...types import File, Response
 
 
 def _get_kwargs(

@@ -1,14 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
 
 if TYPE_CHECKING:
     from ..models.report_metrics_data_and_i_ds import ReportMetricsDataAndIDs
@@ -35,12 +30,8 @@ class ListReportMetricsDataForReportMetricIDsOutput:
         report_metrics_data_and_i_ds: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.report_metrics_data_and_i_ds, Unset):
             report_metrics_data_and_i_ds = []
-            for (
-                report_metrics_data_and_i_ds_item_data
-            ) in self.report_metrics_data_and_i_ds:
-                report_metrics_data_and_i_ds_item = (
-                    report_metrics_data_and_i_ds_item_data.to_dict()
-                )
+            for report_metrics_data_and_i_ds_item_data in self.report_metrics_data_and_i_ds:
+                report_metrics_data_and_i_ds_item = report_metrics_data_and_i_ds_item_data.to_dict()
                 report_metrics_data_and_i_ds.append(report_metrics_data_and_i_ds_item)
 
         field_dict: Dict[str, Any] = {}
@@ -62,9 +53,7 @@ class ListReportMetricsDataForReportMetricIDsOutput:
 
         report_metrics_data_and_i_ds = []
         _report_metrics_data_and_i_ds = d.pop("reportMetricsDataAndIDs", UNSET)
-        for report_metrics_data_and_i_ds_item_data in (
-            _report_metrics_data_and_i_ds or []
-        ):
+        for report_metrics_data_and_i_ds_item_data in _report_metrics_data_and_i_ds or []:
             report_metrics_data_and_i_ds_item = ReportMetricsDataAndIDs.from_dict(
                 report_metrics_data_and_i_ds_item_data
             )

@@ -1,19 +1,13 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-import datetime
-from typing import Union
-from ..models.execution_step import ExecutionStep
-from ..models.log_type import LogType
 from dateutil.parser import isoparse
 
+from ..models.execution_step import ExecutionStep
+from ..models.log_type import LogType
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="Log")
 

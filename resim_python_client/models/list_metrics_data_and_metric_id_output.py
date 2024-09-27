@@ -1,14 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, TYPE_CHECKING
-
-from typing import List
-
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
-
-from typing import Union
 
 if TYPE_CHECKING:
     from ..models.metrics_data_and_metric_id import MetricsDataAndMetricID
@@ -57,9 +52,7 @@ class ListMetricsDataAndMetricIDOutput:
         metrics_data_and_i_ds = []
         _metrics_data_and_i_ds = d.pop("metricsDataAndIDs", UNSET)
         for metrics_data_and_i_ds_item_data in _metrics_data_and_i_ds or []:
-            metrics_data_and_i_ds_item = MetricsDataAndMetricID.from_dict(
-                metrics_data_and_i_ds_item_data
-            )
+            metrics_data_and_i_ds_item = MetricsDataAndMetricID.from_dict(metrics_data_and_i_ds_item_data)
 
             metrics_data_and_i_ds.append(metrics_data_and_i_ds_item)
 

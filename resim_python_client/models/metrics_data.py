@@ -1,19 +1,12 @@
-from typing import Any, Dict, Type, TypeVar
-
-from typing import List
-
+import datetime
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
-
-import datetime
-from typing import Union
-from typing import cast
-from ..models.metrics_data_type import MetricsDataType
 from dateutil.parser import isoparse
 
+from ..models.metrics_data_type import MetricsDataType
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="MetricsData")
 

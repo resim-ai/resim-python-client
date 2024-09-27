@@ -3,14 +3,10 @@ from typing import Any, Dict, List, Optional, Union, cast
 
 import httpx
 
-from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
 from ... import errors
-
-from ...types import Unset
-from ...models.list_metrics_data_and_metric_id_output import (
-    ListMetricsDataAndMetricIDOutput,
-)
+from ...client import AuthenticatedClient, Client
+from ...models.list_metrics_data_and_metric_id_output import ListMetricsDataAndMetricIDOutput
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
